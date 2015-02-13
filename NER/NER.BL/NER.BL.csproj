@@ -53,6 +53,8 @@
     <Compile Include="Entites\remove_tag_line.cs" />
     <Compile Include="Entites\word_tag.cs" />
     <Compile Include="FixedNEs.cs" />
+    <Compile Include="MadaMiraHandler.cs" />
+    <Compile Include="MadaTokenWordInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TaggingHelper.cs" />
     <Compile Include="TagRetreival.cs" />

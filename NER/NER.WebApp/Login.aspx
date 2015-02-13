@@ -3,11 +3,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
     <title>Login ANER</title>
     <!-- Bootstrap core CSS -->
     <link href="dist/css/bootstrap.min.css" rel="stylesheet">
@@ -24,7 +24,6 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-
 <body class="container">
     <form id="form1" runat="server" class="form-signin" role="form">
     <h2 class="form-signin-heading">
@@ -32,17 +31,14 @@
     <asp:TextBox ID="TextBoxEmail" type="email" runat="server" class="form-control" placeholder="Email address"
         required autofocus></asp:TextBox>
     <br />
-    <asp:TextBox ID="TextBoxPassword" runat="server" type="password" class="form-control" placeholder="Password" required></asp:TextBox>
-
-  
-    <asp:Label ID="Label1" Visible="false" CssClass="label bg-danger label-danger" runat="server" Text="Wrong Email or Password !"></asp:Label>
-
+    <asp:TextBox ID="TextBoxPassword" runat="server" type="password" class="form-control"
+        placeholder="Password" required></asp:TextBox>
+    <asp:Label ID="Label1" Visible="false" CssClass="label bg-danger label-danger" runat="server"
+        Text="Wrong Email or Password !"></asp:Label>
     <br />
     <br />
-    <asp:Button ID="ButtonLogin" runat="server" Text="Sign in" 
-        class="btn btn-lg btn-primary btn-block" type="submit" 
-        onclick="ButtonLogin_Click" />
-
+    <asp:Button ID="ButtonLogin" runat="server" Text="Sign in" class="btn btn-lg btn-primary btn-block"
+        type="submit" OnClick="ButtonLogin_Click" />
     <!-- /container -->
     <!-- Bootstrap core JavaScript
     ================================================== -->

@@ -15,14 +15,16 @@ namespace NER.BL
             var triggerWords = TriggerWords.GetTriggerWords();
             for (int g = 0; g < theText.Count; g++)
             {
-                for (int i = 0; i < wordTag.Count; i++)
-                {
-                    TaggingHelper.TagLine(theText, wordTag, i, g);
-                }
                 for (int i = 0; i < triggerWords.Count; i++)
                 {
                     TaggingHelper.TagLineForTriggerWord(theText, triggerWords, i, g);
                 }
+
+                for (int i = 0; i < wordTag.Count; i++)
+                {
+                    TaggingHelper.TagLine(theText, wordTag, i, g);
+                }
+               
 
             }
             return theText.Aggregate(string.Empty, (current, item) => current + (item + "<br/>"));
