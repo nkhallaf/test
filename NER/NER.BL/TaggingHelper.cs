@@ -175,6 +175,7 @@ namespace NER.BL
 
                     var words = BL.MadaMiraHandler.Analyse(sentence);
                     var triggerWordTag = triggerWords[wordTagIndex].Tag.ToUpper();
+                   ////################ we need to start the tagging process after the last tagged word
                     //how to excelude puncutations???
                     //first Tagging through previous trigger words
                     //Second Tagging through Followed trigger words
@@ -1706,25 +1707,7 @@ namespace NER.BL
                         }
                        #endregion
                     #endregion
-                    #region 1-Timex
-                    //Timex Tagging
-                    //Timex Time tagging
-                    if (triggerWordTag == "nett".ToUpper())
-                    { 
-                        
-                                      
-                    }
-                    //Timex Date tagging
-                    if (triggerWordTag == "netd".ToUpper())
-                    {
-
-                    }
-                    //Timex other tagging
-                    if (triggerWordTag == "neto".ToUpper())
-                    {
-
-                    }
-                    #endregion
+                   
                     #region 2-Numex
                     //Percent and Ordinal Tagged through the Fixed tagging table
                     
@@ -4977,6 +4960,284 @@ namespace NER.BL
                     #region 15-Nationality
                     //Nationality tagging
                     if (triggerWordTag == "nea".ToUpper())
+                    {
+
+                    }
+                    #endregion
+                    #region 1-Timex
+                    //Timex Tagging
+                    //Timex Time tagging
+                    // اي digit مكون من 4 ارقام وبعديه م او ه هوه فالاغلب تاريخ##########################
+                    if (triggerWordTag == "nett".ToUpper())
+                    {
+                        
+
+                    }
+                    //Timex Date tagging
+
+                    /////################## ق.م؟؟؟؟؟؟؟؟؟؟؟؟؟؟؟؟؟؟؟؟؟
+                    if (triggerWordTag == "netd".ToUpper())
+                    {
+                        //بين عامي
+                        if (words[0].gloss == "year" || words[0].gloss == "enactment;prescription")
+                        {
+                            if (words[1].pos == "digit")
+                            {
+                                //بين عامي
+                                if (words[2].pos == "punc")
+                                {
+                                    if (words[3].pos == "digit")
+                                    {
+                                        diacLineWords[loc + 1] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc + 1];
+                                        diacLineWords[loc + 4 - 1] += "</font>";
+                                    }
+                                    else
+                                    {
+                                        diacLineWords[loc + 1] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc + 1];
+                                        diacLineWords[loc + 2 - 1] += "</font>";
+                                    }
+
+                                }
+                                else
+                                {
+                                    diacLineWords[loc + 1] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc + 1];
+                                    diacLineWords[loc + 2 - 1] += "</font>";
+                                }
+                            }
+                            else
+                            { }
+
+                        }
+                        //الاول من سبتمبر عام 1948
+                        else if (words[0].pos == "adj_num")
+                        {
+                            if (words[1].bw == "min/PREP")
+                            {
+                                if (words[2].pos == "noun_prop")
+                                {
+                                    if (words[3].gloss == "year")
+                                    {
+                                        if (words[4].pos == "digit")
+                                        {
+                                            diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                            diacLineWords[loc + 5 - 1] += "</font>";
+                                        }
+                                        else
+                                        {
+                                            diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                            diacLineWords[loc + 3 - 1] += "</font>";
+                                        }
+
+
+                                    }
+                                    else
+                                    {
+                                        diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                        diacLineWords[loc + 3 - 1] += "</font>";
+                                    }
+
+
+                                }
+                                else
+                                { }
+
+                            }
+                            else if (words[1].pos == "adj_num")
+                            {
+                                if (words[2].bw == "min/PREP")
+                                {
+                                    if (words[3].pos == "noun_prop")
+                                    {
+                                        diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                        diacLineWords[loc + 4 - 1] += "</font>";
+                                    }
+                                    else
+                                    { }
+                                }
+                                else
+                                { }
+
+                            }
+                            else
+                            { }
+
+
+                        }
+                        else if (words[0].pos == "noun_prop" || words[0].pos == "")
+                        {
+                            //كانون الثاني\ يناير 1918
+
+                            if (words[1].pos == "punc")
+                            {
+                                if (words[2].pos == "noun_prop")
+                                {
+                                    if (words[3].pos == "year")
+                                    {
+                                        if (words[4].pos == "digit")
+                                        {
+                                            diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                            diacLineWords[loc + 5 - 1] += "</font>";
+                                        }
+                                        else
+                                        {
+                                            diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                            diacLineWords[loc + 3 - 1] += "</font>";
+                                        }
+
+
+                                    }
+                                    else if (words[3].pos == "digit")
+                                    {
+                                        diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                        diacLineWords[loc + 4 - 1] += "</font>";
+                                    }
+                                    else if (words[3].pos == "prep")
+                                    {
+
+                                        if (words[4].pos == "year")
+                                        {
+
+                                            diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                            diacLineWords[loc + 5 - 1] += "</font>";
+
+                                        }
+                                        else
+                                        {
+                                            diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                            diacLineWords[loc + 3 - 1] += "</font>";
+                                        }
+
+                                    }
+
+                                    else
+                                    {
+                                        diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                        diacLineWords[loc + 3 - 1] += "</font>";
+                                    }
+
+                                }
+                                else
+                                {
+                                    diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                    diacLineWords[loc + 1 - 1] += "</font>";
+                                }
+
+
+                            }
+                            else if (words[2].pos == "punc")
+                            {
+                                if (words[3].pos == "noun_prop")
+                                {
+
+                                    if (words[4].pos == "digit")
+                                    {
+                                        diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                        diacLineWords[loc + 4 - 1] += "</font>";
+                                    }
+
+                                    else
+                                    {
+                                        diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                        diacLineWords[loc + 4 - 1] += "</font>";
+                                    }
+
+                                }
+                                else
+                                {
+                                    diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                    diacLineWords[loc + 1 - 1] += "</font>";
+                                }
+                            }
+
+
+                            else if (words[1].bw == "min/PREP")
+                            {
+
+                                if (words[2].gloss == "year")
+                                {
+                                    if (words[3].pos == "digit")
+                                    {
+                                        diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                        diacLineWords[loc + 4 - 1] += "</font>";
+                                    }
+                                    else
+                                    {
+                                        diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                        diacLineWords[loc + 2 - 1] += "</font>";
+                                    }
+
+
+                                }
+                                else
+                                {
+                                    diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                    diacLineWords[loc + 1 - 1] += "</font>";
+                                }
+
+
+
+
+                            }
+                            else
+                            { }
+
+
+
+                        }
+                        //بتاريخ 30\1\1976
+                        else if (words[0].gloss == "date;history")
+                        {
+                            if (words[1].pos == "digit" && words[2].pos == "punc" && words[3].pos == "digit" && words[4].pos == "punc")
+                            {
+
+                                diacLineWords[loc +1] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc +1];
+                                diacLineWords[loc + 2 - 1] += "</font>";
+                            
+                            }
+                        
+                        
+                        }
+
+                        else if (words[0].bw == "h/ABBREV" || words[0].bw == "m/ABBREV")
+                        {
+                            if (words[1].pos == "punc" && words[2].pos == "digit" && words[3].bw == "m/ABBREV")
+                            {
+
+                                diacLineWords[loc - 1] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc - 1];
+                                diacLineWords[loc + 4 - 1] += "</font>";
+                            }
+
+                            else if (words[1].pos == "punc" && words[2].pos == "digit" && words[3].bw == "m/ABBREV")
+                            {
+                                diacLineWords[loc - 1] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc - 1];
+                                diacLineWords[loc + 4 - 1] += "</font>";
+                            }
+                            else if (words[1].pos == "punc" && words[2].pos == "digit")
+                            {
+                                diacLineWords[loc - 1] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc - 1];
+                                diacLineWords[loc + 2 - 1] += "</font>";
+                            }
+                        
+                        }
+
+                        else if (words[0].bw == "q/ABBREV")
+                        {
+                            if (words[1].pos == "punc" &&  words[2].bw == "m/ABBREV")
+                            {
+                                diacLineWords[loc - 1] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc - 1];
+                                diacLineWords[loc + 2 - 1] += "</font>";
+                            }
+                        
+                        
+                        }
+
+
+                        else
+                        { }
+
+                    }
+                    //Timex other tagging
+                    if (triggerWordTag == "neto".ToUpper())
                     {
 
                     }
