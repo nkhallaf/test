@@ -64,10 +64,17 @@ namespace NER.BL
                     }
                     else
                     {
+                        if (status == Status.Tag)
+                        {
+                            diacLineWords[loc] = "<font title='Tag-" + wordTag[wordTagIndex].Tag.ToUpper() + "' style='color:" + wordTag[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                            diacLineWords[loc + count - 1] += "</font>";
+                        }
+                        else if (status == Status.Download)
+                        {
 
-                        diacLineWords[loc] = "<" + wordTag[wordTagIndex].Tag.ToUpper() + ">" + diacLineWords[loc];
-                        diacLineWords[loc + count - 1] += (@"</" + wordTag[wordTagIndex].Tag.ToUpper() + ">");
-
+                            diacLineWords[loc] = "<" + wordTag[wordTagIndex].Tag.ToUpper() + ">" + diacLineWords[loc];
+                            diacLineWords[loc + count - 1] += (@"</" + wordTag[wordTagIndex].Tag.ToUpper() + ">");
+                        }
                     }
                 }
 
