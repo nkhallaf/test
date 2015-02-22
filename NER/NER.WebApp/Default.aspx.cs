@@ -95,7 +95,7 @@ namespace NER.WebApp
         {
             var fileName = e.CommandName;
             var theText = LoadTheFileText(e.CommandArgument.ToString());
-            Label1.Text = BL.Colorizing.ColorizeTheText(theText, fileName);
+            Label1.Text = BL.Colorizing.ColorizeTheText(theText, fileName,BL.Status.Tag);
             LabelFileName.Text = fileName;
 
 

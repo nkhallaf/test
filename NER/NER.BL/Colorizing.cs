@@ -9,7 +9,7 @@ namespace NER.BL
     public static class Colorizing
     {
 
-        public static string ColorizeTheText(List<string> theText, string fileName)
+        public static string ColorizeTheText(List<string> theText, string fileName, BL.Status status)
         {
             List<WordTag> wordTag = TagRetreival.GetAllDataForTagging(fileName);
             var triggerWords = TriggerWords.GetTriggerWords();
@@ -17,14 +17,14 @@ namespace NER.BL
             {
                 for (int i = 0; i < triggerWords.Count; i++)
                 {
-                    TaggingHelper.TagLineForTriggerWord(theText, triggerWords, i, g);
+                    TaggingHelper.TagLineForTriggerWord(theText, triggerWords, i, g, status);
                 }
 
                 for (int i = 0; i < wordTag.Count; i++)
                 {
-                    TaggingHelper.TagLine(theText, wordTag, i, g);
+                    TaggingHelper.TagLine(theText, wordTag, i, g, status);
                 }
-               
+
 
             }
             return theText.Aggregate(string.Empty, (current, item) => current + (item + "<br/>"));
