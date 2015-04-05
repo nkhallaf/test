@@ -6761,6 +6761,12 @@ namespace NER.BL
                         {
                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                             diacLineWords[loc + 1 - 1] += "</font>";
+
+                            var personTagId = 1;
+                            var person = Tags.GetTag(personTagId);
+                            var persontag = person.Tag;
+                            var personColor = person.Color;
+
                         }
                         else if (words[1].pos == "")
                         {
