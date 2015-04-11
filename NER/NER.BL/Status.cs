@@ -5,9 +5,5 @@ using System.Text;
 
 namespace NER.BL
 {
-    public enum Status
-    {
-        Tag,
-        Download
-    }
+    
 }

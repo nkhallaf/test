@@ -93,13 +93,67 @@ namespace NER.WebApp
 
         protected void RepeaterFiles_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
-            var fileName = e.CommandName;
+
             var theText = LoadTheFileText(e.CommandArgument.ToString());
-            Label1.Text = BL.Colorizing.ColorizeTheText(theText, fileName,BL.Status.Tag);
-            LabelFileName.Text = fileName;
+            var fileName = e.CommandArgument.ToString().Split(new string[] { "\\" }, StringSplitOptions.RemoveEmptyEntries).Last();
+
+            var result = BL.Colorizing.ColorizeTheText(theText);
 
 
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "dialog", "LoadDialog();", true);
+            switch (e.CommandName)
+            {
+                case "Display":
+
+                    Label1.Text = result;
+                    LabelFileName.Text = fileName;
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "dialog", "LoadDialog();", true);
+                    break;
+                case "Download":
+                    var resultReplaced = result.Replace("<font title='Tag-", "<").Replace("<font title='Trigger word-", "<").Replace("' style='color:", string.Empty).Replace("'>", ">");
+                    var colors = BL.Colorizing.GetAllColors();
+                    foreach (var color in colors)
+                    {
+                        resultReplaced = resultReplaced.Replace(color, string.Empty);
+                    }
+
+
+
+                    var lines = resultReplaced.Split(new[] { "</font>" }, StringSplitOptions.RemoveEmptyEntries);
+
+                    var taggedDocument = "<Document>";
+
+                    foreach (var line in lines)
+                    {
+                        if (line.Contains("<NE"))
+                        {
+                            var lineParts = line.Split(new[] { "<NE" }, StringSplitOptions.RemoveEmptyEntries);
+                            var FirstPart = string.Empty;
+                            var SecondPart = string.Empty;
+
+                            if (lineParts.Count() == 2)
+                            {
+                                FirstPart = lineParts.First();
+                            }
+                            SecondPart = lineParts.Last();
+                            var endTagLocation = SecondPart.IndexOf('>');
+                            var TagResume = SecondPart.Substring(0, endTagLocation);
+
+                            var resultLine = line + "</NE" + TagResume + ">";
+
+                            taggedDocument += resultLine;
+                        }
+                        else { taggedDocument += line; }
+                    }
+                    taggedDocument += "</Document>";
+                    var subPath = Server.MapPath("DownloadCache\\") ;
+                    System.IO.File.WriteAllText(subPath + "\\"+fileName.Split('.')[0]+".xml", taggedDocument);
+
+
+
+                    break;
+            }
+
+
         }
 
         protected void ImageButton1_Click(object sender, ImageClickEventArgs e)
@@ -110,8 +164,8 @@ namespace NER.WebApp
                 {
                     var id = int.Parse(Session["ID"].ToString());
 
-                    var savePath = Server.MapPath("Docs\\") + id+"\\";
-                    
+                    var savePath = Server.MapPath("Docs\\") + id + "\\";
+
                     savePath += FileUpload1.FileName;
 
                     FileUpload1.SaveAs(savePath);

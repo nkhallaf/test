@@ -26,23 +26,26 @@
                 <asp:FileUpload ID="FileUpload1" CssClass="filestyle" runat="server" data-buttonText="Browse" />
             </div>
             <div class="col-lg-1 upload">
-                <asp:ImageButton ID="ImageButton1" runat="server" 
-                    ImageUrl="~/assets/img/file_add.png" onclick="ImageButton1_Click" />
+                <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/assets/img/file_add.png"
+                    OnClick="ImageButton1_Click" />
             </div>
         </div>
-        <asp:Repeater ID="RepeaterFiles" runat="server" 
-            onitemcommand="RepeaterFiles_ItemCommand">
+        <asp:Repeater ID="RepeaterFiles" runat="server" OnItemCommand="RepeaterFiles_ItemCommand">
             <HeaderTemplate>
                 <ul class="list-group">
             </HeaderTemplate>
             <ItemTemplate>
                 <li class="list-group-item">
                     <div class="row">
-                        <span class="col-md-10"><span class="glyphicon glyphicon-file" aria-hidden="true"></span>
-                            <%#((System.IO.FileInfo)Container.DataItem).Name%></span> <span class="col-md-2">
-
-                                <asp:Button ID="Button1" CommandArgument="<%#((System.IO.FileInfo)Container.DataItem).FullName%>" CommandName="<%#((System.IO.FileInfo)Container.DataItem).Name%>" CssClass="btn btn-primary btn-xs" runat="server" Text="Display" />
-                              
+                        <span class="col-md-9"><span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+                            <%#((System.IO.FileInfo)Container.DataItem).Name%></span> 
+                            <span class="col-md-3">
+                                <asp:Button ID="Button1" CommandArgument="<%#((System.IO.FileInfo)Container.DataItem).FullName%>"
+                                    CommandName="Display" CssClass="btn btn-primary btn-xs"
+                                    runat="server" Text="Display" />
+                                <asp:Button ID="Button2" CommandArgument="<%#((System.IO.FileInfo)Container.DataItem).FullName%>"
+                                    CommandName="Download" CssClass="btn btn-primary btn-xs"
+                                    runat="server" Text="Download" />
                             </span>
                     </div>
                 </li>
@@ -68,10 +71,6 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default btn-xs" data-dismiss="modal">
                         Close</button>
-                    <button type="button" class="btn btn-success btn-xs">
-                        Download XML</button>
-                    <button type="button" class="btn btn-success btn-xs">
-                        Download TXT</button>
                 </div>
             </div>
         </div>

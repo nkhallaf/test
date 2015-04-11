@@ -9,20 +9,20 @@ namespace NER.BL
     public static class Colorizing
     {
 
-        public static string ColorizeTheText(List<string> theText, string fileName, BL.Status status)
+        public static string ColorizeTheText(List<string> theText)
         {
-            List<WordTag> wordTag = TagRetreival.GetAllDataForTagging(fileName);
+            List<WordTag> wordTag = TagRetreival.GetAllDataForTagging();
             var triggerWords = TriggerWords.GetTriggerWords();
             for (int g = 0; g < theText.Count; g++)
             {
                 for (int i = 0; i < triggerWords.Count; i++)
                 {
-                    TaggingHelper.TagLineForTriggerWord(theText, triggerWords, i, g, status);
+                    TaggingHelper.TagLineForTriggerWord(theText, triggerWords, i, g);
                 }
 
                 for (int i = 0; i < wordTag.Count; i++)
                 {
-                    TaggingHelper.TagLine(theText, wordTag, i, g, status);
+                    TaggingHelper.TagLine(theText, wordTag, i, g);
                 }
 
 
@@ -37,7 +37,14 @@ namespace NER.BL
             return str.Count == 1 ? str[0] : "";
         }
 
+        public static List<string> GetAllColors()
+        {
 
+            var dc = new DAL.NEREntities();
+            return (from i in dc.TaggingTables where i.Color!= null select i.Color).ToList();
+
+
+        }
 
     }
 }
