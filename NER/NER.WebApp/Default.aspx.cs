@@ -145,10 +145,13 @@ namespace NER.WebApp
                         else { taggedDocument += line; }
                     }
                     taggedDocument += "</Document>";
-                    var subPath = Server.MapPath("DownloadCache\\") ;
-                    System.IO.File.WriteAllText(subPath + "\\"+fileName.Split('.')[0]+".xml", taggedDocument);
+                    var subPath = Server.MapPath("DownloadCache\\");
+                    System.IO.File.WriteAllText(subPath + "\\" + fileName.Split('.')[0] + ".xml", taggedDocument.Replace("<br/>", string.Empty));
 
-
+                    Response.ContentType = "text/plain";
+                    Response.AppendHeader("Content-Disposition", "attachment; filename=" + fileName.Split('.')[0] + ".xml");
+                    Response.TransmitFile(subPath + "\\" + fileName.Split('.')[0] + ".xml");
+                    Response.End();
 
                     break;
             }
