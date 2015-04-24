@@ -38,7 +38,10 @@
     <div class="container">
         <div class="header">
             <ul class="nav nav-pills pull-right">
-                <li class="active"><a href="#">Sign out</a></li>
+                <li class="active">
+                    <asp:Button ID="Button1" CssClass="btn btn-primary" runat="server" 
+                        Text="Sign out" onclick="Button1_Click" />
+                    </li>
             </ul>
             <h3 class="text-muted">
                 Arabic Named Entity Recognition</h3>
