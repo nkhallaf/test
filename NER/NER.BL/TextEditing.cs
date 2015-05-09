@@ -9,7 +9,7 @@ namespace NER.BL
     public class TextEditing
     {
 
-        public static char[] DelToAddSpaceToIt = { '-', ':', '"', ';', '}', '{', '[', ']', '(', ')', '،', '.', '!', '?', '؟', '‘', '؛', '/' };
+        public static char[] DelToAddSpaceToIt = { ':', '"', ';', '}', '{', '[', ']', '(', ')', '،', '.', '!', '?', '؟', '‘', '؛', '/' };
         public static char[] DelToSPlitWith = { ' ' };
 
 
@@ -60,6 +60,7 @@ namespace NER.BL
 
             if (tagWords.Length == 1)
             {
+                
                 return lineWords.Any(item => IsTheWord(the_word, item));
             }
             /// here we get the fisrt word's location
@@ -123,6 +124,7 @@ namespace NER.BL
         internal static string FixSpaces(string line)
         {
             line = DelToAddSpaceToIt.Aggregate(line, (current, item) => current.Replace(item.ToString(), string.Concat(' ', item, ' ')));
+            line = DelToAddSpaceToIt.Aggregate(line, (current, item) => current.Replace(item.ToString(), string.Concat(' ')));
             return RemoveSpaces(line);
         }
     }
