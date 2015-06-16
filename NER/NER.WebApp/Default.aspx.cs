@@ -136,11 +136,17 @@ namespace NER.WebApp
                             }
                             SecondPart = lineParts.Last();
                             var endTagLocation = SecondPart.IndexOf('>');
-                            var TagResume = SecondPart.Substring(0, endTagLocation);
+                            if (endTagLocation < 0)
+                            {
+                            }
+                            else
+                            {
+                                var TagResume = SecondPart.Substring(0, endTagLocation);
 
-                            var resultLine = line + "</NE" + TagResume + ">";
+                                var resultLine = line + "</NE" + TagResume + ">";
 
-                            taggedDocument += resultLine;
+                                taggedDocument += resultLine;
+                            }
                         }
                         else { taggedDocument += line; }
                     }

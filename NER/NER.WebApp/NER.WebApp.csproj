@@ -90,6 +90,7 @@
     <Content Include="Docs\1\Copy %282%29 of agr 1-7.txt" />
     <Content Include="Docs\1\Copy %283%29 of agr 1-7.txt" />
     <Content Include="Docs\1\Copy of agr 1-7.txt" />
+    <Content Include="Evaluate.aspx" />
     <Content Include="jumbotron-narrow.css" />
     <Content Include="Login.aspx" />
     <Content Include="Login.html" />
@@ -153,6 +154,13 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Evaluate.aspx.cs">
+      <DependentUpon>Evaluate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Evaluate.aspx.designer.cs">
+      <DependentUpon>Evaluate.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -206,7 +214,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>1175</DevelopmentServerPort>
+          <DevelopmentServerPort>2116</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
