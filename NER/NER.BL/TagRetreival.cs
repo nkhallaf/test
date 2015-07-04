@@ -13,7 +13,13 @@ namespace NER.BL
         public static List<WordTag> GetAllDataForTagging()
         {
             var dc = new DAL.NEREntities();
-           return  dc.Words_tagged.Select(x => new WordTag { Word = x.word, Tag = x.TaggingTable.NETag, Color = x.TaggingTable.Color }).ToList();
+            return dc.Words_tagged.Select(x => new WordTag
+            {
+                Word = x.word,
+                Tag = x.TaggingTable.NETag,
+                Color = x.TaggingTable.Color
+                
+            }).ToList();
 
 
         }

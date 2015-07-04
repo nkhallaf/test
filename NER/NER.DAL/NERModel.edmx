@@ -31,6 +31,7 @@
           <Property Name="Notes" Type="nvarchar" MaxLength="255" />
           <Property Name="NETag" Type="nvarchar" MaxLength="50" />
           <Property Name="Color" Type="nvarchar" MaxLength="50" />
+          <Property Name="TooltipInfo" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="TriggerWords">
           <Key>
@@ -87,34 +88,19 @@
     <edmx:ConceptualModels>
       <Schema Namespace="NERModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
         <EntityContainer Name="NEREntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="TaggingTables" EntityType="NERModel.TaggingTable" />
           <EntitySet Name="TriggerWords" EntityType="NERModel.TriggerWord" />
+          <EntitySet Name="Words_tagged" EntityType="NERModel.Words_tagged" />
+          <EntitySet Name="Users" EntityType="NERModel.User" />
+          <EntitySet Name="TaggingTables" EntityType="NERModel.TaggingTable" />
           <AssociationSet Name="FK_TriggerWords_TaggingTable" Association="NERModel.FK_TriggerWords_TaggingTable">
             <End Role="TaggingTable" EntitySet="TaggingTables" />
-            <End Role="TriggerWords" EntitySet="TriggerWords" />
+            <End Role="TriggerWord" EntitySet="TriggerWords" />
           </AssociationSet>
-          <EntitySet Name="Words_tagged" EntityType="NERModel.Words_tagged" />
           <AssociationSet Name="FK_Words_tagged_TaggingTable" Association="NERModel.FK_Words_tagged_TaggingTable">
             <End Role="TaggingTable" EntitySet="TaggingTables" />
             <End Role="Words_tagged" EntitySet="Words_tagged" />
           </AssociationSet>
-          <EntitySet Name="Users" EntityType="NERModel.User" />
         </EntityContainer>
-        <EntityType Name="TaggingTable">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Tag" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
-          <Property Name="Parent" Type="Int32" />
-          <Property Name="statues" Type="Boolean" />
-          <Property Name="Order" Type="Int32" />
-          <Property Name="Notes" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
-          <NavigationProperty Name="TriggerWords" Relationship="NERModel.FK_TriggerWords_TaggingTable" FromRole="TaggingTable" ToRole="TriggerWords" />
-          <Property Type="String" Name="NETag" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Color" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Words_tagged" Relationship="NERModel.FK_Words_tagged_TaggingTable" FromRole="TaggingTable" ToRole="Words_tagged" />
-        </EntityType>
         <EntityType Name="TriggerWord">
           <Key>
             <PropertyRef Name="ID" />
@@ -122,20 +108,8 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TaggingWordId" Type="Int32" Nullable="false" />
           <Property Name="Word" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
-          <NavigationProperty Name="TaggingTable" Relationship="NERModel.FK_TriggerWords_TaggingTable" FromRole="TriggerWords" ToRole="TaggingTable" />
+          <NavigationProperty Name="TaggingTable" Relationship="NERModel.FK_TriggerWords_TaggingTable" FromRole="TriggerWord" ToRole="TaggingTable" />
         </EntityType>
-        <Association Name="FK_TriggerWords_TaggingTable">
-          <End Role="TaggingTable" Type="NERModel.TaggingTable" Multiplicity="1" />
-          <End Role="TriggerWords" Type="NERModel.TriggerWord" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TaggingTable">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="TriggerWords">
-              <PropertyRef Name="TaggingWordId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Words_tagged">
           <Key>
             <PropertyRef Name="Id" />
@@ -146,6 +120,43 @@
           <Property Type="Int32" Name="TagID" />
           <NavigationProperty Name="TaggingTable" Relationship="NERModel.FK_Words_tagged_TaggingTable" FromRole="Words_tagged" ToRole="TaggingTable" />
         </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsAdmin" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TaggingTable">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Tag" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="Parent" />
+          <Property Type="Boolean" Name="statues" />
+          <Property Type="Int32" Name="Order" />
+          <Property Type="String" Name="Notes" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="NETag" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Color" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="TooltipInfo" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TriggerWords" Relationship="NERModel.FK_TriggerWords_TaggingTable" FromRole="TaggingTable" ToRole="TriggerWord" />
+          <NavigationProperty Name="Words_tagged" Relationship="NERModel.FK_Words_tagged_TaggingTable" FromRole="TaggingTable" ToRole="Words_tagged" />
+        </EntityType>
+        <Association Name="FK_TriggerWords_TaggingTable">
+          <End Type="NERModel.TaggingTable" Role="TaggingTable" Multiplicity="1" />
+          <End Type="NERModel.TriggerWord" Role="TriggerWord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaggingTable">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TriggerWord">
+              <PropertyRef Name="TaggingWordId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Words_tagged_TaggingTable">
           <End Type="NERModel.TaggingTable" Role="TaggingTable" Multiplicity="0..1" />
           <End Type="NERModel.Words_tagged" Role="Words_tagged" Multiplicity="*" />
@@ -158,31 +169,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Password" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Boolean" Name="IsAdmin" Nullable="false" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="NERModelStoreContainer" CdmEntityContainer="NEREntities">
-          <EntitySetMapping Name="TaggingTables"><EntityTypeMapping TypeName="NERModel.TaggingTable"><MappingFragment StoreEntitySet="TaggingTable">
-            <ScalarProperty Name="Color" ColumnName="Color" />
-                <ScalarProperty Name="NETag" ColumnName="NETag" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-            <ScalarProperty Name="Tag" ColumnName="Tag" />
-            <ScalarProperty Name="Parent" ColumnName="Parent" />
-            <ScalarProperty Name="statues" ColumnName="statues" />
-            <ScalarProperty Name="Order" ColumnName="Order" />
-            <ScalarProperty Name="Notes" ColumnName="Notes" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="TriggerWords"><EntityTypeMapping TypeName="NERModel.TriggerWord"><MappingFragment StoreEntitySet="TriggerWords">
             <ScalarProperty Name="ID" ColumnName="ID" />
             <ScalarProperty Name="TaggingWordId" ColumnName="TaggingWordId" />
@@ -208,6 +200,21 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="TaggingTables">
+            <EntityTypeMapping TypeName="NERModel.TaggingTable">
+              <MappingFragment StoreEntitySet="TaggingTable">
+                <ScalarProperty Name="TooltipInfo" ColumnName="TooltipInfo" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="NETag" ColumnName="NETag" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="statues" ColumnName="statues" />
+                <ScalarProperty Name="Parent" ColumnName="Parent" />
+                <ScalarProperty Name="Tag" ColumnName="Tag" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -229,18 +236,18 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="NERModel" ZoomLevel="47">
-        <EntityTypeShape EntityType="NERModel.TaggingTable" Width="1.5" PointX="0.75" PointY="1" Height="2.3648893229166674" IsExpanded="true" />
         <EntityTypeShape EntityType="NERModel.TriggerWord" Width="1.5" PointX="3" PointY="1.25" Height="1.7879850260416665" IsExpanded="true" />
-        <AssociationConnector Association="NERModel.FK_TriggerWords_TaggingTable" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="2.1439925130208333" />
-          <ConnectorPoint PointX="3" PointY="2.1439925130208333" />
-        </AssociationConnector>
         <EntityTypeShape EntityType="NERModel.Words_tagged" Width="1.5" PointX="6" PointY="1.125" Height="1.5956835937499996" />
+        <EntityTypeShape EntityType="NERModel.User" Width="1.5" PointX="0.75" PointY="4.75" Height="1.7879850260416657" />
+        <EntityTypeShape EntityType="NERModel.TaggingTable" Width="1.5" PointX="0.75" PointY="0.75" Height="3.1340950520833335" />
+        <AssociationConnector Association="NERModel.FK_TriggerWords_TaggingTable" >
+          <ConnectorPoint PointX="2.25" PointY="2.1439925130208337" />
+          <ConnectorPoint PointX="3" PointY="2.1439925130208337" />
+        </AssociationConnector>
         <AssociationConnector Association="NERModel.FK_Words_tagged_TaggingTable" >
           <ConnectorPoint PointX="2.25" PointY="1.15625" />
           <ConnectorPoint PointX="6" PointY="1.15625" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="NERModel.User" Width="1.5" PointX="0.75" PointY="4.75" Height="1.7879850260416657" />
       </Diagram>
     </Diagrams>
   </Designer>

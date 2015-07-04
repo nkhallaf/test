@@ -8,17 +8,18 @@
 //------------------------------------------------------------------------------
 
 using System;
+using System.ComponentModel;
+using System.Data.EntityClient;
 using System.Data.Objects;
 using System.Data.Objects.DataClasses;
-using System.Data.EntityClient;
-using System.ComponentModel;
-using System.Xml.Serialization;
+using System.Linq;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
 
-[assembly: EdmRelationshipAttribute("NERModel", "FK_TriggerWords_TaggingTable", "TaggingTable", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(NER.DAL.TaggingTable), "TriggerWords", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(NER.DAL.TriggerWord), true)]
+[assembly: EdmRelationshipAttribute("NERModel", "FK_TriggerWords_TaggingTable", "TaggingTable", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(NER.DAL.TaggingTable), "TriggerWord", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(NER.DAL.TriggerWord), true)]
 [assembly: EdmRelationshipAttribute("NERModel", "FK_Words_tagged_TaggingTable", "TaggingTable", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(NER.DAL.TaggingTable), "Words_tagged", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(NER.DAL.Words_tagged), true)]
 
 #endregion
@@ -74,22 +75,6 @@ namespace NER.DAL
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<TaggingTable> TaggingTables
-        {
-            get
-            {
-                if ((_TaggingTables == null))
-                {
-                    _TaggingTables = base.CreateObjectSet<TaggingTable>("TaggingTables");
-                }
-                return _TaggingTables;
-            }
-        }
-        private ObjectSet<TaggingTable> _TaggingTables;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<TriggerWord> TriggerWords
         {
             get
@@ -134,17 +119,26 @@ namespace NER.DAL
             }
         }
         private ObjectSet<User> _Users;
-
-        #endregion
-        #region AddTo Methods
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the TaggingTables EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// No Metadata Documentation available.
         /// </summary>
-        public void AddToTaggingTables(TaggingTable taggingTable)
+        public ObjectSet<TaggingTable> TaggingTables
         {
-            base.AddObject("TaggingTables", taggingTable);
+            get
+            {
+                if ((_TaggingTables == null))
+                {
+                    _TaggingTables = base.CreateObjectSet<TaggingTable>("TaggingTables");
+                }
+                return _TaggingTables;
+            }
         }
+        private ObjectSet<TaggingTable> _TaggingTables;
+
+        #endregion
+
+        #region AddTo Methods
     
         /// <summary>
         /// Deprecated Method for adding a new object to the TriggerWords EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
@@ -169,13 +163,21 @@ namespace NER.DAL
         {
             base.AddObject("Users", user);
         }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the TaggingTables EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToTaggingTables(TaggingTable taggingTable)
+        {
+            base.AddObject("TaggingTables", taggingTable);
+        }
 
         #endregion
+
     }
-    
 
     #endregion
-    
+
     #region Entities
     
     /// <summary>
@@ -200,6 +202,7 @@ namespace NER.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -396,8 +399,33 @@ namespace NER.DAL
         private global::System.String _Color;
         partial void OnColorChanging(global::System.String value);
         partial void OnColorChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String TooltipInfo
+        {
+            get
+            {
+                return _TooltipInfo;
+            }
+            set
+            {
+                OnTooltipInfoChanging(value);
+                ReportPropertyChanging("TooltipInfo");
+                _TooltipInfo = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("TooltipInfo");
+                OnTooltipInfoChanged();
+            }
+        }
+        private global::System.String _TooltipInfo;
+        partial void OnTooltipInfoChanging(global::System.String value);
+        partial void OnTooltipInfoChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -407,18 +435,18 @@ namespace NER.DAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("NERModel", "FK_TriggerWords_TaggingTable", "TriggerWords")]
+        [EdmRelationshipNavigationPropertyAttribute("NERModel", "FK_TriggerWords_TaggingTable", "TriggerWord")]
         public EntityCollection<TriggerWord> TriggerWords
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<TriggerWord>("NERModel.FK_TriggerWords_TaggingTable", "TriggerWords");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<TriggerWord>("NERModel.FK_TriggerWords_TaggingTable", "TriggerWord");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TriggerWord>("NERModel.FK_TriggerWords_TaggingTable", "TriggerWords", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TriggerWord>("NERModel.FK_TriggerWords_TaggingTable", "TriggerWord", value);
                 }
             }
         }
@@ -446,6 +474,7 @@ namespace NER.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -472,6 +501,7 @@ namespace NER.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -550,6 +580,7 @@ namespace NER.DAL
         partial void OnWordChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -592,6 +623,7 @@ namespace NER.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -622,6 +654,7 @@ namespace NER.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -724,6 +757,7 @@ namespace NER.DAL
         partial void OnIsAdminChanged();
 
         #endregion
+
     
     }
     
@@ -753,6 +787,7 @@ namespace NER.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -855,6 +890,7 @@ namespace NER.DAL
         partial void OnTagIDChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -897,8 +933,10 @@ namespace NER.DAL
         }
 
         #endregion
+
     }
 
     #endregion
+
     
 }
