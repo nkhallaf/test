@@ -212,7 +212,7 @@ namespace NER.WebApp
             HttpContext.Current.Response.Buffer = true;
             HttpContext.Current.Response.Charset = "UTF-8";
             HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.UTF8;
-            HttpContext.Current.Response.AddHeader("content-disposition", "attachment;attachment;filename=" + FileUpload1.FileName + "-Evaluation.xls");
+            HttpContext.Current.Response.AddHeader("content-disposition", "attachment;attachment;filename=" + FileUpload1.FileName + "-NEs.xls");
             HttpContext.Current.Response.ContentType = "application/vnd.ms-excel";
 
 

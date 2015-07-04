@@ -53,14 +53,17 @@ namespace NER.BL
                     var loc = locations[i];
                     var count = theWord.Split(TextEditing.DelToSPlitWith, StringSplitOptions.RemoveEmptyEntries).Length;
 
-                    //   var W = pureLine[loc].ToString();
+                   
 
                     if (count == 1)
                     {
                         var theWord2 = diacLineWords[loc];
+                        var words = BL.MadaMiraHandler.Analyse(theWord2);
+                        if (words[0].pos == "noun_prop" || words[0].pos == "")
+                        {
 
                         diacLineWords[loc] = "<font title='Tag-" + wordTag[wordTagIndex].Tag.ToUpper() + "' style='color:" + wordTag[wordTagIndex].Color + "'>" + diacLineWords[loc] + "</font>";
-
+                        }
                     }
                     else
                     {
@@ -8969,7 +8972,7 @@ namespace NER.BL
 || words[0].lemma == "مَحْكَمَة_1"
 || words[0].lemma == "هَيْئَة_1"
 || words[0].lemma == "مَجْلِس_1"
-                            || words[0].lemma == "لَجْنَة_1"
+|| words[0].lemma == "لَجْنَة_1"
 || words[0].lemma == "ٱِتِّحاد_1"
 )
                         {
@@ -9239,6 +9242,18 @@ namespace NER.BL
 
                                     else
                                     { }
+                                }
+                                else if (words.Count > 1 && (words[1].pos == "adj" || words[1].pos == "adj_comp"))
+                                {
+
+                                    if (words.Count > 2 && (words[2].pos == "noun" && words[2].prc0 == "Al_det"))
+                                    {
+                                        diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                        diacLineWords[loc + 3 - 1] += "</font>";
+                                    }
+                                
+                                                              
+                                
                                 }
 
                             }
