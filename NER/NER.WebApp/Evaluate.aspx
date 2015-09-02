@@ -6,13 +6,13 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container-fluid">
         <h4>
-            Select File to export MatLab Sheet:</h4>
+            Select File to export Evaluation Sheet:</h4>
         <br />
         <div class="col-md-7">
             <asp:FileUpload CssClass="filestyle" ID="FileUpload1" runat="server" />
         </div>
         <div class="col-md-5">
-            <asp:Button ID="Button1" runat="server" Text="Download MatLab Sheet" CssClass="btn btn-primary "
+            <asp:Button ID="Button1" runat="server" Text="Download Evaluation Sheet" CssClass="btn btn-primary "
                 OnClick="Button1_Click" />
         </div>
         <div class="clearfix">

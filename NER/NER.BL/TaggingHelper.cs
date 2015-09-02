@@ -228,7 +228,8 @@ namespace NER.BL
                     //Second Tagging through Followed trigger words
 
                     //Fourth Tagging untagged NEs if it is exist in the text
-                    //Fifth Tagging from Fixed table
+                    //Fifth Tagging from Fixed tablenerto
+
                     // The title of the text needs to be analysed by MadaMira for searching for Prop-noun
                     ////لما يلاقيها خلاص ميبصش علي اللي بعدها
                     ////يبص علي الي قبلها
@@ -275,7 +276,7 @@ namespace NER.BL
                             }
                             else if (words.Count == 2)
                             {
-                                if (words.Count > 1 && (words[1].pos == "noun_prop" || words[1].pos == "" || words[1].pos == "noun"))
+                                if (words.Count > 1 && (words[1].pos == "noun_prop" || (words[1].pos == "" && words[1].word != "font") || words[1].pos == "noun"))
                                 {
                                     diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                     diacLineWords[loc + 2 - 1] += "</font>";
@@ -487,7 +488,7 @@ namespace NER.BL
                                             diacLineWords[loc + 4 - 1] += "</font>";
                                         }
                                         // الدوري الممتاز للرجبي //// i have to access the first two letters of the word "لل"
-                                        else if (words.Count > 2 && (words[2].pos == "" && words[2].word == "للرجبي"))
+                                        else if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font") && words[2].word == "للرجبي"))
                                         {
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 3 - 1] += "</font>";
@@ -589,12 +590,12 @@ namespace NER.BL
                                     diacLineWords[loc + 2 - 1] += "</font>";
                                 }
                                 // دورة استكهولم في
-                                else if (words.Count > 0 && (words[0].pos == "noun" && words[1].pos == ""))
+                                else if (words.Count > 0 && (words[0].pos == "noun" && (words[1].pos == "" && words[1].word != "font")))
                                 {
                                     diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                     diacLineWords[loc + 2 - 1] += "</font>";
                                 }
-                                else if (words.Count > 0 && (words[0].pos == "noun_prop" && words[1].pos == ""))
+                                else if (words.Count > 0 && (words[0].pos == "noun_prop" && (words[1].pos == "" && words[1].word != "font")))
                                 {
                                     if (words.Count >= 3)
                                     {
@@ -639,11 +640,11 @@ namespace NER.BL
 
                                         else if (words.Count > 0 && (words[0].pos == "noun" && words[1].pos == "noun_prop"))
                                         {
-                                            if (words.Count > 2 && (words[2].pos == "noun" || words[2].pos == "noun_prop" || words[2].pos == ""))
+                                            if (words.Count > 2 && (words[2].pos == "noun" || words[2].pos == "noun_prop" || (words[2].pos == "" && words[2].word != "font")))
                                             {
                                                 if (words.Count >= 4)
                                                 {
-                                                    if (words.Count > 3 && (words[3].pos == "noun" || words[3].pos == "noun_prop" || words[3].pos == ""))
+                                                    if (words.Count > 3 && (words[3].pos == "noun" || words[3].pos == "noun_prop" || (words[3].pos == "" && words[3].word != "font")))
                                                     {
                                                         diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                                         diacLineWords[loc + 4 - 1] += "</font>";
@@ -907,7 +908,7 @@ namespace NER.BL
                                                     }
 
                                                 }
-                                                else if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == ""))
+                                                else if (words.Count > 3 && (words[3].pos == "noun_prop" || (words[3].pos == "" && words[3].word != "font")))
                                                 {
                                                     if (words.Count > 4)
                                                     {
@@ -938,7 +939,7 @@ namespace NER.BL
 
                                         }
                                         //ندوة جامعة عدن
-                                        else if (words.Count > 2 && (words[2].pos == "noun_prop" || words[2].pos == "" || words[2].pos == "noun"))
+                                        else if (words.Count > 2 && (words[2].pos == "noun_prop" || (words[2].pos == "" && words[2].word != "font") || words[2].pos == "noun"))
                                         {
                                             if (words.Count >= 4)
                                             {
@@ -1007,7 +1008,7 @@ namespace NER.BL
                     //Incident
                     else if (triggerWordTag == "neei".ToUpper())
                     {
-                        if (words.Count > 0 && (words[0].lemma == "هَزِيمَة_1" || words[0].lemma == "مُوَقِّع_1" || words[0].lemma == "نَكْبَة_1" || words[0].lemma == "غَزْو_1" || words[0].lemma == "زِلْزال_1" || words[0].lemma == "حَرْب_1" || words[0].lemma == "صُلْح_1" || words[0].lemma == "مَعْرَكَة_1" || words[0].lemma == "كارِثَة_1" || words[0].lemma == "حَمْلَة_1" || words[0].lemma == "ٱِنْتِفاضَة_1" || words[0].lemma == "ثَوْرَة_1" || words[0].lemma == "نَكْسَة_1" || words[0].lemma == "عُدْوان_1"))
+                        if (words.Count > 0 && (words[0].lemma == "هَزِيمَة_1" || words[0].lemma == "مُوَقِّع_1" || words[0].lemma == "نَكْبَة_1" || words[0].lemma == "غَزْو_1" || words[0].lemma == "زِلْزال_1" || words[0].lemma == "حَرْب_1" || words[0].lemma == "صُلْح_1" || words[0].lemma == "مَعْرَكَة_1" || words[0].lemma == "كارِثَة_1" || words[0].lemma == "حَمْلَة_1" || words[0].lemma == "ٱِنْتِفاضَة_1" || words[0].lemma == "ثَوْرَة_1" || words[0].lemma == "نَكْسَة_1" || words[0].lemma == "عُدْوان_1" || words[0].lemma == "فَتَح-َ_1"))
                         {
                             if (words.Count >= 2)
                             {
@@ -1018,7 +1019,7 @@ namespace NER.BL
                                 /////<tok id="1" form0="انور"/>
                                 ////// </tokenized>
                                 #region
-                                if (words.Count > 0 && (words[0].pos == "noun" && words[1].pos == "noun_prop"))
+                                if (words.Count > 0 && ((words[0].pos == "noun" || words[0].pos == "verb") && words[1].pos == "noun_prop"))
                                 {
                                     if (words.Count > 2 && (words[2].pos == "adj_num"))
                                     {
@@ -1049,7 +1050,7 @@ namespace NER.BL
 
                                                 }
                                             }
-                                            else if (words.Count > 3 && (words[3].pos == ""))
+                                            else if (words.Count > 3 && ((words[3].pos == "" && words[3].word != "font")))
                                             {
                                                 if (words.Count > 4 && (words[4].pos == "noun_prop"))
                                                 {
@@ -1151,7 +1152,7 @@ namespace NER.BL
                                             diacLineWords[loc + 3 - 1] += "</font>";
                                         }
                                     }
-                                    else if (words.Count > 2 && (words[2].pos == ""))
+                                    else if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font")))
                                     {
                                         diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                         diacLineWords[loc + 3 - 1] += "</font>";
@@ -1193,7 +1194,7 @@ namespace NER.BL
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 4 - 1] += "</font>";
                                         }
-                                        else if (words.Count > 3 && (words[3].pos == ""))
+                                        else if (words.Count > 3 && ((words[3].pos == "" && words[3].word != "font")))
                                         {
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 4 - 1] += "</font>";
@@ -1256,7 +1257,7 @@ namespace NER.BL
                                 }
                                 #endregion
                                 #region
-                                else if (words.Count > 0 && (words[0].pos == "noun" && words[1].pos == "noun"))
+                                else if (words.Count > 0 && ((words[0].pos == "noun" || words[0].pos == "verb") && words[1].pos == "noun") && words[1].prc1 != "li_prep")
                                 {
                                     if (words.Count > 1 && (words[1].prc0 == "Al_det"))
                                     {
@@ -1270,9 +1271,9 @@ namespace NER.BL
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 3 - 1] += "</font>";
                                         }
-                                        else if (words.Count > 2 && (words[2].pos == ""))
+                                        else if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font")))
                                         {
-                                            if (words.Count > 3 && (words[3].pos == ""))
+                                            if (words.Count > 3 && ((words[3].pos == "" && words[3].word != "font")))
                                             {
                                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                                 diacLineWords[loc + 4 - 1] += "</font>";
@@ -1296,9 +1297,9 @@ namespace NER.BL
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 4 - 1] += "</font>";
                                         }
-                                        else if (words.Count > 3 && (words[3].pos == ""))
+                                        else if (words.Count > 3 && ((words[3].pos == "" && words[3].word != "font")))
                                         {
-                                            if (words.Count > 4 && (words[4].pos == ""))
+                                            if (words.Count > 4 && ((words[4].pos == "" && words[4].word != "font")))
                                             {
                                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                                 diacLineWords[loc + 5 - 1] += "</font>";
@@ -1315,9 +1316,9 @@ namespace NER.BL
                                             diacLineWords[loc + 3 - 1] += "</font>";
                                         }
                                     }
-                                    else if (words.Count > 2 && (words[2].pos == ""))
+                                    else if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font")))
                                     {
-                                        if (words.Count > 3 && (words[3].pos == ""))
+                                        if (words.Count > 3 && ((words[3].pos == "" && words[3].word != "font")))
                                         {
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 4 - 1] += "</font>";
@@ -1337,7 +1338,7 @@ namespace NER.BL
 
                                 }
                                 #endregion
-                                else if (words.Count > 0 && (words[0].pos == "noun" && words[1].pos == "adj_num" || words[1].pos == "noun_num"))
+                                else if (words.Count > 0 && (words[0].pos == "noun" && words[1].pos == "adj_num" || words[1].pos == "noun_num") && words[1].prc1 != "li_prep")
                                 {
                                     if (words.Count > 2 && (words[2].pos == "noun" && words[2].gloss == "year"))
                                     {
@@ -1386,7 +1387,7 @@ namespace NER.BL
                                         diacLineWords[loc + 2 - 1] += "</font>";
                                     }
                                 }
-                                else if (words.Count > 0 && (words[0].pos == "noun" && words[1].pos == ""))
+                                else if (words.Count > 0 && (words[0].pos == "noun" && (words[1].pos == "" && words[1].word != "font")))
                                 {
                                     if (words.Count > 2 && (words[2].pos == "noun_prop"))
                                     {
@@ -1421,14 +1422,14 @@ namespace NER.BL
                                         }
 
                                     }
-                                    else if (words.Count > 2 && (words[2].pos == ""))
+                                    else if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font")))
                                     {
                                         if (words.Count > 3 && (words[3].pos == "noun_prop"))
                                         {
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 4 - 1] += "</font>";
                                         }
-                                        else if (words.Count > 3 && (words[3].pos == ""))
+                                        else if (words.Count > 3 && ((words[3].pos == "" && words[3].word != "font")))
                                         {
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 4 - 1] += "</font>";
@@ -1490,7 +1491,7 @@ namespace NER.BL
 
                                             }
                                         }
-                                        else if (words.Count > 3 && (words[3].pos == ""))
+                                        else if (words.Count > 3 && ((words[3].pos == "" && words[3].word != "font")))
                                         {
                                             if (words.Count > 4 && (words[4].pos == "noun_prop"))
                                             {
@@ -1600,7 +1601,7 @@ namespace NER.BL
                                         diacLineWords[loc + 3 - 1] += "</font>";
                                     }
                                 }
-                                else if (words.Count > 2 && (words[2].pos == ""))
+                                else if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font")))
                                 {
                                     diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                     diacLineWords[loc + 3 - 1] += "</font>";
@@ -1642,7 +1643,7 @@ namespace NER.BL
                                         diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                         diacLineWords[loc + 4 - 1] += "</font>";
                                     }
-                                    else if (words.Count > 3 && (words[3].pos == ""))
+                                    else if (words.Count > 3 && ((words[3].pos == "" && words[3].word != "font")))
                                     {
                                         diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                         diacLineWords[loc + 4 - 1] += "</font>";
@@ -1720,9 +1721,9 @@ namespace NER.BL
                                         diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                         diacLineWords[loc + 3 - 1] += "</font>";
                                     }
-                                    else if (words.Count > 2 && (words[2].pos == ""))
+                                    else if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font")))
                                     {
-                                        if (words.Count > 3 && (words[3].pos == ""))
+                                        if (words.Count > 3 && ((words[3].pos == "" && words[3].word != "font")))
                                         {
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 4 - 1] += "</font>";
@@ -1747,9 +1748,9 @@ namespace NER.BL
                                         diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                         diacLineWords[loc + 4 - 1] += "</font>";
                                     }
-                                    else if (words.Count > 3 && (words[3].pos == ""))
+                                    else if (words.Count > 3 && ((words[3].pos == "" && words[3].word != "font")))
                                     {
-                                        if (words.Count > 4 && (words[4].pos == ""))
+                                        if (words.Count > 4 && ((words[4].pos == "" && words[4].word != "font")))
                                         {
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 5 - 1] += "</font>";
@@ -1766,9 +1767,9 @@ namespace NER.BL
                                         diacLineWords[loc + 3 - 1] += "</font>";
                                     }
                                 }
-                                else if (words.Count > 2 && (words[2].pos == ""))
+                                else if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font")))
                                 {
-                                    if (words.Count > 3 && (words[3].pos == ""))
+                                    if (words.Count > 3 && ((words[3].pos == "" && words[3].word != "font")))
                                     {
                                         diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                         diacLineWords[loc + 4 - 1] += "</font>";
@@ -1837,7 +1838,7 @@ namespace NER.BL
                                     diacLineWords[loc + 2 - 1] += "</font>";
                                 }
                             }
-                            else if (words.Count > 0 && (words[0].pos == "noun" && words[1].pos == ""))
+                            else if (words.Count > 0 && (words[0].pos == "noun" && (words[1].pos == "" && words[1].word != "font")))
                             {
                                 if (words.Count > 2 && (words[2].pos == "noun_prop"))
                                 {
@@ -1872,14 +1873,14 @@ namespace NER.BL
                                     }
 
                                 }
-                                else if (words.Count > 2 && (words[2].pos == ""))
+                                else if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font")))
                                 {
                                     if (words.Count > 3 && (words[3].pos == "noun_prop"))
                                     {
                                         diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                         diacLineWords[loc + 4 - 1] += "</font>";
                                     }
-                                    else if (words.Count > 3 && (words[3].pos == ""))
+                                    else if (words.Count > 3 && ((words[3].pos == "" && words[3].word != "font")))
                                     {
                                         diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                         diacLineWords[loc + 4 - 1] += "</font>";
@@ -1910,9 +1911,9 @@ namespace NER.BL
 
                         if (words.Count > 2 && (words[0].lemma == "طِفْل_1" && words[1].lemma == "هُما_1" && words[2].pos == "punc"))
                         {
-                            if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "noun" || words[3].pos == "" || words[2].pos == "adj_num"))
+                            if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "noun" || (words[3].pos == "" && words[3].word != "font") || words[2].pos == "adj_num"))
                             {
-                                if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || words[4].pos == "" || words[2].pos == "adj_num"))
+                                if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || (words[4].pos == "" && words[4].word != "font") || words[2].pos == "adj_num"))
                                 {
                                     diacLineWords[loc + 3] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc + 3];
                                     diacLineWords[loc + 5 - 1] += "</font>";
@@ -1933,11 +1934,11 @@ namespace NER.BL
                         }
                         else if (words.Count > 1 && ((words[0].lemma == "أَشاع_1" && words[1].lemma == "عَلَى_1") || (words[0].lemma == "رِزْق_1" && words[1].lemma == "ٱِبْن_1") || (words[0].lemma == "كان-ُ_1" && words[1].lemma == "مُؤَسِّس_1") || (words[0].lemma == "إِفْراج_1" && words[1].lemma == "عَن_1") || (words[0].lemma == "أَطْلَق_1" && words[1].lemma == "سَراح_1") || (words[0].lemma == "لِدَة_2" && words[1].lemma == "هُما_1")))
                         {
-                            if (words.Count > 2 && (words[2].pos == "noun_prop" || words[2].pos == "noun" || words[2].pos == "" || words[2].pos == "adj_num"))
+                            if (words.Count > 2 && (words[2].pos == "noun_prop" || (words[2].pos == "" && words[2].word != "font") || words[2].pos == "adj_num"))
                             {
-                                if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "noun" || words[3].pos == "" || words[2].pos == "adj_num"))
+                                if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "noun" || (words[3].pos == "" && words[3].word != "font") || words[2].pos == "adj_num"))
                                 {
-                                    if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || words[4].pos == "" || words[2].pos == "adj_num"))
+                                    if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || (words[4].pos == "" && words[4].word != "font") || words[2].pos == "adj_num"))
                                     {
                                         diacLineWords[loc + 2] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc + 2];
                                         diacLineWords[loc + 5 - 1] += "</font>";
@@ -1960,20 +1961,20 @@ namespace NER.BL
                             }
                             else
                             {
-                                diacLineWords[loc + 2] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc + 2];
-                                diacLineWords[loc + 2 - 1] += "</font>";
+                                //diacLineWords[loc + 2] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc + 2];
+                                //diacLineWords[loc + 2 - 1] += "</font>";
                             }
 
                         }
-                        if (words.Count > 0 && (words[0].lemma == "أُسْلُوب_1" || words[0].lemma == "ٱِلْتَحَق_1" || words[0].lemma == "عاد-ُ_1" || words[0].lemma == "كَتَب-ُ_1" || words[0].lemma == "يا_1" || words[0].lemma == "قال-ُ_1" || words[0].lemma == "لَحَن-َ_1" || words[0].lemma == "أَب_1" || words[0].lemma == "ٱِعْتَكَف_1" || words[0].lemma == "ٱِنْتَقَل_1" || words[0].lemma == "سِجْن_1" || words[0].lemma == "تَوَلِّي_1" || words[0].lemma == "وَلَد_1" || words[0].lemma == "كان-ُ_1" || words[0].lemma == "تَوَلَّى_1" || words[0].lemma == "وَلَد-ِ_1" || words[0].lemma == "والِد_1" || words[0].lemma == "ٱِسْم_1" || words[0].lemma == "تَوَفَّى_1" || words[0].lemma == "هُوَ_1"))
+                        if (words.Count > 0 && (words[0].lemma == "أُسْلُوب_1" || words[0].lemma == "ٱِلْتَحَق_1" || words[0].lemma == "عاد-ُ_1" || words[0].lemma == "كَتَب-ُ_1" || words[0].lemma == "يا_1" || words[0].lemma == "قال-ُ_1" || words[0].lemma == "لَحَن-َ_1" || words[0].lemma == "أَب_1" || words[0].lemma == "ٱِعْتَكَف_1" || words[0].lemma == "ٱِنْتَقَل_1" || words[0].lemma == "سِجْن_1" || words[0].lemma == "تَوَلِّي_1" || words[0].lemma == "وَلَد_1" || words[0].lemma == "كان-ُ_1" || words[0].lemma == "تَوَلَّى_1" || words[0].lemma == "وَلَد-ِ_1" || words[0].lemma == "والِد_1" || words[0].lemma == "ٱِسْم_1" || words[0].lemma == "تَوَفَّى_1" || words[0].lemma == "هُوَ_1" || words[0].lemma == "أَبِي_1" || words[0].lemma == "أَبُو_1"))
                         {
                             if (words.Count > 1 && ((words[1].pos == "noun_prop") && words[1].prc1 != "bi_prep"))
                             {
-                                if (words.Count > 2 && (words[2].pos == "noun_prop" || words[2].pos == "noun" || words[2].pos == "" || words[2].pos == "adj_num" || words[2].gloss == "daughter;girl"))
+                                if (words.Count > 2 && ((words[2].pos == "noun_prop" && words[2].prc1 == "0" && words[2].prc1 == "0") || words[2].pos == "noun" || (words[2].pos == "" && words[2].word != "font") || words[2].pos == "adj_num" || words[2].gloss == "daughter;girl"))
                                 {
-                                    if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "noun" || words[3].pos == ""))
+                                    if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "noun" || (words[3].pos == "" && words[3].word != "font")))
                                     {
-                                        if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || words[4].pos == ""))
+                                        if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || (words[4].pos == "" && words[4].word != "font")))
                                         {
                                             var loc2 = 0;
                                             var sentence2 = string.Empty;
@@ -2011,13 +2012,13 @@ namespace NER.BL
 
                                             if (words2.Count > 0 && (words2[0].pos == "noun_prop" || words2[0].pos == ""))
                                             {
-                                                if (words2.Count > 1 && (words2[1].pos == "noun_prop" || words2[1].pos == ""))
+                                                if (words2.Count > 1 && (words2[1].pos == "noun_prop" || (words2[1].pos == "" && words2[1].word != "font")))
                                                 {
-                                                    if (words2.Count > 2 && (words2[2].pos == "noun_prop" || words2[2].pos == ""))
+                                                    if (words2.Count > 2 && (words2[2].pos == "noun_prop" || (words2[2].pos == "" && words2[2].word != "font")))
                                                     {
                                                         if (words2.Count > 3 && (words2[3].pos == "noun_prop" || words2[3].pos == ""))
                                                         {
-                                                            if (words2.Count > 4 && (words2[4].pos == "noun_prop" || words2[4].pos == ""))
+                                                            if (words2.Count > 4 && (words2[4].pos == "noun_prop" || (words2[4].pos == "" && words2[4].word != "font")))
                                                             {
                                                                 diacLineWords[loc + 1] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc + 1];
                                                                 diacLineWords[loc2 + 4] += "</font>";
@@ -2079,9 +2080,45 @@ namespace NER.BL
                                 }
 
                             }
-                            else
+                            else if (words.Count > 1 && (((words[1].pos == "noun_prop") || (words[1].pos == "" && words[1].word != "font")) && (words[1].prc1 == "bi_prep" || words[1].prc1 == "") && words[0].lemma == "وَلَد-ِ_1"))
                             {
 
+                                var CountryTagId = 16;
+                                var Country = Tags.GetTag(CountryTagId);
+                                var CountryTag = Country.Tag;
+                                var CountryColor = Country.Color;
+                                diacLineWords[loc + 1] = "<font title='Trigger word-" + CountryTag.ToUpper() + "' style='color:" + CountryColor + "'>" + diacLineWords[loc + 1];
+                                diacLineWords[loc + 1] += "</font>";
+                            
+                            }
+                            else if (words.Count > 1 && ((words[1].pos == "noun_prop" && words[1].prc1 == "0" && words[1].prc2 == "0") || (words[1].pos == "noun" && words[1].prc1 == "0" && words[1].prc2 == "0" && words[1].prc3 == "0")) && (words[0].lemma == "أَبِي_1" || words[0].lemma == "أَبُو_1"))
+                            {
+                                if (words.Count > 2 && ((words[2].pos == "noun_prop" && words[1].prc1 == "0" && words[2].prc1 == "0") || words[2].pos == "noun" || (words[2].pos == "" && words[2].word != "font") || words[2].pos == "adj_num"))
+                                {
+                                    if (words.Count > 3 && (words[3].pos == "noun_prop" || (words[3].pos == "" && words[3].word != "font")))
+                                    {
+                                        if (words.Count > 4 && (words[4].pos == "noun_prop" || (words[4].pos == "" && words[4].word != "font")))
+                                        {
+                                            diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                            diacLineWords[loc + 5 - 1] += "</font>";
+                                        }
+                                        else
+                                        {
+                                            diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                            diacLineWords[loc + 4 - 1] += "</font>";
+                                        }
+                                    }
+                                    else
+                                    {
+                                        diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                        diacLineWords[loc + 3 - 1] += "</font>";
+                                    }
+                                }
+                                else
+                                {
+                                    diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                    diacLineWords[loc + 2 - 1] += "</font>";
+                                }
                             }
                         }
                     }
@@ -2336,7 +2373,7 @@ namespace NER.BL
                                 if (words.Count == 2)
                                 {
                                     ///وباء السكري
-                                    if (words.Count > 1 && (words[1].pos == "noun"))
+                                    if (words.Count > 1 && (words[1].pos == "noun" && words[1].prc1 != "bi_prep" && words[1].prc2 != "wa_conj"))
                                     {
                                         diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                         diacLineWords[loc + 2 - 1] += "</font>";
@@ -2357,7 +2394,7 @@ namespace NER.BL
 
                             else if (words.Count > 0 && (words[0].gloss == "diseases;illnesses"))
                             {
-                                if (words.Count > 1 && (words[1].gloss == "difficult;incurable" && words[1].pos == "adj"))
+                                if (words.Count > 1 && (words[1].gloss == "difficult;incurable" && words[1].pos == "adj" && words[1].prc1 != "bi_prep" && words[1].prc2!="wa_conj"))
                                 {
                                     if (words.Count > 2 && (words[2].gloss == "like;such_as" && words[2].pos == "noun"))
                                     {
@@ -2390,7 +2427,7 @@ namespace NER.BL
                                     else { }
                                 }
                                 //أمراض  مثل الحمى والملاريا والجدري
-                                else if (words.Count > 1 && (words[1].gloss == "like;such_as" && words[1].pos == "noun"))
+                                else if (words.Count > 1 && (words[1].gloss == "like;such_as" && words[1].pos == "noun" && words[1].prc1 != "bi_prep" && words[1].prc2 != "wa_conj"))
                                 {
                                     if (words.Count > 2 && (words[2].pos == "noun" || words[2].pos == "adj"))
                                     {
@@ -2505,11 +2542,11 @@ namespace NER.BL
                     //Chemical Tagging
                     else if (triggerWordTag == "nenc".ToUpper())
                     {
-                        if (words.Count > 0 && (words[0].lemma == "حَمْض_1" || words[0].lemma == "حَجَر_1" || words[0].lemma == "مِلْح_1" || words[0].lemma == "أُكْسِيد_1" || words[0].lemma == "غاز_1" || words[0].lemma == "عُنْصُر_1"))
+                        if (words.Count > 0 && (words[0].lemma == "حَمْض_1" || words[0].lemma == "حَجَر_1" || words[0].lemma == "مِلْح_1" || words[0].lemma == "أُكْسِيد_1" || (words[0].lemma == "غاز_1" && words[0].prc0 == "Al_det") || words[0].lemma == "عُنْصُر_1") )
                         {
                             if (words.Count >= 2)
                             {
-                                if (words.Count > 1 && (words[1].pos == "" || words[1].pos == "noun_prop" || words[1].pos == "noun"))
+                                if (words.Count > 1 && ((words[1].pos == "" && words[1].word != "font") || words[1].pos == "noun_prop" ||(words[1].pos == "noun" && words[1].prc0 == "Al_det")))
                                 {
                                     diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                     diacLineWords[loc + 2 - 1] += "</font>";
@@ -2544,7 +2581,7 @@ namespace NER.BL
                         {
                             if (words.Count >= 2)
                             {
-                                if (words.Count > 1 && (words[1].pos == "noun" || words[1].pos == "" || words[1].pos == "adj"))
+                                if (words.Count > 1 && (words[1].pos == "noun" || (words[1].pos == "" && words[1].word != "font") || words[1].pos == "adj"))
                                 {
                                     diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                     diacLineWords[loc + 2 - 1] += "</font>";
@@ -2588,7 +2625,7 @@ namespace NER.BL
                                     diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                     diacLineWords[loc + 2 - 1] += "</font>";
                                 }
-                                else if (words.Count > 1 && (words[1].pos == ""))
+                                else if (words.Count > 1 && ((words[1].pos == "" && words[1].word != "font")))
                                 {
                                     diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                     diacLineWords[loc + 2 - 1] += "</font>";
@@ -2709,13 +2746,14 @@ namespace NER.BL
                                 || words[0].lemma == "عَدّاء_1"
                                 || words[0].lemma == "حارِس_1"
                                 || words[0].lemma == "خَلِيفَة_2"
-                                || words[0].lemma == "أُسْتاذ_1"))
+                                || words[0].lemma == "أُسْتاذ_1" || words[0].lemma == "سَيِّد_1" || words[0].lemma == "قَسّ_1" || words[0].lemma == "سَيِّدَة_1" || words[0].lemma == "إِمام_1"))
                             {
                                 if (words.Count > 1 && (words[1].lemma == "دُكْتُور_1"
                                 || words[1].lemma == "خَلِيفَة_1"
                                 || words[1].lemma == "شَيْخ_1"
                                 || words[1].lemma == "د_1"
                                 || words[1].lemma == "._1"
+                                || words[1].lemma == ":_0"
                                 || words[1].lemma == "مُلْك_1"
                                 || words[1].lemma == "سَيِّد_2"
                                 || words[1].lemma == "مُهَنْدِس_1"
@@ -2786,12 +2824,12 @@ namespace NER.BL
                                 || words[1].lemma == "عَدّاء_1"
                                 || words[1].lemma == "حارِس_1"
                                     || words[1].lemma == "خَلِيفَة_2"
-                                    || words[1].lemma == "أُسْتاذ_1"))
+                                    || words[1].lemma == "أُسْتاذ_1" || words[1].lemma == "سَيِّد_1" || words[1].lemma == "قَسّ_1" || words[1].lemma == "سَيِّدَة_1" || words[0].lemma == "إِمام_1"))
                                 {
 
                                     if (words.Count > 2 && (words[2].lemma.Contains("يّ_1") || words[2].lemma.Contains("يّ_2") || words[2].lemma.Contains("يّ_3")))
                                     {
-                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == ""))
+                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || (words[3].pos == "" && words[3].word != "font")) && (words[3].prc1 != "bi_prep"))
                                         {
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 1 - 1] += "</font>";
@@ -2803,7 +2841,7 @@ namespace NER.BL
                                             var NationalColor = National.Color;
                                             diacLineWords[loc + 2] = "<font title='Trigger word-" + Nationaltag.ToUpper() + "' style='color:" + NationalColor + "'>" + diacLineWords[loc + 2];
                                             diacLineWords[loc + 2] += "</font>";
-                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == ""))
+                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || (words[4].pos == "" && words[4].word != "font")))
                                             {
                                                 var personTagId = 1;
                                                 var person = Tags.GetTag(personTagId);
@@ -2824,23 +2862,112 @@ namespace NER.BL
 
                                         }
                                     }
-                                    else if (words.Count > 2 && (words[2].pos == "noun_prop" || words[2].pos == ""))
+                                    else if (words.Count > 2 && (words[2].pos == "noun_prop" || (words[2].pos == "" && words[2].word != "font")) && (words[2].prc1 != "bi_prep"))
                                     {
                                         diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                         diacLineWords[loc + 1 - 1] += "</font>";
                                         diacLineWords[loc + 1] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc + 1];
                                         diacLineWords[loc + 2 - 1] += "</font>";
 
-                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == ""))
+                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || (words[3].pos == "" && words[3].word != "font")) && (words[3].prc1 != "bi_prep"))
                                         {
-                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == ""))
+                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || (words[4].pos == "" && words[4].word != "font")) && (words[4].prc1 != "bi_prep"))
                                             {
-                                                var personTagId = 1;
-                                                var person = Tags.GetTag(personTagId);
-                                                var persontag = person.Tag;
-                                                var personColor = person.Color;
-                                                diacLineWords[loc + 2] = "<font title='Trigger word-" + persontag.ToUpper() + "' style='color:" + personColor + "'>" + diacLineWords[loc + 2];
-                                                diacLineWords[loc + 4] += "</font>";
+                                                var loc2 = 0;
+                                                 var sentence2 = string.Empty;
+                                                for (var z = locations.Count - 1; z >= 0; z--)
+                                                {
+                                                     loc2 = loc + 5;
+                                                   
+                                                    // get 5 words after that location 
+                                                    var sentenceWordsCount2 = diacLineWords.Count();
+                                                    var remainingWords2 = sentenceWordsCount2 - loc2;
+
+
+
+                                                    if (remainingWords2 > 5)
+                                                    {
+                                                        for (int Index = loc2; Index < loc2 + 5; Index++)
+                                                        {
+                                                            sentence2 += (diacLineWords[Index] + " ");
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        for (int Index = loc2; Index < sentenceWordsCount2; Index++)
+                                                        {
+                                                            sentence2 += (diacLineWords[Index] + " ");
+                                                        }
+
+                                                    }
+                                                }
+
+
+
+                                                sentence2 = sentence2.Replace("<", "");
+                                                sentence2 = sentence2.Replace(">", "");
+                                                var words2 = BL.MadaMiraHandler.Analyse(sentence2);
+
+                                                if (words2.Count > 0 && (words2[0].pos == "noun_prop" || words2[0].pos == "") && (words2[0].prc1 != "bi_prep"))
+                                                {
+                                                    if (words2.Count > 1 && (words2[1].pos == "noun_prop" || (words2[1].pos == "" && words2[1].word != "font")) && (words2[1].prc1 != "bi_prep"))
+                                                    {
+                                                        if (words2.Count > 2 && (words2[2].pos == "noun_prop" || (words2[2].pos == "" && words2[2].word != "font")) && (words2[2].prc1 != "bi_prep"))
+                                                        {
+                                                            if (words2.Count > 3 && (words2[3].pos == "noun_prop" || words2[3].pos == "") && (words2[3].prc1 != "bi_prep"))
+                                                            {
+                                                                var personTagId = 1;
+                                                                var person = Tags.GetTag(personTagId);
+                                                                var persontag = person.Tag;
+                                                                var personColor = person.Color;
+                                                                diacLineWords[loc + 2] = "<font title='Trigger word-" + persontag.ToUpper() + "' style='color:" + personColor + "'>" + diacLineWords[loc + 2];
+                                                                diacLineWords[loc2 + 3] += "</font>";
+
+
+                                                            }
+                                                            else
+                                                            {
+                                                                var personTagId = 1;
+                                                                var person = Tags.GetTag(personTagId);
+                                                                var persontag = person.Tag;
+                                                                var personColor = person.Color;
+                                                                diacLineWords[loc + 2] = "<font title='Trigger word-" + persontag.ToUpper() + "' style='color:" + personColor + "'>" + diacLineWords[loc + 2];
+                                                                diacLineWords[loc2 + 2] += "</font>";
+                                                            }
+
+
+                                                        }
+                                                        else
+                                                        {
+                                                            var personTagId = 1;
+                                                            var person = Tags.GetTag(personTagId);
+                                                            var persontag = person.Tag;
+                                                            var personColor = person.Color;
+                                                            diacLineWords[loc + 2] = "<font title='Trigger word-" + persontag.ToUpper() + "' style='color:" + personColor + "'>" + diacLineWords[loc + 2];
+                                                            diacLineWords[loc2 + 1] += "</font>";
+                                                        }
+
+
+                                                    }
+                                                    else
+                                                    {
+                                                        var personTagId = 1;
+                                                        var person = Tags.GetTag(personTagId);
+                                                        var persontag = person.Tag;
+                                                        var personColor = person.Color;
+                                                        diacLineWords[loc + 2] = "<font title='Trigger word-" + persontag.ToUpper() + "' style='color:" + personColor + "'>" + diacLineWords[loc + 2];
+                                                        diacLineWords[loc2] += "</font>";
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    var personTagId = 1;
+                                                    var person = Tags.GetTag(personTagId);
+                                                    var persontag = person.Tag;
+                                                    var personColor = person.Color;
+                                                    diacLineWords[loc + 2] = "<font title='Trigger word-" + persontag.ToUpper() + "' style='color:" + personColor + "'>" + diacLineWords[loc + 2];
+                                                    diacLineWords[loc + 4] += "</font>";
+                                                }
                                             }
                                             else
                                             {
@@ -2871,9 +2998,9 @@ namespace NER.BL
                                         diacLineWords[loc + 1 - 1] += "</font>";
                                         diacLineWords[loc + 1] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc + 1];
                                         diacLineWords[loc + 2 - 1] += "</font>";
-                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == ""))
+                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || (words[3].pos == "" && words[3].word != "font")) && (words[3].prc1 != "bi_prep"))
                                         {
-                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == ""))
+                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || (words[4].pos == "" && words[4].word != "font")) && (words[4].prc1 != "bi_prep"))
                                             {
                                                 var sentence2 = string.Empty;
                                                 for (var z = locations.Count - 1; z >= 0; z--)
@@ -2908,13 +3035,13 @@ namespace NER.BL
                                                 sentence2 = sentence2.Replace(">", "");
                                                 var words2 = BL.MadaMiraHandler.Analyse(sentence2);
 
-                                                if (words2.Count > 0 && (words2[0].pos == "noun_prop" || words2[0].pos == ""))
+                                                if (words2.Count > 0 && (words2[0].pos == "noun_prop" || words2[0].pos == "") && (words2[0].prc1 != "bi_prep"))
                                                 {
-                                                    if (words2.Count > 1 && (words2[1].pos == "noun_prop" || words2[1].pos == ""))
+                                                    if (words2.Count > 1 && (words2[1].pos == "noun_prop" || (words2[1].pos == "" && words2[1].word != "font")) && (words2[1].prc1 != "bi_prep"))
                                                     {
-                                                        if (words2.Count > 2 && (words2[2].pos == "noun_prop" || words2[2].pos == ""))
+                                                        if (words2.Count > 2 && (words2[2].pos == "noun_prop" || (words2[2].pos == "" && words2[2].word != "font")) && (words2[2].prc1 != "bi_prep"))
                                                         {
-                                                            if (words2.Count > 3 && (words2[3].pos == "noun_prop" || words2[3].pos == ""))
+                                                            if (words2.Count > 3 && (words2[3].pos == "noun_prop" || words2[3].pos == "") && (words2[3].prc1 != "bi_prep"))
                                                             {
                                                                 var personTagId = 1;
                                                                 var person = Tags.GetTag(personTagId);
@@ -2995,8 +3122,9 @@ namespace NER.BL
                                 }
                                 else if (words.Count > 1 && (words[1].lemma.Contains("يّ_1") || words[1].lemma.Contains("يّ_2") || words[1].lemma.Contains("يّ_3")))
                                 {
-                                    if (words.Count > 2 && (words[2].pos == "noun_prop" || words[2].pos == ""))
+                                    if (words.Count > 2 && (words[2].pos == "noun_prop" || (words[2].pos == "" && words[2].word != "font")) && (words[2].prc1 != "bi_prep"))
                                     {
+                                        var loc2 = 0;
                                         diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                         diacLineWords[loc + 1 - 1] += "</font>";
                                         var NationalTagId = 111;
@@ -3005,10 +3133,110 @@ namespace NER.BL
                                         var NationalColor = National.Color;
                                         diacLineWords[loc + 1] = "<font title='Trigger word-" + Nationaltag.ToUpper() + "' style='color:" + NationalColor + "'>" + diacLineWords[loc + 1];
                                         diacLineWords[loc + 2 - 1] += "</font>";
-                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == ""))
+                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || (words[3].pos == "" && words[3].word != "font")) && (words[3].prc1 != "bi_prep"))
                                         {
-                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "" || words[4].pos == "adj_num"))
+                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || (words[4].pos == "" && words[4].word != "font") || words[4].pos == "adj_num") && (words[4].prc1 != "bi_prep"))
                                             {
+
+                                                var sentence2 = string.Empty;
+                                                for (var z = locations.Count - 1; z >= 0; z--)
+                                                {
+                                                    loc2 = loc + 5;
+                                                    // get 5 words after that location 
+                                                    var sentenceWordsCount2 = diacLineWords.Count();
+                                                    var remainingWords2 = sentenceWordsCount2 - loc2;
+
+
+
+                                                    if (remainingWords2 > 5)
+                                                    {
+                                                        for (int Index = loc2; Index < loc2 + 5; Index++)
+                                                        {
+                                                            sentence2 += (diacLineWords[Index] + " ");
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        for (int Index = loc2; Index < sentenceWordsCount2; Index++)
+                                                        {
+                                                            sentence2 += (diacLineWords[Index] + " ");
+                                                        }
+
+                                                    }
+                                                }
+
+
+
+                                                sentence2 = sentence2.Replace("<", "");
+                                                sentence2 = sentence2.Replace(">", "");
+                                                var words2 = BL.MadaMiraHandler.Analyse(sentence2);
+
+                                                if (words2.Count > 0 && (words2[0].pos == "noun_prop" || words2[0].pos == "") && (words2[0].prc1 != "bi_prep"))
+                                                {
+                                                    if (words2.Count > 1 && (words2[1].pos == "noun_prop" || (words2[1].pos == "" && words2[1].word != "font")) && (words2[1].prc1 != "bi_prep"))
+                                                    {
+                                                        if (words2.Count > 2 && (words2[2].pos == "noun_prop" || (words2[2].pos == "" && words2[2].word != "font")) && (words2[2].prc1 != "bi_prep"))
+                                                        {
+                                                            if (words2.Count > 3 && (words2[3].pos == "noun_prop" || words2[3].pos == "") && (words2[3].prc1 != "bi_prep"))
+                                                            {
+                                                                var personTagId = 1;
+                                                                var person = Tags.GetTag(personTagId);
+                                                                var persontag = person.Tag;
+                                                                var personColor = person.Color;
+                                                                diacLineWords[loc] = "<font title='Trigger word-" + persontag.ToUpper() + "' style='color:" + personColor + "'>" + diacLineWords[loc];
+                                                                diacLineWords[loc2 + 3] += "</font>";
+
+
+                                                            }
+                                                            else
+                                                            {
+                                                                var personTagId = 1;
+                                                                var person = Tags.GetTag(personTagId);
+                                                                var persontag = person.Tag;
+                                                                var personColor = person.Color;
+                                                                diacLineWords[loc] = "<font title='Trigger word-" + persontag.ToUpper() + "' style='color:" + personColor + "'>" + diacLineWords[loc];
+                                                                diacLineWords[loc2 + 2] += "</font>";
+                                                            }
+
+
+                                                        }
+                                                        else
+                                                        {
+                                                            var personTagId = 1;
+                                                            var person = Tags.GetTag(personTagId);
+                                                            var persontag = person.Tag;
+                                                            var personColor = person.Color;
+                                                            diacLineWords[loc + 3] = "<font title='Trigger word-" + persontag.ToUpper() + "' style='color:" + personColor + "'>" + diacLineWords[loc + 3];
+                                                            diacLineWords[loc2 + 1] += "</font>";
+                                                        }
+
+
+                                                    }
+                                                    else
+                                                    {
+                                                        var personTagId = 1;
+                                                        var person = Tags.GetTag(personTagId);
+                                                        var persontag = person.Tag;
+                                                        var personColor = person.Color;
+                                                        diacLineWords[loc] = "<font title='Trigger word-" + persontag.ToUpper() + "' style='color:" + personColor + "'>" + diacLineWords[loc];
+                                                        diacLineWords[loc2] += "</font>";
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                    var personTagId = 1;
+                                                    var person = Tags.GetTag(personTagId);
+                                                    var persontag = person.Tag;
+                                                    var personColor = person.Color;
+                                                    diacLineWords[loc + 2] = "<font title='Trigger word-" + persontag.ToUpper() + "' style='color:" + personColor + "'>" + diacLineWords[loc + 2];
+                                                    diacLineWords[loc + 4] += "</font>";
+                                                }
+                                            }
+                                            else
+                                            {
+
+
                                                 var personTagId = 1;
                                                 var person = Tags.GetTag(personTagId);
                                                 var persontag = person.Tag;
@@ -3016,18 +3244,10 @@ namespace NER.BL
                                                 diacLineWords[loc + 2] = "<font title='Trigger word-" + persontag.ToUpper() + "' style='color:" + personColor + "'>" + diacLineWords[loc + 2];
                                                 diacLineWords[loc + 4 - 1] += "</font>";
                                             }
-
-                                            else
-                                            {
-                                                var personTagId = 1;
-                                                var person = Tags.GetTag(personTagId);
-                                                var persontag = person.Tag;
-                                                var personColor = person.Color;
-                                                diacLineWords[loc + 2] = "<font title='Trigger word-" + persontag.ToUpper() + "' style='color:" + personColor + "'>" + diacLineWords[loc + 2];
-                                                diacLineWords[loc + 3] += "</font>";
-
-                                            }
+                                       
                                         }
+
+
                                         else
                                         {
                                             var personTagId = 1;
@@ -3050,16 +3270,16 @@ namespace NER.BL
                                     }
 
                                 }
-                                else if (words.Count > 1 && (words[1].pos == "noun_prop" || words[1].pos == "" || words[1].pos == "noun" || words[1].pos == "adj" || words[1].pos == "adj_num" || words[1].pos == "noun_num"))
+                                else if (words.Count > 1 && (words[1].pos == "noun_prop" || ((words[1].pos == "" && words[1].word != "font") && words[1].word != "font") || words[1].pos == "noun" || words[1].pos == "adj" || words[1].pos == "adj_num" || words[1].pos == "noun_num") && (words[1].prc1 != "bi_prep" && words[1].prc2!="wa_conj"))
                                 {
-                                    if (words.Count > 2 && (words[2].pos == "noun_prop" || words[2].pos == "" || words[2].pos == "adj_num" || words[2].pos == "noun_num"))
+                                    if (words.Count > 2 && (words[2].pos == "noun_prop" || (words[2].pos == "" && words[2].word != "font") || words[2].pos == "adj_num" || words[2].pos == "noun_num") && (words[2].prc1 != "bi_prep" && words[2].prc2 != "wa_conj"))
                                     {
                                         diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                         diacLineWords[loc + 1 - 1] += "</font>";
 
-                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "" || words[3].pos == "adj_num" || words[3].pos == "noun_num"))
+                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || (words[3].pos == "" && words[3].word != "font") || words[3].pos == "adj_num" || words[3].pos == "noun_num") && (words[3].prc1 != "bi_prep"))
                                         {
-                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "" || words[4].pos == "adj_num" || words[4].pos == "noun_num"))
+                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || (words[4].pos == "" && words[4].word != "font") || words[4].pos == "adj_num" || words[4].pos == "noun_num") && (words[3].prc1 != "bi_prep"))
                                             {
                                                 var personTagId = 1;
                                                 var person = Tags.GetTag(personTagId);
@@ -3092,7 +3312,7 @@ namespace NER.BL
                                     }
                                     else if (words.Count > 2 && (words[2].lemma.Contains("يّ_1") || words[2].lemma.Contains("يّ_2") || words[2].lemma.Contains("يّ_3")))
                                     {
-                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == ""))
+                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || (words[3].pos == "" && words[3].word != "font")) && (words[3].prc1 != "bi_prep"))
                                         {
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 2 - 1] += "</font>";
@@ -3103,7 +3323,7 @@ namespace NER.BL
                                             diacLineWords[loc + 2] = "<font title='Trigger word-" + Nationaltag.ToUpper() + "' style='color:" + NationalColor + "'>" + diacLineWords[loc + 2];
                                             diacLineWords[loc + 2] += "</font>";
 
-                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "" || words[4].pos == "adj_num" || words[4].pos == "noun_num"))
+                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || (words[4].pos == "" && words[4].word != "font") || words[4].pos == "adj_num" || words[4].pos == "noun_num") && (words[4].prc1 != "bi_prep"))
                                             {
 
                                                 var personTagId = 1;
@@ -3142,15 +3362,15 @@ namespace NER.BL
                                 || words[0].lemma == "فَقِيه_1"
                                 || words[0].lemma == "مُفَسِّر_1"
                                 || words[0].lemma == "عَلّام_1"
-                                || words[0].lemma == "شَرِيف_2"
-                                || words[0].lemma == "أَمِير_1"
-                                || words[0].lemma == "سُلْطان_1"
-                                || words[0].lemma == "حاجّ_2"
-                                || words[0].lemma == "عالَم_1"
+                                //|| words[0].lemma == "شَرِيف_2"
+                                //|| words[0].lemma == "أَمِير_1"
+                                //|| words[0].lemma == "سُلْطان_1"
+                                //|| words[0].lemma == "حاجّ_2"
+                                //|| words[0].lemma == "عالَم_1"
                                 || words[0].lemma == "برُوفِسُور_1"
                                 || words[0].lemma == "ناقَد_1"
                                 || words[0].lemma == "نَبِيّ_1"
-                                || words[0].lemma == "فارِس_1"
+                                //|| words[0].lemma == "فارِس_1"
                                 || words[0].lemma == "جِنِرال_1"
                                 || words[0].lemma == "قائِد_1"
                                 || words[0].lemma == "كُولُونِيل_1"
@@ -3159,7 +3379,7 @@ namespace NER.BL
                                 || words[0].lemma == "سائِق_1"
                                 || words[0].lemma == "عَقِيد_1"
                                 || words[0].lemma == "خُدَيْوِيّ_1"
-                                || words[0].lemma == "أَفَنْدِيّ_1"
+                                //|| words[0].lemma == "أَفَنْدِيّ_1"
                                 || words[0].lemma == "مُوسِيقار_1"
                                 || words[0].lemma == "خَبِير_1"
                                 || words[0].lemma == "مُؤَلَّف_2"
@@ -3196,10 +3416,11 @@ namespace NER.BL
                                 || words[0].lemma == "عاهِل_1"
                                 || words[0].lemma == "مُعَلَّق_1"
                                 || (words[0].lemma == "صُحُفِيّ_1" && words[0].gloss != "journalistic;press;newspaper")
-                                || words[0].lemma == "عَدّاء_1"
-                                || words[0].lemma == "حارِس_1"
-                                || words[0].lemma == "خَلِيفَة_2"
-                                || words[0].lemma == "أُسْتاذ_1"))
+                                //|| words[0].lemma == "عَدّاء_1"
+                                //|| words[0].lemma == "حارِس_1"
+                                //|| words[0].lemma == "خَلِيفَة_2"
+                                //|| words[0].lemma == "أُسْتاذ_1" || words[0].lemma == "سَيِّد_1"
+                                            ))
                                         {
                                             if (words.Count > 2 && words[2].pos != "noun_prop")
                                             {
@@ -3208,16 +3429,16 @@ namespace NER.BL
                                                 var Jobstag = Jobs.Tag;
                                                 var JobsColor = Jobs.Color;
 
-                                                if (words.Count > 2 && (words[2].pos == "noun" && words[2].prc0 == "Al_det"))
+                                                if (words.Count > 2 && (words[2].pos == "noun" && words[2].prc0 == "Al_det") && (words[2].prc1 != "bi_prep"))
                                                 {
-                                                    if (words.Count > 3 && (words[3].pos == "adj" && words[3].prc0 == "Al_det"))
+                                                    if (words.Count > 3 && (words[3].pos == "adj" && words[3].prc0 == "Al_det") && (words[3].prc1 != "bi_prep"))
                                                     {
 
                                                         diacLineWords[loc] = "<font title='Trigger word-" + Jobstag.ToUpper() + "' style='color:" + JobsColor + "'>" + diacLineWords[loc];
                                                         diacLineWords[loc + 4 - 1] += "</font>";
 
                                                     }
-                                                    else if (words.Count > 3 && (words[3].pos == "noun" && words[3].prc0 == "Al_det" && words[3].prc2 == "wa_conj"))
+                                                    else if (words.Count > 3 && (words[3].pos == "noun" && words[3].prc0 == "Al_det" && words[3].prc2 == "wa_conj") )
                                                     {
                                                         if (words.Count > 4 && (words[4].pos == "noun" && words[4].prc0 == "Al_det" && words[4].prc2 == "wa_conj"))
                                                         {
@@ -3251,18 +3472,34 @@ namespace NER.BL
                                         }
 
                                     }
-                                    else if (words.Count > 1 && (words[1].pos == "noun_prop" || words[1].pos == ""))
+                                    else if (words.Count > 1 && (words[1].pos == "noun_prop" || ((words[1].pos == "" && words[1].word != "font") && words[1].word != "font")))
                                     {
-                                        diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
-                                        diacLineWords[loc + 1 - 1] += "</font>";
-                                        var personTagId = 1;
-                                        var person = Tags.GetTag(personTagId);
-                                        var persontag = person.Tag;
-                                        var personColor = person.Color;
-                                        diacLineWords[loc + 1] = "<font title='Trigger word-" + persontag.ToUpper() + "' style='color:" + personColor + "'>" + diacLineWords[loc + 1];
-                                        diacLineWords[loc + 1] += "</font>";
+                                        if ((words.Count > 1 && (words[1].pos == "noun_prop" && words[1].lemma == "ٱِبْن_2")))
+                                        {
+                                            diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                            diacLineWords[loc + 1 - 1] += "</font>";
+                                            var personTagId = 1;
+                                            var person = Tags.GetTag(personTagId);
+                                            var persontag = person.Tag;
+                                            var personColor = person.Color;
+                                            diacLineWords[loc + 1] = "<font title='Trigger word-" + persontag.ToUpper() + "' style='color:" + personColor + "'>" + diacLineWords[loc + 1];
+                                            diacLineWords[loc + 2] += "</font>";
+
+                                        }
+                                        else
+                                        {
+
+                                            diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                            diacLineWords[loc + 1 - 1] += "</font>";
+                                            var personTagId = 1;
+                                            var person = Tags.GetTag(personTagId);
+                                            var persontag = person.Tag;
+                                            var personColor = person.Color;
+                                            diacLineWords[loc + 1] = "<font title='Trigger word-" + persontag.ToUpper() + "' style='color:" + personColor + "'>" + diacLineWords[loc + 1];
+                                            diacLineWords[loc + 1] += "</font>";
+                                        }
                                     }
-                                    else if (words.Count > 2 && (words[2].pos == "noun_prop" || words[2].pos == ""))
+                                    else if (words.Count > 2 && (words[2].pos == "noun_prop" || (words[2].pos == "" && words[2].word != "font")))
                                     {
                                         diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                         diacLineWords[loc + 1 - 1] += "</font>";
@@ -3292,15 +3529,15 @@ namespace NER.BL
                                 || words[0].lemma == "فَقِيه_1"
                                 || words[0].lemma == "مُفَسِّر_1"
                                 || words[0].lemma == "عَلّام_1"
-                                || words[0].lemma == "شَرِيف_2"
-                                || words[0].lemma == "أَمِير_1"
-                                || words[0].lemma == "سُلْطان_1"
-                                || words[0].lemma == "حاجّ_2"
-                                || words[0].lemma == "عالَم_1"
-                                || words[0].lemma == "برُوفِسُور_1"
-                                || words[0].lemma == "ناقَد_1"
-                                || words[0].lemma == "نَبِيّ_1"
-                                || words[0].lemma == "فارِس_1"
+                                //|| words[0].lemma == "شَرِيف_2"
+                                //|| words[0].lemma == "أَمِير_1"
+                                //|| words[0].lemma == "سُلْطان_1"
+                                //|| words[0].lemma == "حاجّ_2"
+                                //|| words[0].lemma == "عالَم_1"
+                                //|| words[0].lemma == "برُوفِسُور_1"
+                                //|| words[0].lemma == "ناقَد_1"
+                                //|| words[0].lemma == "نَبِيّ_1"
+                                //|| words[0].lemma == "فارِس_1"
                                 || words[0].lemma == "جِنِرال_1"
                                 || words[0].lemma == "قائِد_1"
                                 || words[0].lemma == "كُولُونِيل_1"
@@ -3325,7 +3562,7 @@ namespace NER.BL
                                 || words[0].lemma == "مُطْرِب_1"
                                 || words[0].lemma == "شاعِر_1"
                                 || words[0].lemma == "لَيّ_1"
-                                || words[0].lemma == "فَرِيد_1"
+                                
                                 || words[0].lemma == "وَزِير_1"
                                 || words[0].lemma == "سِناتُور_1"
                                 || words[0].lemma == "مَمْلُوك_2"
@@ -3334,7 +3571,7 @@ namespace NER.BL
                                 || words[0].lemma == "شَهِيد_1"
                                 || words[0].lemma == "خَطِيب_1"
                                 || words[0].lemma == "مُدَرِّب_1"
-                                || words[0].lemma == "مُفَكِّر_1"
+                                //|| words[0].lemma == "مُفَكِّر_1"
                                 || words[0].lemma == "أَدِيب_2"
                                 || words[0].lemma == "داعِي_3"
                                 || words[0].lemma == "حافِظ_2"
@@ -3349,7 +3586,7 @@ namespace NER.BL
                                 || words[0].lemma == "عَدّاء_1"
                                 || words[0].lemma == "حارِس_1"
                                 || words[0].lemma == "خَلِيفَة_2"
-                                || words[0].lemma == "أُسْتاذ_1"
+                                
 ))
                                     {
                                         if (words.Count > 2 && words[2].pos != "noun_prop")
@@ -3387,15 +3624,15 @@ namespace NER.BL
 
                                                 else
                                                 {
-                                                    diacLineWords[loc] = "<font title='Trigger word-" + Jobstag.ToUpper() + "' style='color:" + JobsColor + "'>" + diacLineWords[loc];
-                                                    diacLineWords[loc + 3 - 1] += "</font>";
+                                                    //diacLineWords[loc] = "<font title='Trigger word-" + Jobstag.ToUpper() + "' style='color:" + JobsColor + "'>" + diacLineWords[loc];
+                                                    //diacLineWords[loc + 3 - 1] += "</font>";
                                                 }
 
 
 
                                             }
-                                            diacLineWords[loc] = "<font title='Trigger word-" + Jobstag.ToUpper() + "' style='color:" + JobsColor + "'>" + diacLineWords[loc];
-                                            diacLineWords[loc + 1] += "</font>";
+                                            //diacLineWords[loc] = "<font title='Trigger word-" + Jobstag.ToUpper() + "' style='color:" + JobsColor + "'>" + diacLineWords[loc];
+                                            //diacLineWords[loc + 1] += "</font>";
                                         }
                                         else
                                         { }
@@ -3421,11 +3658,8 @@ namespace NER.BL
 
 
 
-                                || words[1].lemma == "عالَم_1"
-                                || words[1].lemma == "برُوفِسُور_1"
-                                || words[1].lemma == "ناقَد_1"
-                                || words[1].lemma == "نَبِيّ_1"
-                                || words[1].lemma == "فارِس_1"
+                                
+                                
                                 || words[1].lemma == "جِنِرال_1"
 
                                 || words[1].lemma == "كُولُونِيل_1"
@@ -3474,7 +3708,7 @@ namespace NER.BL
                                 || words[1].lemma == "عَدّاء_1"
                                 || words[1].lemma == "حارِس_1"
                                     || words[1].lemma == "خَلِيفَة_2"
-                                    || words[1].lemma == "أُسْتاذ_1"))
+                                    || words[1].lemma == "أُسْتاذ_1" || words[1].lemma == "سَيِّد_1"))
                                 {
                                     if (words.Count > 2 && words[2].pos != "noun_prop")
                                     {
@@ -3525,6 +3759,16 @@ namespace NER.BL
                                     { }
 
                                 }
+                                else if  ((words.Count > 1 && (words[1].pos == "noun_prop" && words[1].lemma=="ٱِبْن_2")))
+                                {
+                                                var personTagId = 1;
+                                                var person = Tags.GetTag(personTagId);
+                                                var persontag = person.Tag;
+                                                var personColor = person.Color;
+                                                diacLineWords[loc +1] = "<font title='Trigger word-" + persontag.ToUpper() + "' style='color:" + personColor + "'>" + diacLineWords[loc + 1];
+                                                diacLineWords[loc + 2] += "</font>";
+                                
+                                }
 
                             }
 
@@ -3565,12 +3809,12 @@ namespace NER.BL
                         {
                             if (words.Count > 1 && (words[1].pos == "noun_prop" || words[1].lemma == "عَلَى_1"))
                             {
-                                if (words.Count > 2 && (words[2].pos == "" || words[2].pos == "noun_prop" || words[2].pos == "abbrev" || (words[2].pos == "adj" && words[2].prc0 == "Al_det")))
+                                if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font") || words[2].pos == "noun_prop" || words[2].pos == "abbrev" || (words[2].pos == "adj" && words[2].prc0 == "Al_det")))
                                 {
 
-                                    if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "" || words[3].pos == "abbrev"))
+                                    if (words.Count > 3 && (words[3].pos == "noun_prop" || (words[3].pos == "" && words[3].word != "font") || words[3].pos == "abbrev"))
                                     {
-                                        if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "" || words[4].prc1 == "li_prep"))
+                                        if (words.Count > 4 && (words[4].pos == "noun_prop" || (words[4].pos == "" && words[4].word != "font") || words[4].prc1 == "li_prep"))
                                         {
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 5 - 1] += "</font>";
@@ -3613,13 +3857,13 @@ namespace NER.BL
                                 else { }
                             }
 
-                            else if (words.Count > 1 && (words[1].pos == "" || words[1].lemma == "عَلَى_1"))
+                            else if (words.Count > 1 && (((words[1].pos == "" && words[1].word != "font") && words[1].word != "font") || words[1].lemma == "عَلَى_1"))
                             {
-                                if (words.Count > 2 && (words[2].pos == "" || words[2].pos == "noun_prop"))
+                                if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font") || words[2].pos == "noun_prop"))
                                 {
-                                    if (words.Count > 3 && (words[3].pos == "" || words[3].pos == "noun_prop"))
+                                    if (words.Count > 3 && ((words[3].pos == "" && words[3].word != "font") || words[3].pos == "noun_prop"))
                                     {
-                                        if (words.Count > 4 && (words[4].pos == ""))
+                                        if (words.Count > 4 && ((words[4].pos == "" && words[4].word != "font")))
                                         {
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 5 - 1] += "</font>";
@@ -3746,10 +3990,29 @@ namespace NER.BL
                             }
                             else if (words.Count > 1 && (words[1].pos == "adj" || words[1].lemma == "عَلَى_1"))
                             {
-                                if (words.Count > 2 && (words[2].pos == "noun" && words[2].prc1 == "li_prep" && words[2].prc0 == "Al_det"))
+                                if (words.Count > 2 && (words[2].pos == "noun" && words[2].prc1 == "li_prep" ))
                                 {
+                                    if (words.Count > 3 && (words[3].pos == "noun" && words[3].prc0 == "Al_det"))
+                                    {
+
+                                        if (words.Count > 4 && (words[4].pos == "adj" && words[4].prc0 == "Al_det"))
+                                        {
+
+                                            diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                            diacLineWords[loc +  5- 1] += "</font>";
+                                        }
+                                        else
+                                        {
+                                            diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                            diacLineWords[loc + 4 - 1] += "</font>";
+                                        }
+                                    }
+                                    else
+                                    {
+
                                     diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
-                                    diacLineWords[loc + 2 - 1] += "</font>";
+                                    diacLineWords[loc + 3 - 1] += "</font>";
+                                    }
                                 }
 
 
@@ -3775,15 +4038,15 @@ namespace NER.BL
                         {
                             if (words.Count >= 2)
                             {
-                                if (words.Count > 1 && (words[1].pos == "" || words[1].pos == "noun_prop"))
+                                if (words.Count > 1 && ((words[1].pos == "" && words[1].word != "font") || words[1].pos == "noun_prop"))
                                 {
                                     if (words.Count > 2)
                                     {
-                                        if (words.Count > 2 && (words[2].pos == "" || words[2].pos == "noun_prop" || words[2].pos == "noun"))
+                                        if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font") || words[2].pos == "noun_prop" || words[2].pos == "noun"))
                                         {
                                             if (words.Count > 3)
                                             {
-                                                if (words.Count > 3 && (words[3].pos == "" || words[3].pos == "noun_prop" || words[3].pos == "noun"))
+                                                if (words.Count > 3 && ((words[3].pos == "" && words[3].word != "font") || words[3].pos == "noun_prop" || words[3].pos == "noun"))
                                                 {
                                                     diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                                     diacLineWords[loc + 4 - 1] += "</font>";
@@ -3806,15 +4069,15 @@ namespace NER.BL
                                 {
                                     if (words.Count > 2)
                                     {
-                                        if (words.Count > 2 && (words[2].pos == "" || words[2].pos == "noun_prop" || words[2].pos == "noun"))
+                                        if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font") || words[2].pos == "noun_prop" || words[2].pos == "noun"))
                                         {
                                             if (words.Count > 3)
                                             {
-                                                if (words.Count > 3 && (words[3].pos == "" || words[3].pos == "noun_prop"))
+                                                if (words.Count > 3 && ((words[3].pos == "" && words[3].word != "font") || words[3].pos == "noun_prop"))
                                                 {
                                                     if (words.Count > 4)
                                                     {
-                                                        if (words.Count > 4 && (words[4].pos == "" || words[3].pos == "noun_prop"))
+                                                        if (words.Count > 4 && ((words[4].pos == "" && words[4].word != "font") || words[3].pos == "noun_prop"))
                                                         {
                                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                                             diacLineWords[loc + 5 - 1] += "</font>";
@@ -3856,15 +4119,15 @@ namespace NER.BL
 
                             if (words.Count >= 2)
                             {
-                                if (words.Count > 1 && (words[1].pos == "" || words[1].pos == "noun_prop"))
+                                if (words.Count > 1 && ((words[1].pos == "" && words[1].word != "font") || words[1].pos == "noun_prop"))
                                 {
                                     if (words.Count >= 3)
                                     {
-                                        if (words.Count > 2 && (words[2].pos == "" || words[2].pos == "noun_prop" || words[2].pos == "noun"))
+                                        if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font") || words[2].pos == "noun_prop" || words[2].pos == "noun"))
                                         {
                                             if (words.Count >= 4)
                                             {
-                                                if (words.Count > 3 && (words[3].pos == "" || words[3].pos == "noun_prop" || words[3].pos == "noun"))
+                                                if (words.Count > 3 && ((words[3].pos == "" && words[3].word != "font") || words[3].pos == "noun_prop" || words[3].pos == "noun"))
                                                 {
                                                     diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                                     diacLineWords[loc + 4 - 1] += "</font>";
@@ -3888,15 +4151,15 @@ namespace NER.BL
                                 {
                                     if (words.Count >= 3)
                                     {
-                                        if (words.Count > 2 && (words[2].pos == "" || words[2].pos == "noun_prop" || words[2].pos == "noun"))
+                                        if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font") || words[2].pos == "noun_prop" || words[2].pos == "noun"))
                                         {
                                             if (words.Count >= 4)
                                             {
-                                                if (words.Count > 3 && (words[3].pos == "" || words[3].pos == "noun_prop"))
+                                                if (words.Count > 3 && ((words[3].pos == "" && words[3].word != "font") || words[3].pos == "noun_prop"))
                                                 {
                                                     if (words.Count > 4)
                                                     {
-                                                        if (words.Count > 4 && (words[4].pos == "" || words[3].pos == "noun_prop"))
+                                                        if (words.Count > 4 && ((words[4].pos == "" && words[4].word != "font") || words[3].pos == "noun_prop"))
                                                         {
                                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                                             diacLineWords[loc + 5 - 1] += "</font>";
@@ -3930,11 +4193,11 @@ namespace NER.BL
                                             {
                                                 if (words.Count >= 4)
                                                 {
-                                                    if (words.Count > 3 && (words[3].pos == "" || words[3].pos == "noun_prop"))
+                                                    if (words.Count > 3 && ((words[3].pos == "" && words[3].word != "font") || words[3].pos == "noun_prop"))
                                                     {
                                                         if (words.Count > 4)
                                                         {
-                                                            if (words.Count > 4 && (words[4].pos == "" || words[3].pos == "noun_prop"))
+                                                            if (words.Count > 4 && ((words[4].pos == "" && words[4].word != "font") || words[3].pos == "noun_prop"))
                                                             {
                                                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                                                 diacLineWords[loc + 5 - 1] += "</font>";
@@ -3976,15 +4239,15 @@ namespace NER.BL
 
                             if (words.Count >= 2)
                             {
-                                if (words.Count > 1 && (words[1].pos == "" || words[1].pos == "noun_prop"))
+                                if (words.Count > 1 && ((words[1].pos == "" && words[1].word != "font") || words[1].pos == "noun_prop"))
                                 {
                                     if (words.Count >= 3)
                                     {
-                                        if (words.Count > 2 && (words[2].pos == "" || words[2].pos == "noun_prop" || words[2].pos == "noun"))
+                                        if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font") || words[2].pos == "noun_prop" || words[2].pos == "noun"))
                                         {
                                             if (words.Count >= 4)
                                             {
-                                                if (words.Count > 3 && (words[3].pos == "" || words[3].pos == "noun_prop" || words[3].pos == "noun"))
+                                                if (words.Count > 3 && ((words[3].pos == "" && words[3].word != "font") || words[3].pos == "noun_prop" || words[3].pos == "noun"))
                                                 {
                                                     diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                                     diacLineWords[loc + 4 - 1] += "</font>";
@@ -4007,15 +4270,15 @@ namespace NER.BL
                                 {
                                     if (words.Count >= 3)
                                     {
-                                        if (words.Count > 2 && (words[2].pos == "" || words[2].pos == "noun_prop" || words[2].pos == "noun"))
+                                        if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font") || words[2].pos == "noun_prop" || words[2].pos == "noun"))
                                         {
                                             if (words.Count >= 4)
                                             {
-                                                if (words.Count > 3 && (words[3].pos == "" || words[3].pos == "noun_prop"))
+                                                if (words.Count > 3 && ((words[3].pos == "" && words[3].word != "font") || words[3].pos == "noun_prop"))
                                                 {
                                                     if (words.Count > 4)
                                                     {
-                                                        if (words.Count > 4 && (words[4].pos == "" || words[3].pos == "noun_prop"))
+                                                        if (words.Count > 4 && ((words[4].pos == "" && words[4].word != "font") || words[3].pos == "noun_prop"))
                                                         {
                                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                                             diacLineWords[loc + 5 - 1] += "</font>";
@@ -4056,11 +4319,11 @@ namespace NER.BL
                     {
                         if (words.Count > 0 && (words[0].gloss == "eat;consume" || words[0].gloss == "drink"))
                         {
-                            if (words.Count > 1 && (words[1].pos == "" || words[1].pos == "noun_prop" || words[1].pos == "noun"))
+                            if (words.Count > 1 && ((words[1].pos == "" && words[1].word != "font") || words[1].pos == "noun_prop" || words[1].pos == "noun"))
                             {
-                                if (words.Count > 2 && (words[2].pos == "" || words[2].pos == "noun_prop" || words[2].pos == "noun"))
+                                if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font") || words[2].pos == "noun_prop" || words[2].pos == "noun"))
                                 {
-                                    if (words.Count > 3 && (words[3].pos == "" || words[3].pos == "noun_prop" || words[3].pos == "noun"))
+                                    if (words.Count > 3 && ((words[3].pos == "" && words[3].word != "font") || words[3].pos == "noun_prop" || words[3].pos == "noun"))
                                     {
                                         diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                         diacLineWords[loc + 4 - 1] += "</font>";
@@ -4091,7 +4354,7 @@ namespace NER.BL
                     else if (triggerWordTag == "ners".ToUpper())
                     {
 
-                        if (words.Count > 0 && ((words[0].gloss == "study" || words[0].gloss == "sciences" || words[0].gloss == "substance;material" || words[0].gloss == "methods;approaches;programs;curricula" || words[0].gloss == "area;field;arena;context;opportunity" || words[0].gloss == "world" || words[0].gloss == "studying;checking;examining" || words[0].gloss == "science" || words[0].gloss == "be_known;be_found_out" || words[0].gloss == "know;find_out") && words[0].enc0 != "3fs_poss"))
+                        if (words.Count > 0 && ((words[0].gloss == "study" || words[0].gloss == "sciences" || words[0].gloss == "substance;material" || words[0].gloss == "methods;approaches;programs;curricula" || words[0].gloss == "area;field;arena;context;opportunity" || (words[0].gloss == "world" && words[0].num != "d" && words[0].num != "p") || words[0].gloss == "studying;checking;examining" || words[0].gloss == "science" || words[0].gloss == "be_known;be_found_out" || words[0].gloss == "know;find_out") && words[0].enc0 != "3fs_poss"))
                         {
                             if (words.Count > 1 && (words[1].bw == ":/PUNC"))
                             {
@@ -4176,7 +4439,7 @@ namespace NER.BL
                                 }
 
                             }
-                            else if (words.Count > 1 && (words[1].pos == "noun"))
+                            else if (words.Count > 1 && (words[1].pos == "noun" && words[1].prc2 != "wa_conj" && words[1].prc1 != "li_prep"))
                             {
                                 if (words.Count >= 3)
                                 {
@@ -4349,15 +4612,15 @@ namespace NER.BL
                                 {
                                     if (words.Count >= 3)
                                     {
-                                        if (words.Count > 2 && (words[2].pos == "" || words[2].pos == "noun_prop" || words[2].pos == "abbrev"))
+                                        if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font") || words[2].pos == "noun_prop" || words[2].pos == "abbrev"))
                                         {
                                             if (words.Count >= 4)
                                             {
-                                                if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "" || words[3].pos == "abbrev"))
+                                                if (words.Count > 3 && (words[3].pos == "noun_prop" || (words[3].pos == "" && words[3].word != "font") || words[3].pos == "abbrev"))
                                                 {
                                                     if (words.Count > 4)
                                                     {
-                                                        if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == ""))
+                                                        if (words.Count > 4 && (words[4].pos == "noun_prop" || (words[4].pos == "" && words[4].word != "font")))
                                                         {
                                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                                             diacLineWords[loc + 5 - 1] += "</font>";
@@ -4393,19 +4656,19 @@ namespace NER.BL
                                     }
                                 }
 
-                                else if (words.Count > 1 && (words[1].pos == ""))
+                                else if (words.Count > 1 && ((words[1].pos == "" && words[1].word != "font")))
                                 {
                                     if (words.Count >= 3)
                                     {
-                                        if (words.Count > 2 && (words[2].pos == "" || words[2].pos == "adj"))
+                                        if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font") || words[2].pos == "adj"))
                                         {
                                             if (words.Count >= 4)
                                             {
-                                                if (words.Count > 3 && (words[3].pos == ""))
+                                                if (words.Count > 3 && ((words[3].pos == "" && words[3].word != "font")))
                                                 {
                                                     if (words.Count > 4)
                                                     {
-                                                        if (words.Count > 4 && (words[4].pos == ""))
+                                                        if (words.Count > 4 && ((words[4].pos == "" && words[4].word != "font")))
                                                         {
                                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                                             diacLineWords[loc + 5 - 1] += "</font>";
@@ -4444,11 +4707,11 @@ namespace NER.BL
                         {
                             if (words.Count >= 2)
                             {
-                                if (words.Count > 1 && (words[1].pos == "" || words[1].pos == "noun_prop"))
+                                if (words.Count > 1 && ((words[1].pos == "" && words[1].word != "font") || words[1].pos == "noun_prop"))
                                 {
-                                    if (words.Count > 2 && (words[2].pos == "" || words[2].pos == "noun_prop" || words[2].pos == "noun"))
+                                    if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font") || words[2].pos == "noun_prop" || words[2].pos == "noun"))
                                     {
-                                        if (words.Count > 3 && (words[3].pos == "" || words[3].pos == "noun_prop" || words[3].pos == "noun"))
+                                        if (words.Count > 3 && ((words[3].pos == "" && words[3].word != "font") || words[3].pos == "noun_prop" || words[3].pos == "noun"))
                                         {
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 4 - 1] += "</font>";
@@ -4509,11 +4772,11 @@ namespace NER.BL
                             {
                                 if (words.Count > 1 && (words[1].pos == "punc"))
                                 {
-                                    if (words.Count > 2 && (words[2].pos == "noun_prop" || words[2].pos == "noun" || words[2].pos == "" || words[2].pos == "conj" || words[2].pos == "prep" || words[2].pos == "digit"))
+                                    if (words.Count > 2 && (words[2].pos == "noun_prop" || words[2].pos == "noun" || (words[2].pos == "" && words[2].word != "font") || words[2].pos == "conj" || words[2].pos == "prep" || words[2].pos == "digit"))
                                     {
-                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "noun" || words[3].pos == "" || words[3].pos == "conj" || words[3].pos == "prep" || words[3].pos == "digit"))
+                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "noun" || (words[3].pos == "" && words[3].word != "font") || words[3].pos == "conj" || words[3].pos == "prep" || words[3].pos == "digit"))
                                         {
-                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || words[4].pos == "" || words[4].pos == "digit"))
+                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || (words[4].pos == "" && words[4].word != "font") || words[4].pos == "digit"))
                                             {
 
                                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
@@ -4566,13 +4829,13 @@ namespace NER.BL
 
                                 }
 
-                                else if (words.Count > 1 && (words[1].pos == "noun_prop" || words[1].pos == "noun" || words[1].pos == "" || words[1].pos == "conj" || words[1].pos == "prep" || words[1].pos == "digit"))
+                                else if (words.Count > 1 && (words[1].pos == "noun_prop" || words[1].pos == "noun" || (words[1].pos == "" && words[1].word != "font") || words[1].pos == "conj" || words[1].pos == "prep" || words[1].pos == "digit"))
                                 {
-                                    if (words.Count > 2 && (words[2].pos == "noun_prop" || words[2].pos == "noun" || words[2].pos == "" || words[2].pos == "conj" || words[2].pos == "prep" || words[2].pos == "digit"))
+                                    if (words.Count > 2 && (words[2].pos == "noun_prop" || words[2].pos == "noun" || (words[2].pos == "" && words[2].word != "font") || words[2].pos == "conj" || words[2].pos == "prep" || words[2].pos == "digit"))
                                     {
-                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "noun" || words[3].pos == "" || words[3].pos == "conj" || words[3].pos == "prep" || words[3].pos == "digit"))
+                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "noun" || (words[3].pos == "" && words[3].word != "font") || words[3].pos == "conj" || words[3].pos == "prep" || words[3].pos == "digit"))
                                         {
-                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || words[4].pos == "" || words[4].pos == "digit"))
+                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || (words[4].pos == "" && words[4].word != "font") || words[4].pos == "digit"))
                                             {
 
                                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
@@ -4618,9 +4881,9 @@ namespace NER.BL
                                 {
                                     if (words.Count > 2 && (words[2].pos == "punc"))
                                     {
-                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "noun" || words[3].pos == "" || words[3].pos == "conj" || words[3].pos == "prep" || words[3].pos == "digit"))
+                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "noun" || (words[3].pos == "" && words[3].word != "font") || words[3].pos == "conj" || words[3].pos == "prep" || words[3].pos == "digit"))
                                         {
-                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || words[4].pos == "" || words[4].pos == "digit"))
+                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || (words[4].pos == "" && words[4].word != "font") || words[4].pos == "digit"))
                                             {
 
                                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
@@ -4657,9 +4920,9 @@ namespace NER.BL
                                     }
                                     else if (words.Count > 2 && (words[2].pos == "noun" && words[2].gloss == "address" && words[2].prc1 == "bi_prep"))
                                     {
-                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "noun" || words[3].pos == "" || words[3].pos == "conj" || words[3].pos == "prep" || words[3].pos == "digit"))
+                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "noun" || (words[3].pos == "" && words[3].word != "font") || words[3].pos == "conj" || words[3].pos == "prep" || words[3].pos == "digit"))
                                         {
-                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || words[4].pos == "" || words[4].pos == "digit"))
+                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || (words[4].pos == "" && words[4].word != "font") || words[4].pos == "digit"))
                                             {
 
                                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
@@ -4683,7 +4946,7 @@ namespace NER.BL
                                         else if (words.Count > 3 && (words[3].pos == "punc"))
                                         {
 
-                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || words[4].pos == "" || words[4].pos == "conj" || words[4].pos == "prep" || words[4].pos == "digit"))
+                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || (words[4].pos == "" && words[4].word != "font") || words[4].pos == "conj" || words[4].pos == "prep" || words[4].pos == "digit"))
                                             {
 
                                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
@@ -4715,9 +4978,9 @@ namespace NER.BL
                                     }
                                     else if (words.Count > 2 && (words[2].gloss == "like;such_as"))
                                     {
-                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "noun" || words[3].pos == "" || words[3].pos == "conj" || words[3].pos == "prep" || words[3].pos == "digit"))
+                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "noun" || (words[3].pos == "" && words[3].word != "font") || words[3].pos == "conj" || words[3].pos == "prep" || words[3].pos == "digit"))
                                         {
-                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || words[4].pos == "" || words[4].pos == "digit"))
+                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || (words[4].pos == "" && words[4].word != "font") || words[4].pos == "digit"))
                                             {
 
                                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
@@ -4741,7 +5004,7 @@ namespace NER.BL
                                         else if (words.Count > 3 && (words[3].pos == "punc"))
                                         {
 
-                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || words[4].pos == "" || words[4].pos == "conj" || words[4].pos == "prep" || words[4].pos == "digit"))
+                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || (words[4].pos == "" && words[4].word != "font") || words[4].pos == "conj" || words[4].pos == "prep" || words[4].pos == "digit"))
                                             {
 
                                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
@@ -4816,11 +5079,11 @@ namespace NER.BL
 
                                 if (words.Count > 1 && (words[1].pos == "punc"))
                                 {
-                                    if (words.Count > 2 && (words[2].pos == "noun_prop" || words[2].pos == "noun" || words[2].pos == "" || words[2].pos == "conj" || words[2].pos == "prep" || words[2].pos == "digit"))
+                                    if (words.Count > 2 && (words[2].pos == "noun_prop" || words[2].pos == "noun" || (words[2].pos == "" && words[2].word != "font") || words[2].pos == "conj" || words[2].pos == "prep" || words[2].pos == "digit"))
                                     {
-                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "noun" || words[3].pos == "" || words[3].pos == "conj" || words[3].pos == "prep" || words[3].pos == "digit" || words[3].pos == "adj"))
+                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "noun" || (words[3].pos == "" && words[3].word != "font") || words[3].pos == "conj" || words[3].pos == "prep" || words[3].pos == "digit" || words[3].pos == "adj"))
                                         {
-                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || words[4].pos == "" || words[4].pos == "digit" || words[4].pos == "adj"))
+                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || (words[4].pos == "" && words[4].word != "font") || words[4].pos == "digit" || words[4].pos == "adj"))
                                             {
 
                                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
@@ -4873,13 +5136,13 @@ namespace NER.BL
 
                                 }
 
-                                else if (words.Count > 1 && (words[1].pos == "noun_prop" || words[1].pos == "noun" || words[1].pos == "" || words[1].pos == "conj" || words[1].pos == "prep" || words[1].pos == "digit"))
+                                else if (words.Count > 1 && (words[1].pos == "noun_prop" || words[1].pos == "noun" || (words[1].pos == "" && words[1].word != "font") || words[1].pos == "conj" || words[1].pos == "prep" || words[1].pos == "digit"))
                                 {
-                                    if (words.Count > 2 && (words[2].pos == "noun_prop" || words[2].pos == "noun" || words[2].pos == "" || words[2].pos == "conj" || words[2].pos == "prep" || words[2].pos == "digit" || words[2].pos == "adj"))
+                                    if (words.Count > 2 && (words[2].pos == "noun_prop" || words[2].pos == "noun" || (words[2].pos == "" && words[2].word != "font") || words[2].pos == "conj" || words[2].pos == "prep" || words[2].pos == "digit" || words[2].pos == "adj"))
                                     {
-                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "noun" || words[3].pos == "" || words[3].pos == "conj" || words[3].pos == "prep" || words[3].pos == "digit" || words[3].pos == "adj"))
+                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "noun" || (words[3].pos == "" && words[3].word != "font") || words[3].pos == "conj" || words[3].pos == "prep" || words[3].pos == "digit" || words[3].pos == "adj"))
                                         {
-                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || words[4].pos == "" || words[4].pos == "digit" || words[4].pos == "adj"))
+                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || (words[4].pos == "" && words[4].word != "font") || words[4].pos == "digit" || words[4].pos == "adj"))
                                             {
 
                                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
@@ -4925,9 +5188,9 @@ namespace NER.BL
                                 {
                                     if (words.Count > 2 && (words[2].pos == "punc"))
                                     {
-                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "noun" || words[3].pos == "" || words[3].pos == "conj" || words[3].pos == "prep" || words[3].pos == "digit"))
+                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "noun" || (words[3].pos == "" && words[3].word != "font") || words[3].pos == "conj" || words[3].pos == "prep" || words[3].pos == "digit"))
                                         {
-                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || words[4].pos == "" || words[4].pos == "digit" || words[4].pos == "adj"))
+                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || (words[4].pos == "" && words[4].word != "font") || words[4].pos == "digit" || words[4].pos == "adj"))
                                             {
 
                                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
@@ -4964,9 +5227,9 @@ namespace NER.BL
                                     }
                                     else if (words.Count > 2 && (words[2].pos == "noun" && words[2].gloss == "address" && words[2].prc1 == "bi_prep"))
                                     {
-                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "noun" || words[3].pos == "" || words[3].pos == "conj" || words[3].pos == "prep" || words[3].pos == "digit"))
+                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "noun" || (words[3].pos == "" && words[3].word != "font") || words[3].pos == "conj" || words[3].pos == "prep" || words[3].pos == "digit"))
                                         {
-                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || words[4].pos == "" || words[4].pos == "digit" || words[4].pos == "adj"))
+                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || (words[4].pos == "" && words[4].word != "font") || words[4].pos == "digit" || words[4].pos == "adj"))
                                             {
 
                                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
@@ -4990,7 +5253,7 @@ namespace NER.BL
                                         else if (words.Count > 3 && (words[3].pos == "punc"))
                                         {
 
-                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || words[4].pos == "" || words[4].pos == "conj" || words[4].pos == "prep" || words[4].pos == "digit" || words[4].pos == "adj"))
+                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || (words[4].pos == "" && words[4].word != "font") || words[4].pos == "conj" || words[4].pos == "prep" || words[4].pos == "digit" || words[4].pos == "adj"))
                                             {
 
                                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
@@ -5030,9 +5293,9 @@ namespace NER.BL
                                     }
                                     else if (words.Count > 2 && (words[2].gloss == "like;such_as"))
                                     {
-                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "noun" || words[3].pos == "" || words[3].pos == "conj" || words[3].pos == "prep" || words[3].pos == "digit"))
+                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "noun" || (words[3].pos == "" && words[3].word != "font") || words[3].pos == "conj" || words[3].pos == "prep" || words[3].pos == "digit"))
                                         {
-                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || words[4].pos == "" || words[4].pos == "digit" || words[4].pos == "adj"))
+                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || (words[4].pos == "" && words[4].word != "font") || words[4].pos == "digit" || words[4].pos == "adj"))
                                             {
 
                                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
@@ -5056,7 +5319,7 @@ namespace NER.BL
                                         else if (words.Count > 3 && (words[3].pos == "punc"))
                                         {
 
-                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || words[4].pos == "" || words[4].pos == "conj" || words[4].pos == "prep" || words[4].pos == "digit" || words[4].pos == "adj"))
+                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || (words[4].pos == "" && words[4].word != "font") || words[4].pos == "conj" || words[4].pos == "prep" || words[4].pos == "digit" || words[4].pos == "adj"))
                                             {
 
                                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
@@ -5132,19 +5395,26 @@ namespace NER.BL
                     {
                         if (words.Count > 0 && (words[0].lemma == "كِتاب_1" || words[0].lemma == "تَأْلِيف_1" || words[0].lemma == "قُرْآن_1" || words[0].lemma == "كَتَب-ُ_1" || words[0].lemma == "قَصِيدَة_1" || words[0].lemma == "تَفْسِير_1" || words[0].lemma == "مُعْجَم_1" || words[0].lemma == "مَصْدَر_1" || words[0].lemma == "أَلْف_1" || words[0].lemma == "مَرْجِع_2" || words[0].lemma == "مُجَلَّد_1" || words[0].lemma == "" || words[0].lemma == "شِعْر_1" || words[0].lemma == "دِيوان_1" || words[0].lemma == "أَصْدَر_1" || words[0].lemma == "مُؤَلِّف_1" || words[0].gloss == "pierce;examine" || words[0].gloss == "read" || words[0].lemma == "ناظِم_1" || words[0].lemma == "أَصْل_1" || words[0].lemma == "مُؤَلِّف_1" || words[0].lemma == "رِسالَة_1" || words[0].lemma == "إِلِياذَة_1" || words[0].lemma == "مُجَلَّد_1" || words[0].lemma == "قِصَّة_1" || words[0].lemma == "تَرْجَم_1" || words[0].lemma == "مَوْسُوعَة_1" || words[0].lemma == "رَجْم_1"))
                         {
-                            if (words.Count == 5)
-                            {
+                            
                                 if (words.Count > 1 && (words[1].pos == "punc"))
                                 {
-                                    if (words.Count > 2 && (words[2].pos == "noun_prop" || words[2].pos == "noun" || words[2].pos == "" || words[2].pos == "conj" || words[2].pos == "prep" || words[2].pos == "digit"))
+                                    if (words.Count > 2 && (words[2].pos == "noun_prop" || words[2].pos == "noun" || (words[2].pos == "" && words[2].word != "font") || words[2].pos == "conj" || words[2].pos == "prep" || words[2].pos == "digit"))
                                     {
-                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "noun" || words[3].pos == "" || words[3].pos == "conj" || words[3].pos == "prep" || words[3].pos == "digit" || words[3].pos == "adj"))
+                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "noun" || (words[3].pos == "" && words[3].word != "font") || words[3].pos == "conj" || words[3].pos == "prep" || words[3].pos == "digit" || words[3].pos == "adj"))
                                         {
-                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || words[4].pos == "" || words[4].pos == "digit" || words[4].pos == "adj"))
+                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || (words[4].pos == "" && words[4].word != "font") || words[4].pos == "digit" || words[4].pos == "adj"))
                                             {
-
-                                                diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
-                                                diacLineWords[loc + 5 - 1] += "</font>";
+                                                if (words[5].pos == "punc")
+                                                {
+                                                    diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                    diacLineWords[loc + 4 - 1] += "</font>";
+                                                }
+                                                else
+                                                {
+                                                    diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                    diacLineWords[loc + 5 - 1] += "</font>";
+                                                }
+                                               
 
                                             }
                                             else
@@ -5193,13 +5463,13 @@ namespace NER.BL
 
                                 }
 
-                                else if (words.Count > 1 && ((words[1].pos == "noun_prop" || (words[1].pos == "noun" && words[1].enc0 != "3ms_poss") || words[1].pos == "" || words[1].pos == "conj" || words[1].pos == "prep" || words[1].pos == "digit") && words[1].prc2 != "wa_conj"))
+                                else if (words.Count > 1 && ((words[1].pos == "noun_prop" || (words[1].pos == "noun" && words[1].enc0 != "3ms_poss") || (words[1].pos == "" && words[1].word != "font") || words[1].pos == "conj" || words[1].pos == "prep" || words[1].pos == "digit") && words[1].prc2 != "wa_conj") && words[0].per != "3")
                                 {
-                                    if (words.Count > 2 && (words[2].pos == "noun_prop" || words[2].pos == "noun" || (words[2].pos == "" && words[1].pos != "") || words[2].pos == "conj" || words[2].pos == "prep" || words[2].pos == "digit" || words[2].pos == "adj"))
+                                    if (words.Count > 2 && (words[2].pos == "noun_prop" || words[2].pos == "noun" || ((words[2].pos == "" && words[2].word != "font") && words[1].pos != "") || words[2].pos == "conj" || words[2].pos == "prep" || words[2].pos == "digit" || words[2].pos == "adj") )
                                     {
-                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "noun" || (words[3].pos == "" && words[2].pos != "") || words[3].pos == "conj" || words[3].pos == "prep" || words[3].pos == "digit" || words[3].pos == "adj"))
+                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "noun" || ((words[3].pos == "" && words[3].word != "font") && words[2].pos != "") || words[3].pos == "conj" || words[3].pos == "prep" || words[3].pos == "digit" || words[3].pos == "adj"))
                                         {
-                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || (words[4].pos == "" && words[3].pos != "") || words[4].pos == "digit" || words[4].pos == "adj"))
+                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || ((words[4].pos == "" && words[4].word != "font") && words[3].pos != "") || words[4].pos == "digit" || words[4].pos == "adj"))
                                             {
 
                                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
@@ -5243,9 +5513,15 @@ namespace NER.BL
                                                     diacLineWords[loc] = "<font title='Trigger word-" + Booktag.ToUpper() + "' style='color:" + BookColor + "'>" + diacLineWords[loc];
                                                     diacLineWords[loc + 1 - 1] += "</font>";
                                                 }
-
                                             }
-                                        }
+                                            else
+                                            {
+                                                diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                diacLineWords[loc + 3 - 1] += "</font>";
+                                            }
+                                                
+                                            }
+                                           
 
                                     }
                                     else if (words[0].prc0 != "Al_det" && words[1].prc0 != "Al_det")
@@ -5256,11 +5532,11 @@ namespace NER.BL
                                 }
                                 else if (words.Count > 1 && (words[1].pos == "adj"))
                                 {
-                                    if (words.Count > 2 && (words[2].pos == "punc"))
+                                    if (words.Count > 2 && (words[2].pos == "punc" || words[2].pos == "noun_prop" || words[2].pos == "noun" || (words[2].pos == "" && words[2].word != "font") || words[2].pos == "conj" || words[2].pos == "prep" || words[2].pos == "digit"))
                                     {
-                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "noun" || words[3].pos == "" || words[3].pos == "conj" || words[3].pos == "prep" || words[3].pos == "digit"))
+                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "noun" || (words[3].pos == "" && words[3].word != "font") || words[3].pos == "conj" || words[3].pos == "prep" || words[3].pos == "digit"))
                                         {
-                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || words[4].pos == "" || words[4].pos == "digit" || words[4].pos == "adj"))
+                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || (words[4].pos == "" && words[4].word != "font") || words[4].pos == "digit" || words[4].pos == "adj"))
                                             {
 
                                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
@@ -5297,9 +5573,9 @@ namespace NER.BL
                                     }
                                     else if (words.Count > 2 && (words[2].pos == "noun" && words[2].gloss == "address" && words[2].prc1 == "bi_prep"))
                                     {
-                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "noun" || words[3].pos == "" || words[3].pos == "conj" || words[3].pos == "prep" || words[3].pos == "digit"))
+                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "noun" || (words[3].pos == "" && words[3].word != "font") || words[3].pos == "conj" || words[3].pos == "prep" || words[3].pos == "digit"))
                                         {
-                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || words[4].pos == "" || words[4].pos == "digit" || words[4].pos == "adj"))
+                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || (words[4].pos == "" && words[4].word != "font") || words[4].pos == "digit" || words[4].pos == "adj"))
                                             {
 
                                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
@@ -5323,7 +5599,7 @@ namespace NER.BL
                                         else if (words.Count > 3 && (words[3].pos == "punc"))
                                         {
 
-                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || words[4].pos == "" || words[4].pos == "conj" || words[4].pos == "prep" || words[4].pos == "digit" || words[4].pos == "adj"))
+                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || (words[4].pos == "" && words[4].word != "font") || words[4].pos == "conj" || words[4].pos == "prep" || words[4].pos == "digit" || words[4].pos == "adj"))
                                             {
 
                                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
@@ -5363,9 +5639,9 @@ namespace NER.BL
                                     }
                                     else if (words.Count > 2 && (words[2].gloss == "like;such_as"))
                                     {
-                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "noun" || words[3].pos == "" || words[3].pos == "conj" || words[3].pos == "prep" || words[3].pos == "digit"))
+                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "noun" || (words[3].pos == "" && words[3].word != "font") || words[3].pos == "conj" || words[3].pos == "prep" || words[3].pos == "digit"))
                                         {
-                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || words[4].pos == "" || words[4].pos == "digit" || words[4].pos == "adj"))
+                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || (words[4].pos == "" && words[4].word != "font") || words[4].pos == "digit" || words[4].pos == "adj"))
                                             {
 
                                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
@@ -5389,7 +5665,7 @@ namespace NER.BL
                                         else if (words.Count > 3 && (words[3].pos == "punc"))
                                         {
 
-                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || words[4].pos == "" || words[4].pos == "conj" || words[4].pos == "prep" || words[4].pos == "digit" || words[4].pos == "adj"))
+                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "noun" || (words[4].pos == "" && words[4].word != "font") || words[4].pos == "conj" || words[4].pos == "prep" || words[4].pos == "digit" || words[4].pos == "adj"))
                                             {
 
                                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
@@ -5439,7 +5715,7 @@ namespace NER.BL
                                     }
                                     else
                                     { }
-                                }
+                                
                             }
                         }
                     }
@@ -5452,21 +5728,21 @@ namespace NER.BL
                     #region NewsPaper
                     else if (triggerWordTag == "nerpn".ToUpper())
                     {
-                        if (words.Count > 0 && (words[0].lemma == "شَهْرِيّ_1" || words[0].lemma == "صَحِيفَة_1" || words[0].lemma == "نَشْرَة_1" || words[0].lemma == "جُورْنال_1"))
+                        if (words.Count > 0 && (words[0].lemma == "شَهْرِيّ_1" || words[0].lemma == "صَحِيفَة_1" || words[0].lemma == "نَشْرَة_1" || words[0].lemma == "جُورْنال_1" || words[0].lemma == "جَرِيدَة_1"))
                         {
                             #region noun Before
                             if (words.Count > 0 && (words[0].pos == "noun" || words[0].pos == "noun_prop"))
                             {
-                                if (words.Count > 1 && (words[1].pos == "" || words[1].pos == "part_det" || words[1].pos == "noun" || words[1].pos == "adj" || words[1].pos == "noun_prop"))
+                                if (words.Count > 1 && ((words[1].pos == "" && words[1].word != "font") || words[1].pos == "part_det" || words[1].pos == "noun" || words[1].pos == "adj" || words[1].pos == "noun_prop"))
                                 {
 
                                     if (words.Count > 1 && (words[1].pos == "adj"))
                                     {
-                                        if (words.Count > 2 && (words[2].pos == "adj" || words[2].pos == "part_det" || words[2].pos == "noun" || words[2].pos == "" || words[2].pos == "noun_prop"))
+                                        if (words.Count > 2 && (words[2].pos == "adj" || words[2].pos == "part_det" || words[2].pos == "noun" || (words[2].pos == "" && words[2].word != "font") || words[2].pos == "noun_prop"))
                                         {
-                                            if (words.Count > 3 && (words[3].pos == "adj" || words[3].pos == "part_det" || words[3].pos == "noun" || words[3].pos == "" || words[3].pos == "noun_prop"))
+                                            if (words.Count > 3 && (words[3].pos == "adj" || words[3].pos == "part_det" || words[3].pos == "noun" || (words[3].pos == "" && words[3].word != "font") || words[3].pos == "noun_prop"))
                                             {
-                                                if (words.Count > 4 && (words[4].pos == "adj" || words[4].pos == "part_det" || words[4].pos == "noun" || words[4].pos == "" || words[4].pos == "noun_prop"))
+                                                if (words.Count > 4 && (words[4].pos == "adj" || words[4].pos == "part_det" || words[4].pos == "noun" || (words[4].pos == "" && words[4].word != "font") || words[4].pos == "noun_prop"))
                                                 {
                                                     diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                                     diacLineWords[loc + 5 - 1] += "</font>";
@@ -5492,11 +5768,11 @@ namespace NER.BL
                                     }
                                     else
                                     {
-                                        if (words.Count > 2 && (words[2].pos == "adj" || words[2].pos == "part_det" || words[2].pos == "noun_prop" || words[2].pos == "" || words[2].pos == "noun"))
+                                        if (words.Count > 2 && (words[2].pos == "adj" || words[2].pos == "part_det" || words[2].pos == "noun_prop" || (words[2].pos == "" && words[2].word != "font") || words[2].pos == "noun"))
                                         {
-                                            if (words.Count > 3 && (words[3].pos == "adj" || words[3].pos == "part_det" || words[3].pos == "noun_prop" || words[3].pos == "" || words[3].pos == "noun"))
+                                            if (words.Count > 3 && (words[3].pos == "adj" || words[3].pos == "part_det" || words[3].pos == "noun_prop" || (words[3].pos == "" && words[3].word != "font") || words[3].pos == "noun"))
                                             {
-                                                if (words.Count > 4 && (words[4].pos == "adj" || words[4].pos == "part_det" || words[4].pos == "noun_prop" || words[4].pos == "" || words[4].pos == "noun"))
+                                                if (words.Count > 4 && (words[4].pos == "adj" || words[4].pos == "part_det" || words[4].pos == "noun_prop" || (words[4].pos == "" && words[4].word != "font") || words[4].pos == "noun"))
                                                 {
                                                     diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                                     diacLineWords[loc + 5 - 1] += "</font>";
@@ -5521,13 +5797,13 @@ namespace NER.BL
                                         }
                                     }
                                 }
-                                else if (words.Count > 1 && (words[1].pos == "noun_prop" || words[1].pos == ""))
+                                else if (words.Count > 1 && (words[1].pos == "noun_prop" || (words[1].pos == "" && words[1].word != "font")))
                                 {
-                                    if (words.Count > 2 && (words[2].pos == "noun_prop" || words[2].pos == "" || words[2].pos == "adj" || words[2].pos == "part_det"))
+                                    if (words.Count > 2 && (words[2].pos == "noun_prop" || (words[2].pos == "" && words[2].word != "font") || words[2].pos == "adj" || words[2].pos == "part_det"))
                                     {
-                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "" || words[3].pos == "adj" || words[3].pos == "part_det"))
+                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || (words[3].pos == "" && words[3].word != "font") || words[3].pos == "adj" || words[3].pos == "part_det"))
                                         {
-                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "" || words[4].pos == "adj" || words[4].pos == "part_det"))
+                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || (words[4].pos == "" && words[4].word != "font") || words[4].pos == "adj" || words[4].pos == "part_det"))
                                             {
                                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                                 diacLineWords[loc + 5 - 1] += "</font>";
@@ -5560,7 +5836,7 @@ namespace NER.BL
                                         if (words.Count > 3 && (words[3].pos == "punc"))
                                         {
 
-                                            if (words.Count > 4 && (words[4].pos == "adj" || words[4].pos == "noun_prop" || words[4].pos == ""))
+                                            if (words.Count > 4 && (words[4].pos == "adj" || words[4].pos == "noun_prop" || (words[4].pos == "" && words[4].word != "font")))
                                             {
                                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                                 diacLineWords[loc + 5 - 1] += "</font>";
@@ -5581,7 +5857,7 @@ namespace NER.BL
 
 
                                         }
-                                        else if (words.Count > 4 && (words[4].pos == "adj" || words[4].pos == "noun_prop" || words[4].pos == ""))
+                                        else if (words.Count > 4 && (words[4].pos == "adj" || words[4].pos == "noun_prop" || (words[4].pos == "" && words[4].word != "font")))
                                         {
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 5 - 1] += "</font>";
@@ -5623,16 +5899,16 @@ namespace NER.BL
                         {
                             if (words.Count > 0 && (words[0].pos == "noun" || words[0].pos == "noun_prop"))
                             {
-                                if (words.Count > 1 && (words[1].pos == "" || words[1].pos == "part_det" || words[1].pos == "noun" || words[1].pos == "adj" || words[1].pos == "noun_prop"))
+                                if (words.Count > 1 && ((words[1].pos == "" && words[1].word != "font") || words[1].pos == "part_det" || words[1].pos == "noun" || words[1].pos == "adj" || words[1].pos == "noun_prop"))
                                 {
 
                                     if (words.Count > 1 && (words[1].pos == "adj"))
                                     {
-                                        if (words.Count > 2 && (words[2].pos == "adj" || words[2].pos == "part_det" || words[2].pos == "noun" || words[2].pos == "" || words[2].pos == "noun_prop"))
+                                        if (words.Count > 2 && (words[2].pos == "adj" || words[2].pos == "part_det" || words[2].pos == "noun" || (words[2].pos == "" && words[2].word != "font") || words[2].pos == "noun_prop"))
                                         {
-                                            if (words.Count > 3 && (words[3].pos == "adj" || words[3].pos == "part_det" || words[3].pos == "noun" || words[3].pos == "" || words[3].pos == "noun_prop"))
+                                            if (words.Count > 3 && (words[3].pos == "adj" || words[3].pos == "part_det" || words[3].pos == "noun" || (words[3].pos == "" && words[3].word != "font") || words[3].pos == "noun_prop"))
                                             {
-                                                if (words.Count > 4 && (words[4].pos == "adj" || words[4].pos == "part_det" || words[4].pos == "noun" || words[4].pos == "" || words[4].pos == "noun_prop"))
+                                                if (words.Count > 4 && (words[4].pos == "adj" || words[4].pos == "part_det" || words[4].pos == "noun" || (words[4].pos == "" && words[4].word != "font") || words[4].pos == "noun_prop"))
                                                 {
                                                     diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                                     diacLineWords[loc + 5 - 1] += "</font>";
@@ -5658,11 +5934,11 @@ namespace NER.BL
                                     }
                                     else
                                     {
-                                        if (words.Count > 2 && (words[2].pos == "adj" || words[2].pos == "part_det" || words[2].pos == "noun_prop" || words[2].pos == "" || words[2].pos == "noun"))
+                                        if (words.Count > 2 && (words[2].pos == "adj" || words[2].pos == "part_det" || words[2].pos == "noun_prop" || (words[2].pos == "" && words[2].word != "font") || words[2].pos == "noun"))
                                         {
-                                            if (words.Count > 3 && (words[3].pos == "adj" || words[3].pos == "part_det" || words[3].pos == "noun_prop" || words[3].pos == "" || words[3].pos == "noun"))
+                                            if (words.Count > 3 && (words[3].pos == "adj" || words[3].pos == "part_det" || words[3].pos == "noun_prop" || (words[3].pos == "" && words[3].word != "font") || words[3].pos == "noun"))
                                             {
-                                                if (words.Count > 4 && (words[4].pos == "adj" || words[4].pos == "part_det" || words[4].pos == "noun_prop" || words[4].pos == "" || words[4].pos == "noun"))
+                                                if (words.Count > 4 && (words[4].pos == "adj" || words[4].pos == "part_det" || words[4].pos == "noun_prop" || (words[4].pos == "" && words[4].word != "font") || words[4].pos == "noun"))
                                                 {
                                                     diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                                     diacLineWords[loc + 5 - 1] += "</font>";
@@ -5687,13 +5963,13 @@ namespace NER.BL
                                         }
                                     }
                                 }
-                                else if (words.Count > 1 && (words[1].pos == "noun_prop" || words[1].pos == ""))
+                                else if (words.Count > 1 && (words[1].pos == "noun_prop" || (words[1].pos == "" && words[1].word != "font")))
                                 {
-                                    if (words.Count > 2 && (words[2].pos == "noun_prop" || words[2].pos == "" || words[2].pos == "adj" || words[2].pos == "part_det"))
+                                    if (words.Count > 2 && (words[2].pos == "noun_prop" || (words[2].pos == "" && words[2].word != "font") || words[2].pos == "adj" || words[2].pos == "part_det"))
                                     {
-                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "" || words[3].pos == "adj" || words[3].pos == "part_det"))
+                                        if (words.Count > 3 && (words[3].pos == "noun_prop" || (words[3].pos == "" && words[3].word != "font") || words[3].pos == "adj" || words[3].pos == "part_det"))
                                         {
-                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "" || words[4].pos == "adj" || words[4].pos == "part_det"))
+                                            if (words.Count > 4 && (words[4].pos == "noun_prop" || (words[4].pos == "" && words[4].word != "font") || words[4].pos == "adj" || words[4].pos == "part_det"))
                                             {
                                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                                 diacLineWords[loc + 5 - 1] += "</font>";
@@ -5726,7 +6002,7 @@ namespace NER.BL
                                         if (words.Count > 3 && (words[3].pos == "punc"))
                                         {
 
-                                            if (words.Count > 4 && (words[4].pos == "adj" || words[4].pos == "noun_prop" || words[4].pos == ""))
+                                            if (words.Count > 4 && (words[4].pos == "adj" || words[4].pos == "noun_prop" || (words[4].pos == "" && words[4].word != "font")))
                                             {
                                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                                 diacLineWords[loc + 5 - 1] += "</font>";
@@ -5747,7 +6023,7 @@ namespace NER.BL
 
 
                                         }
-                                        else if (words.Count > 4 && (words[4].pos == "adj" || words[4].pos == "noun_prop" || words[4].pos == ""))
+                                        else if (words.Count > 4 && (words[4].pos == "adj" || words[4].pos == "noun_prop" || (words[4].pos == "" && words[4].word != "font")))
                                         {
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 5 - 1] += "</font>";
@@ -5758,15 +6034,16 @@ namespace NER.BL
 
                                         else
                                         {
-                                            diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
-                                            diacLineWords[loc + 4 - 1] += "</font>";
+                                            
+                                            //diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                            //diacLineWords[loc + 3 - 1] += "</font>";
                                         }
 
                                     }
                                     else
                                     {
                                         diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
-                                        diacLineWords[loc + 3 - 1] += "</font>";
+                                        diacLineWords[loc + 2 - 1] += "</font>";
                                     }
 
 
@@ -5929,10 +6206,10 @@ namespace NER.BL
                                     else
                                     {
                                         diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
-                                        diacLineWords[loc + 1 - 1] += "</font>";
+                                        diacLineWords[loc + 2 - 1] += "</font>";
                                     }
                                 }
-                                else if (words.Count > 0 && (words[0].lemma == "إِسْلام_1" || words[0].lemma == "صُوفِيّ_3" || words[0].lemma == "صُوفِيّ_3" || words[0].lemma == "صُوفِيّ_1" || words[0].lemma == "كاثُولِيكِيّ_1" || words[0].lemma == "شِيعَة_1" || words[0].gloss == "enactment;prescription"))
+                                else if (words.Count > 0 && (words[0].lemma == "إِسْلام_1" || words[0].lemma == "صُوفِيّ_3" || words[0].lemma == "صُوفِيّ_3" || words[0].lemma == "صُوفِيّ_1" || words[0].lemma == "كاثُولِيكِيّ_1" || words[0].lemma == "شِيعَة_1" || words[0].gloss == "enactment;prescription" || words[0].lemma == "قُرْآن_1"))
                                 {
                                     diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                     diacLineWords[loc + 1 - 1] += "</font>";
@@ -5963,7 +6240,7 @@ namespace NER.BL
                         {
                             if (words.Count >= 2)
                             {
-                                if (words.Count > 1 && (words[1].pos == ""))
+                                if (words.Count > 1 && ((words[1].pos == "" && words[1].word != "font")))
                                 {
                                     diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                     diacLineWords[loc + 2 - 1] += "</font>";
@@ -5974,7 +6251,7 @@ namespace NER.BL
                                     diacLineWords[loc + 2 - 1] += "</font>";
                                 }
 
-                                else if (words.Count > 1 && (words[1].pos == "noun_prop" && words[2].pos == ""))
+                                else if (words.Count > 1 && (words[1].pos == "noun_prop" && (words[2].pos == "" && words[2].word != "font")))
                                 {
                                     if (words.Count >= 3)
                                     {
@@ -6063,9 +6340,9 @@ namespace NER.BL
                     {
                         if (words.Count > 0 && (words[0].gloss == "thought;thinking" || words[0].gloss == "theoretical;speculative" || words[0].gloss == "method;procedure" || words[0].gloss == "theory"))
                         {
-                            if (words.Count > 1 && (words[1].pos == "adj" || words[1].pos == "noun" || words[1].pos == "prop_noun" || words[1].pos == ""))
+                            if (words.Count > 1 && (words[1].pos == "adj" || words[1].pos == "noun" || words[1].pos == "prop_noun" || (words[1].pos == "" && words[1].word != "font")) && words[1].prc2 != "wa_conj")
                             {
-                                if (words.Count > 2 && (words[2].pos == "adj" || words[2].pos == "noun" || words[2].pos == "prop_noun" || words[2].pos == ""))
+                                if (words.Count > 2 && (words[2].pos == "adj" || words[2].pos == "noun" || words[2].pos == "prop_noun" || (words[2].pos == "" && words[2].word != "font")) && words[2].prc2 != "wa_conj")
                                 {
 
                                     if (words.Count > 3 && (words[3].prc0 == "Al_det" && words[3].prc1 == "li_prep" && words[3].pos == "noun" && words[2].prc0 == "Al_det" && words[1].prc0 == "Al_det"))
@@ -6086,16 +6363,18 @@ namespace NER.BL
                                 }
                                 else
                                 {
-
+                                    if (words.Count > 1 && (words[1].prc0 == "Al_det"))
+                                    {
                                     diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                     diacLineWords[loc + 2 - 1] += "</font>";
+                                    }
 
                                 }
                             }
                             else
                             {
-                                diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
-                                diacLineWords[loc + 1 - 1] += "</font>";
+                                //diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                //diacLineWords[loc + 1 - 1] += "</font>";
                             }
 
 
@@ -6120,9 +6399,9 @@ namespace NER.BL
                     {
                         if (words.Count > 0 && (words[0].gloss == "movement;activity;organization" && words[0].pos == "noun"))
                         {
-                            if (words.Count > 1 && (words[1].pos == "noun" || words[1].pos == "adj" || words[1].pos == "noun_prop" || words[1].pos == ""))
+                            if (words.Count > 1 && (words[1].pos == "noun" || words[1].pos == "adj" || words[1].pos == "noun_prop" || (words[1].pos == "" && words[1].word != "font")))
                             {
-                                if (words.Count > 2 && (words[2].pos == "noun" || words[2].pos == "adj" || words[2].pos == "noun_prop" || words[2].pos == ""))
+                                if (words.Count > 2 && (words[2].pos == "noun" || words[2].pos == "adj" || words[2].pos == "noun_prop" || (words[2].pos == "" && words[2].word != "font")))
                                 {
                                     if (words.Count > 2 && (words[2].pos == "noun" || words[2].pos == "adj"))
                                     {
@@ -6155,13 +6434,13 @@ namespace NER.BL
                             else if (words.Count > 0 && (words[0].pos == ""))
                             {
 
-                                if (words.Count > 1 && (words[1].pos == "noun" || words[1].pos == "adj" || words[1].pos == "noun_prop" || words[1].pos == ""))
+                                if (words.Count > 1 && (words[1].pos == "noun" || words[1].pos == "adj" || words[1].pos == "noun_prop" || (words[1].pos == "" && words[1].word != "font")))
                                 {
-                                    if (words.Count > 2 && (words[2].pos == "noun" || words[2].pos == "adj" || words[2].pos == "noun_prop" || words[2].pos == ""))
+                                    if (words.Count > 2 && (words[2].pos == "noun" || words[2].pos == "adj" || words[2].pos == "noun_prop" || (words[2].pos == "" && words[2].word != "font")))
                                     {
-                                        if (words.Count > 3 && (words[3].pos == "noun" || words[3].pos == "adj" || words[3].pos == "noun_prop" || words[3].pos == ""))
+                                        if (words.Count > 3 && (words[3].pos == "noun" || words[3].pos == "adj" || words[3].pos == "noun_prop" || (words[3].pos == "" && words[3].word != "font")))
                                         {
-                                            if (words.Count > 3 && (words[3].pos == "noun" || words[3].pos == "adj" || words[3].pos == "noun_prop" || words[3].pos == ""))
+                                            if (words.Count > 3 && (words[3].pos == "noun" || words[3].pos == "adj" || words[3].pos == "noun_prop" || (words[3].pos == "" && words[3].word != "font")))
                                             {
                                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                                 diacLineWords[loc + 5 - 1] += "</font>";
@@ -6191,14 +6470,14 @@ namespace NER.BL
                             }
                             else
                             {
-                                diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
-                                diacLineWords[loc + 1 - 1] += "</font>";
+                                //diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                //diacLineWords[loc + 1 - 1] += "</font>";
                             }
 
                         }
                         else
                         {
-
+                           
                         }
                     }
                     #endregion
@@ -6211,11 +6490,11 @@ namespace NER.BL
                     {
                         if (words.Count > 0 && (words[0].gloss == "law;statutes;regulations" || words[0].gloss == "constitution;statute" || words[0].gloss == "laws;regulations;rules;statutes"))
                         {
-                            if (words.Count > 1 && (words[1].pos == "adj" || words[1].pos == "noun" || words[1].pos == "noun_prop" || words[1].pos == "" || words[1].pos == "digit"))
+                            if (words.Count > 1 && (words[1].pos == "adj" || words[1].pos == "noun" || words[1].pos == "noun_prop" || (words[1].pos == "" && words[1].word != "font") || words[1].pos == "digit"))
                             {
-                                if (words.Count > 2 && (words[2].pos == "adj" || words[2].pos == "noun" || words[2].pos == "noun_prop" || words[2].pos == "" || words[2].pos == "digit"))
+                                if (words.Count > 2 && (words[2].pos == "adj" || words[2].pos == "noun" || words[2].pos == "noun_prop" || (words[2].pos == "" && words[2].word != "font") || words[2].pos == "digit"))
                                 {
-                                    if (words.Count > 3 && (words[3].pos == "adj" || words[3].pos == "noun" || words[3].pos == "noun_prop" || words[3].pos == "" || words[3].pos == "digit"))
+                                    if (words.Count > 3 && (words[3].pos == "adj" || words[3].pos == "noun" || words[3].pos == "noun_prop" || (words[3].pos == "" && words[3].word != "font") || words[3].pos == "digit"))
                                     {
                                         if (words.Count > 4 && (words[4].pos == "digit"))
                                         {
@@ -6256,7 +6535,7 @@ namespace NER.BL
                                 {
                                     if (words.Count > 3 && (words[3].pos == "noun"))
                                     {
-                                        if (words.Count > 4 && (words[4].pos == "adj" || words[4].pos == "noun" || words[4].pos == "noun_prop" || words[4].pos == "" || words[4].pos == "digit"))
+                                        if (words.Count > 4 && (words[4].pos == "adj" || words[4].pos == "noun" || words[4].pos == "noun_prop" || (words[4].pos == "" && words[4].word != "font") || words[4].pos == "digit"))
                                         {
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 5 - 1] += "</font>";
@@ -6299,11 +6578,11 @@ namespace NER.BL
                     {
                         if (words.Count > 0 && (words[0].gloss == "document;charter" || words[0].gloss == "treaty;accord" || words[0].gloss == "treaty;accord;pact" || words[0].gloss == "agreement;accord;treaty"))
                         {
-                            if (words.Count > 1 && (words[1].pos == "adj" || words[1].pos == "noun" || words[1].pos == "noun_prop" || words[1].pos == "" || words[1].pos == "digit"))
+                            if (words.Count > 1 && (words[1].pos == "adj" || words[1].pos == "noun" || words[1].pos == "noun_prop" || (words[1].pos == "" && words[1].word != "font") || words[1].pos == "digit"))
                             {
-                                if (words.Count > 2 && (words[2].pos == "adj" || words[2].pos == "noun" || words[2].pos == "noun_prop" || words[2].pos == "" || words[2].pos == "digit"))
+                                if (words.Count > 2 && (words[2].pos == "adj" || words[2].pos == "noun" || words[2].pos == "noun_prop" || (words[2].pos == "" && words[2].word != "font") || words[2].pos == "digit"))
                                 {
-                                    if (words.Count > 3 && (words[3].pos == "adj" || words[3].pos == "noun" || words[3].pos == "noun_prop" || words[3].pos == "" || words[3].pos == "digit"))
+                                    if (words.Count > 3 && (words[3].pos == "adj" || words[3].pos == "noun" || words[3].pos == "noun_prop" || (words[3].pos == "" && words[3].word != "font") || words[3].pos == "digit"))
                                     {
                                         if (words.Count > 4 && (words[4].pos == "digit"))
                                         {
@@ -6347,9 +6626,9 @@ namespace NER.BL
                         {
                             if (words.Count > 1 && (words[1].gloss == "language"))
                             {
-                                if (words.Count > 2 && (words[2].pos == "adj" || words[2].pos == ""))
+                                if (words.Count > 2 && (words[2].pos == "adj" || (words[2].pos == "" && words[2].word != "font")))
                                 {
-                                    if (words.Count > 3 && (words[3].pos == "adj" && words[3].prc2 == "wa_conj" || words[3].pos == ""))
+                                    if (words.Count > 3 && (words[3].pos == "adj" && words[3].prc2 == "wa_conj" || (words[3].pos == "" && words[3].word != "font")))
                                     {
                                         diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                         diacLineWords[loc + 4 - 1] += "</font>";
@@ -6368,11 +6647,11 @@ namespace NER.BL
                             }
                             else if (words.Count > 1 && (words[1].gloss == "languages"))
                             {
-                                if (words.Count > 2 && (words[2].pos == "adj" || words[2].pos == ""))
+                                if (words.Count > 2 && (words[2].pos == "adj" || (words[2].pos == "" && words[2].word != "font")))
                                 {
-                                    if (words.Count > 3 && (words[3].pos == "adj" && words[3].prc2 == "wa_conj" || words[3].pos == ""))
+                                    if (words.Count > 3 && (words[3].pos == "adj" && words[3].prc2 == "wa_conj" || (words[3].pos == "" && words[3].word != "font")))
                                     {
-                                        if (words.Count > 4 && (words[4].pos == "adj" && words[4].prc2 == "wa_conj" || words[4].pos == ""))
+                                        if (words.Count > 4 && (words[4].pos == "adj" && words[4].prc2 == "wa_conj" || (words[4].pos == "" && words[4].word != "font")))
                                         {
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 5 - 1] += "</font>";
@@ -6409,17 +6688,99 @@ namespace NER.BL
                         ///اللغة اللغات اللغتين
                         else if (words.Count > 0 && (words[0].gloss == "language" || words[0].gloss == "languages"))
                         {
-                            if (words.Count > 1 && (words[1].pos == "adj" || words[1].pos == ""))
+                         
+                            if (words.Count > 1 && (words[1].pos == "adj" || (words[1].pos == "" && words[1].word != "font")))
                             {
 
-                                if (words.Count > 2 && (words[2].pos == "adj" && words[2].prc2 == "wa_conj" || words[2].pos == ""))
+                                if (words.Count > 2 && (words[2].pos == "adj" && words[2].prc2 == "wa_conj" || (words[2].pos == "" && words[2].word != "font")))
                                 {
-                                    if (words.Count > 3 && (words[3].pos == "adj" && words[3].prc2 == "wa_conj" || words[3].pos == ""))
+                                    if (words.Count > 3 && (words[3].pos == "adj" && words[3].prc2 == "wa_conj" || (words[3].pos == "" && words[3].word != "font" || words[3].pos == "noun" && words[3].prc2 == "wa_conj" )))
                                     {
-                                        if (words.Count > 4 && (words[4].pos == "adj" && words[4].prc2 == "wa_conj" || words[4].pos == ""))
+                                        if (words.Count > 4 && (words[4].pos == "adj" && words[4].prc2 == "wa_conj" || (words[4].pos == "" && words[4].word != "font" || words[4].pos == "noun" && words[4].prc2 == "wa_conj")))
                                         {
-                                            diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
-                                            diacLineWords[loc + 5 - 1] += "</font>";
+                                            var loc2 = 0;
+                                            var sentence2 = string.Empty;
+                                            for (var z = locations.Count - 1; z >= 0; z--)
+                                            {
+                                                loc2 = loc + 5;
+                                                // get 5 words after that location 
+                                                var sentenceWordsCount2 = diacLineWords.Count();
+                                                var remainingWords2 = sentenceWordsCount2 - loc2;
+
+
+
+                                                if (remainingWords2 > 5)
+                                                {
+                                                    for (int Index = loc2; Index < loc2 + 5; Index++)
+                                                    {
+                                                        sentence2 += (diacLineWords[Index] + " ");
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    for (int Index = loc2; Index < sentenceWordsCount2; Index++)
+                                                    {
+                                                        sentence2 += (diacLineWords[Index] + " ");
+                                                    }
+
+                                                }
+                                            }
+
+
+
+                                            sentence2 = sentence2.Replace("<", "");
+                                            sentence2 = sentence2.Replace(">", "");
+                                            var words2 = BL.MadaMiraHandler.Analyse(sentence2);
+                                           
+
+                                             if (words2.Count > 0 && (words2[0].pos == "adj" && words2[0].prc2 == "wa_conj" || (words2[0].pos == "" && words2[0].word != "font")))
+                                        
+                                            {
+
+                                                if (words2.Count > 1 && (words2[1].pos == "adj" && words2[1].prc2 == "wa_conj" || (words2[1].pos == "" && words2[1].word != "font" || words2[1].pos == "noun" && words2[1].prc2 == "wa_conj")))
+                                                {
+
+                                                    if (words2.Count > 2 && (words2[2].pos == "adj" && words2[2].prc2 == "wa_conj" || (words2[2].pos == "" && words2[2].word != "font" || words2[2].pos == "noun" && words2[2].prc2 == "wa_conj")))
+                                                    {
+                                                        if (words2.Count > 3 && (words2[3].pos == "adj" && words2[3].prc2 == "wa_conj" || (words2[3].pos == "" && words2[3].word != "font" || words2[3].pos == "noun" && words2[3].prc2 == "wa_conj")))
+                                                        {
+                                                            if (words2.Count > 4 && (words2[4].pos == "adj" && words2[4].prc2 == "wa_conj" || (words2[4].pos == "" && words2[4].word != "font" || words2[4].pos == "noun" && words2[4].prc2 == "wa_conj")))
+                                                            {
+                                                                diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                                diacLineWords[loc2 + 5 - 1] += "</font>";
+                                                            }
+                                                            else
+                                                            {
+                                                                diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                                diacLineWords[loc2 + 4 - 1] += "</font>";
+                                                            }
+                                                        }
+
+                                                        else
+                                                        {
+                                                            diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                            diacLineWords[loc2 + 3 - 1] += "</font>";
+                                                        }
+                                                    
+                                                    }
+                                                    else
+                                                    {
+                                                        diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                        diacLineWords[loc2 + 2 - 1] += "</font>";
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                    diacLineWords[loc2 + 1 - 1] += "</font>";
+                                                }
+                                             
+                                             
+                                             }
+                                            else{
+                                                diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                            diacLineWords[loc + 5 - 1] += "</font>";}
+                                            
                                         }
                                         else
                                         {
@@ -6476,7 +6837,7 @@ namespace NER.BL
 
                                     else if (words.Count > 3 && (words[3].gloss == "language" || words[3].gloss == "languages"))
                                     {
-                                        if (words.Count > 4 && (words[4].pos == "adj" || words[4].pos == ""))
+                                        if (words.Count > 4 && (words[4].pos == "adj" || (words[4].pos == "" && words[4].word != "font")))
                                         {
 
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
@@ -6530,9 +6891,9 @@ namespace NER.BL
                                 ///الي اللغة العربية
                                 else if (words.Count > 2 && (words[2].gloss == "language" || words[2].gloss == "languages"))
                                 {
-                                    if (words.Count > 3 && (words[3].pos == "adj" && words[3].prc2 == "wa_conj" || words[3].pos == ""))
+                                    if (words.Count > 3 && (words[3].pos == "adj" && words[3].prc2 == "wa_conj" || (words[3].pos == "" && words[3].word != "font")))
                                     {
-                                        if (words.Count > 4 && (words[4].pos == "adj" && words[4].prc2 == "wa_conj" || words[4].pos == ""))
+                                        if (words.Count > 4 && (words[4].pos == "adj" && words[4].prc2 == "wa_conj" || (words[4].pos == "" && words[4].word != "font")))
                                         {
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 5 - 1] += "</font>";
@@ -6590,9 +6951,9 @@ namespace NER.BL
                                 }
                                 else if (words.Count > 2 && (words[2].gloss == "language" || words[2].gloss == "languages"))
                                 {
-                                    if (words.Count > 3 && (words[3].pos == "adj" && words[3].prc2 == "wa_conj" || words[3].pos == ""))
+                                    if (words.Count > 3 && (words[3].pos == "adj" && words[3].prc2 == "wa_conj" || (words[3].pos == "" && words[3].word != "font")))
                                     {
-                                        if (words.Count > 4 && (words[4].pos == "adj" && words[4].prc2 == "wa_conj" || words[4].pos == ""))
+                                        if (words.Count > 4 && (words[4].pos == "adj" && words[4].prc2 == "wa_conj" || (words[4].pos == "" && words[4].word != "font")))
                                         {
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 5 - 1] += "</font>";
@@ -6655,11 +7016,11 @@ namespace NER.BL
                         {
                             if (words.Count > 1 && (words[1].gloss == "language" || words[1].gloss == "languages"))
                             {
-                                if (words.Count > 2 && (words[2].pos == "adj" || words[2].pos == ""))
+                                if (words.Count > 2 && (words[2].pos == "adj" || (words[2].pos == "" && words[2].word != "font")))
                                 {
-                                    if (words.Count > 3 && (words[3].pos == "adj" && words[3].prc2 == "wa_conj" || words[3].pos == ""))
+                                    if (words.Count > 3 && (words[3].pos == "adj" && words[3].prc2 == "wa_conj" || (words[3].pos == "" && words[3].word != "font")))
                                     {
-                                        if (words.Count > 4 && (words[4].pos == "adj" && words[4].prc2 == "wa_conj" || words[4].pos == ""))
+                                        if (words.Count > 4 && (words[4].pos == "adj" && words[4].prc2 == "wa_conj" || (words[4].pos == "" && words[4].word != "font")))
                                         {
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 5 - 1] += "</font>";
@@ -6815,13 +7176,13 @@ namespace NER.BL
                                 }
                             }
 
-                            else if (words.Count > 1 && (words[1].pos == "abbrev" || words[1].pos == "" || words[1].pos == "noun_prop"))
+                            else if (words.Count > 1 && (words[1].pos == "abbrev" || (words[1].pos == "" && words[1].word != "font") || words[1].pos == "noun_prop"))
                             {
-                                if (words.Count > 2 && (words[2].pos == "abbrev" || words[2].pos == "" || words[2].pos == "noun_prop"))
+                                if (words.Count > 2 && (words[2].pos == "abbrev" || (words[2].pos == "" && words[2].word != "font") || words[2].pos == "noun_prop"))
                                 {
-                                    if (words.Count > 3 && (words[3].pos == "abbrev" || words[3].pos == "" || words[3].pos == "noun_prop"))
+                                    if (words.Count > 3 && (words[3].pos == "abbrev" || (words[3].pos == "" && words[3].word != "font") || words[3].pos == "noun_prop"))
                                     {
-                                        if (words.Count > 4 && (words[4].pos == "abbrev" || words[4].pos == "" || words[4].pos == "noun_prop"))
+                                        if (words.Count > 4 && (words[4].pos == "abbrev" || (words[4].pos == "" && words[4].word != "font") || words[4].pos == "noun_prop"))
                                         {
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 5 - 1] += "</font>";
@@ -6848,11 +7209,11 @@ namespace NER.BL
 
                             else if (words.Count > 1 && (words[1].pos == "noun" || words[1].pos == "noun_prop"))
                             {
-                                if (words.Count > 2 && (words[2].pos == "abbrev" || words[2].pos == "" || words[2].pos == "noun_prop"))
+                                if (words.Count > 2 && (words[2].pos == "abbrev" || (words[2].pos == "" && words[2].word != "font") || words[2].pos == "noun_prop"))
                                 {
-                                    if (words.Count > 3 && (words[3].pos == "abbrev" || words[3].pos == "" || words[3].pos == "noun_prop"))
+                                    if (words.Count > 3 && (words[3].pos == "abbrev" || (words[3].pos == "" && words[3].word != "font") || words[3].pos == "noun_prop"))
                                     {
-                                        if (words.Count > 4 && (words[4].pos == "abbrev" || words[4].pos == "" || words[4].pos == "noun_prop"))
+                                        if (words.Count > 4 && (words[4].pos == "abbrev" || (words[4].pos == "" && words[4].word != "font") || words[4].pos == "noun_prop"))
                                         {
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 5 - 1] += "</font>";
@@ -7021,19 +7382,19 @@ namespace NER.BL
                                         diacLineWords[loc + 2 - 1] += "</font>";
                                     }
                                 }
-                                else if (words.Count > 1 && (words[1].pos == ""))
+                                else if (words.Count > 1 && ((words[1].pos == "" && words[1].word != "font")))
                                 {
                                     if (words.Count >= 3)
                                     {
-                                        if (words.Count > 2 && (words[2].pos == ""))
+                                        if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font")))
                                         {
                                             if (words.Count >= 4)
                                             {
-                                                if (words.Count > 3 && (words[3].pos == ""))
+                                                if (words.Count > 3 && ((words[3].pos == "" && words[3].word != "font")))
                                                 {
                                                     if (words.Count > 4)
                                                     {
-                                                        if (words.Count > 4 && (words[4].pos == ""))
+                                                        if (words.Count > 4 && ((words[4].pos == "" && words[4].word != "font")))
                                                         {
                                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                                             diacLineWords[loc + 5 - 1] += "</font>";
@@ -7144,13 +7505,13 @@ namespace NER.BL
                                     diacLineWords[loc + 2 - 1] += "</font>";
                                 }
                             }
-                            else if (words.Count > 1 && (words[1].pos == ""))
+                            else if (words.Count > 1 && ((words[1].pos == "" && words[1].word != "font")))
                             {
-                                if (words.Count > 2 && (words[2].pos == "" || words[2].pos == "adj"))
+                                if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font") || words[2].pos == "adj"))
                                 {
-                                    if (words.Count > 3 && (words[3].pos == ""))
+                                    if (words.Count > 3 && ((words[3].pos == "" && words[3].word != "font")))
                                     {
-                                        if (words.Count > 4 && (words[4].pos == ""))
+                                        if (words.Count > 4 && ((words[4].pos == "" && words[4].word != "font")))
                                         {
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 5 - 1] += "</font>";
@@ -7217,13 +7578,13 @@ namespace NER.BL
                                     diacLineWords[loc + 2 - 1] += "</font>";
                                 }
                             }
-                            else if (words.Count > 1 && (words[1].pos == ""))
+                            else if (words.Count > 1 && ((words[1].pos == "" && words[1].word != "font")))
                             {
-                                if (words.Count > 2 && (words[2].pos == ""))
+                                if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font")))
                                 {
-                                    if (words.Count > 3 && (words[3].pos == ""))
+                                    if (words.Count > 3 && ((words[3].pos == "" && words[3].word != "font")))
                                     {
-                                        if (words.Count > 4 && (words[4].pos == ""))
+                                        if (words.Count > 4 && ((words[4].pos == "" && words[4].word != "font")))
                                         {
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 5 - 1] += "</font>";
@@ -7305,19 +7666,19 @@ namespace NER.BL
                                         diacLineWords[loc + 2 - 1] += "</font>";
                                     }
                                 }
-                                else if (words.Count > 1 && (words[1].pos == ""))
+                                else if (words.Count > 1 && ((words[1].pos == "" && words[1].word != "font")))
                                 {
                                     if (words.Count >= 3)
                                     {
-                                        if (words.Count > 2 && (words[2].pos == "" || words[2].pos == "adj"))
+                                        if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font") || words[2].pos == "adj"))
                                         {
                                             if (words.Count >= 4)
                                             {
-                                                if (words.Count > 3 && (words[3].pos == ""))
+                                                if (words.Count > 3 && ((words[3].pos == "" && words[3].word != "font")))
                                                 {
                                                     if (words.Count > 4)
                                                     {
-                                                        if (words.Count > 4 && (words[4].pos == ""))
+                                                        if (words.Count > 4 && ((words[4].pos == "" && words[4].word != "font")))
                                                         {
                                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                                             diacLineWords[loc + 5 - 1] += "</font>";
@@ -7351,7 +7712,7 @@ namespace NER.BL
                                     {
                                         if (words.Count >= 3)
                                         {
-                                            if (words.Count > 2 && (words[2].pos == "noun" || words[2].pos == "noun_prop" || words[2].pos == "adj" || words[2].pos == ""))
+                                            if (words.Count > 2 && (words[2].pos == "noun" || words[2].pos == "noun_prop" || words[2].pos == "adj" || (words[2].pos == "" && words[2].word != "font")))
                                             {
                                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                                 diacLineWords[loc + 3 - 1] += "</font>";
@@ -7383,11 +7744,21 @@ namespace NER.BL
                                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                                 diacLineWords[loc + 3 - 1] += "</font>";
                                             }
+                                            else
+                                            {
+                                                diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                diacLineWords[loc + 2 - 1] += "</font>";
+                                            }
+                                        }
+                                        else
+                                        {
+                                            diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                            diacLineWords[loc + 2 - 1] += "</font>";
                                         }
 
 
                                     }
-                                    else
+                                    else if (words[1].prc0 == "Al_det")
                                     {
                                         diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                         diacLineWords[loc + 2 - 1] += "</font>";
@@ -7436,13 +7807,13 @@ namespace NER.BL
                                     diacLineWords[loc + 2 - 1] += "</font>";
                                 }
                             }
-                            else if (words.Count > 1 && (words[1].pos == ""))
+                            else if (words.Count > 1 && ((words[1].pos == "" && words[1].word != "font")))
                             {
-                                if (words.Count > 2 && (words[2].pos == "" || words[2].pos == "adj" || words[2].pos == "noun_prop" || words[2].pos == "noun"))
+                                if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font") || words[2].pos == "adj" || words[2].pos == "noun_prop" || words[2].pos == "noun"))
                                 {
-                                    if (words.Count > 3 && (words[3].pos == ""))
+                                    if (words.Count > 3 && ((words[3].pos == "" && words[3].word != "font")))
                                     {
-                                        if (words.Count > 4 && (words[4].pos == ""))
+                                        if (words.Count > 4 && ((words[4].pos == "" && words[4].word != "font")))
                                         {
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 5 - 1] += "</font>";
@@ -7527,7 +7898,7 @@ namespace NER.BL
                             {
                                 if (words.Count > 2 && (words[2].pos == "abbrev"))
                                 {
-                                    if (words.Count > 3 && (words[3].pos == "abbrev" || words[3].pos == ""))
+                                    if (words.Count > 3 && (words[3].pos == "abbrev" || (words[3].pos == "" && words[3].word != "font")))
                                     {
                                         if (words.Count > 4 && (words[4].pos == "abbrev" || words[4].pos == "noun_prop"))
                                         {
@@ -7595,13 +7966,13 @@ namespace NER.BL
                                     diacLineWords[loc + 2 - 1] += "</font>";
                                 }
                             }
-                            else if (words.Count > 1 && (words[1].pos == "" || words[1].pos == "verb"))
+                            else if (words.Count > 1 && ((words[1].pos == "" && words[1].word != "font") || words[1].pos == "verb"))
                             {
-                                if (words.Count > 2 && (words[2].pos == "" || words[2].pos == "adj" || words[2].pos == "noun_prop" || words[2].pos == "noun"))
+                                if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font") || words[2].pos == "adj" || words[2].pos == "noun_prop" || words[2].pos == "noun"))
                                 {
-                                    if (words.Count > 3 && (words[3].pos == ""))
+                                    if (words.Count > 3 && ((words[3].pos == "" && words[3].word != "font")))
                                     {
-                                        if (words.Count > 4 && (words[4].pos == ""))
+                                        if (words.Count > 4 && ((words[4].pos == "" && words[4].word != "font")))
                                         {
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 5 - 1] += "</font>";
@@ -7642,7 +8013,7 @@ namespace NER.BL
                                 }
                                 else if (words.Count > 2 && (words[2].gloss == "-"))
                                 {
-                                    if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == ""))
+                                    if (words.Count > 3 && (words[3].pos == "noun_prop" || (words[3].pos == "" && words[3].word != "font")))
                                     {
                                         diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                         diacLineWords[loc + 4 - 1] += "</font>";
@@ -7659,7 +8030,7 @@ namespace NER.BL
                                     diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                     diacLineWords[loc + 3 - 1] += "</font>";
                                 }
-                                else if (words.Count > 2 && (words[2].pos == "" && words[1].prc1 == "li_prep"))
+                                else if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font") && words[1].prc1 == "li_prep"))
                                 {
                                     diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                     diacLineWords[loc + 3 - 1] += "</font>";
@@ -7723,13 +8094,13 @@ namespace NER.BL
                                     diacLineWords[loc + 2 - 1] += "</font>";
                                 }
                             }
-                            else if (words.Count > 1 && (words[1].pos == ""))
+                            else if (words.Count > 1 && ((words[1].pos == "" && words[1].word != "font")))
                             {
-                                if (words.Count > 2 && (words[2].pos == "" || words[2].pos == "adj" || words[2].pos == "noun_prop" || words[2].pos == "noun" || words[2].pos == "adj_num"))
+                                if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font") || words[2].pos == "adj" || words[2].pos == "noun_prop" || words[2].pos == "noun" || words[2].pos == "adj_num"))
                                 {
-                                    if (words.Count > 3 && (words[3].pos == "" || words[2].pos == "noun_num"))
+                                    if (words.Count > 3 && ((words[3].pos == "" && words[3].word != "font") || words[2].pos == "noun_num"))
                                     {
-                                        if (words.Count > 4 && (words[4].pos == ""))
+                                        if (words.Count > 4 && ((words[4].pos == "" && words[4].word != "font")))
                                         {
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 5 - 1] += "</font>";
@@ -7754,11 +8125,11 @@ namespace NER.BL
                             }
                             else if (words.Count > 1 && (words[1].pos == "noun"))
                             {
-                                if (words.Count > 2 && (words[2].pos == "noun_prop" || words[2].pos == ""))
+                                if (words.Count > 2 && (words[2].pos == "noun_prop" || (words[2].pos == "" && words[2].word != "font")))
                                 {
-                                    if (words.Count > 3 && (words[3].pos == "noun_prop" || words[2].pos == ""))
+                                    if (words.Count > 3 && (words[3].pos == "noun_prop" || (words[2].pos == "" && words[2].word != "font")))
                                     {
-                                        if (words.Count > 4 && (words[4].pos == "noun_prop" || words[2].pos == ""))
+                                        if (words.Count > 4 && (words[4].pos == "noun_prop" || (words[2].pos == "" && words[2].word != "font")))
                                         {
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 5 - 1] += "</font>";
@@ -7802,9 +8173,9 @@ namespace NER.BL
                         {
                             if (words.Count > 1 && (words[1].pos == "noun_prop"))
                             {
-                                if (words.Count > 2 && (words[2].pos == "noun_prop" || words[2].pos == "adj" || words[2].pos == ""))
+                                if (words.Count > 2 && (words[2].pos == "noun_prop" || words[2].pos == "adj" || (words[2].pos == "" && words[2].word != "font")))
                                 {
-                                    if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == ""))
+                                    if (words.Count > 3 && (words[3].pos == "noun_prop" || (words[3].pos == "" && words[3].word != "font")))
                                     {
                                         if (words.Count > 4 && (words[4].pos == "noun_prop"))
                                         {
@@ -7829,13 +8200,13 @@ namespace NER.BL
                                     diacLineWords[loc + 2 - 1] += "</font>";
                                 }
                             }
-                            else if (words.Count > 1 && (words[1].pos == ""))
+                            else if (words.Count > 1 && ((words[1].pos == "" && words[1].word != "font")))
                             {
-                                if (words.Count > 2 && (words[2].pos == "" || words[2].pos == "adj" || words[2].pos == "noun_prop" || words[2].pos == "noun"))
+                                if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font") || words[2].pos == "adj" || words[2].pos == "noun_prop" || words[2].pos == "noun"))
                                 {
-                                    if (words.Count > 3 && (words[3].pos == "" || words[3].pos == "adj" || words[3].pos == "noun_prop"))
+                                    if (words.Count > 3 && ((words[3].pos == "" && words[3].word != "font") || words[3].pos == "adj" || words[3].pos == "noun_prop"))
                                     {
-                                        if (words.Count > 4 && (words[4].pos == ""))
+                                        if (words.Count > 4 && ((words[4].pos == "" && words[4].word != "font")))
                                         {
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 5 - 1] += "</font>";
@@ -7865,7 +8236,7 @@ namespace NER.BL
                                     diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                     diacLineWords[loc + 3 - 1] += "</font>";
                                 }
-                                else if (words.Count > 2 && (words[2].pos == ""))
+                                else if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font")))
                                 {
                                     diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                     diacLineWords[loc + 3 - 1] += "</font>";
@@ -7891,17 +8262,18 @@ namespace NER.BL
 || words[0].lemma == "جَمْعِيَّة_1"
 || words[0].lemma == "بَنْك_1"
 || words[0].lemma == "مَكْتَب_1"
+                           || words[0].lemma == "فُنْدُق_1"
 
 )
                         {
-                            if (words.Count > 1 && (words[1].pos == "noun"))
+                            if (words.Count > 1 && (words[1].pos == "noun" && words[1].prc2 != "wa_conj"))
                             {
-                                if (words.Count > 2 && (words[2].pos == "adj" && words[2].prc0 == "Al_det" && words[1].prc0 == "Al_det"))
+                                if (words.Count > 2 && (words[2].pos == "adj" && words[2].prc0 == "Al_det" && words[1].prc0 == "Al_det" && words[2].prc2 != "wa_conj"))
                                 {
                                     diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                     diacLineWords[loc + 3 - 1] += "</font>";
                                 }
-                                else if (words.Count > 2 && (words[2].pos == "" || words[2].pos == "noun_prop"))
+                                else if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font") || words[2].pos == "noun_prop") && words[2].prc2 != "wa_conj")
                                 {
                                     diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                     diacLineWords[loc + 3 - 1] += "</font>";
@@ -7935,6 +8307,20 @@ namespace NER.BL
                                 }
 
                             }
+                            else if (words.Count > 2 && ((words[1].pos == "noun_prop") || (words[2].pos == "noun_prop")))
+                            {
+
+                                if (words.Count > 3 && ((words[3].pos == "noun_prop")))
+                                {
+                                    diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                    diacLineWords[loc + 3 - 1] += "</font>";
+                                }
+                                else
+                                {
+                                    diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                    diacLineWords[loc + 2 - 1] += "</font>";
+                                }
+                            }
                         }
                     }
                     #endregion
@@ -7947,16 +8333,16 @@ namespace NER.BL
 || words[0].lemma == "مَعْهَد_1"
 || words[0].lemma == "كُلِّيّ_1"
 || words[0].lemma == "أَكادِيمِيّ_2"
-|| words[0].lemma == "حَرَم_1" || words[0].lemma == "جامِع_1" || words[0].lemma == "كُلِّيَّة_1"
+|| words[0].lemma == "حَرَم_1" || words[0].lemma == "جامِع_1" || words[0].lemma == "كُلِّيَّة_1" || words[0].lemma == "كُلْوَة_1"
 ))
                         {
                             if (words.Count > 1 && (words[1].pos == "noun_prop"))
                             {
-                                if (words.Count > 2 && (words[2].pos == "noun_prop" || words[2].pos == "adj" || words[2].pos == "" || words[2].pos == "noun"))
+                                if (words.Count > 2 && (words[2].pos == "noun_prop" || words[2].pos == "adj" || (words[2].pos == "" && words[2].word != "font") || words[2].pos == "noun"))
                                 {
-                                    if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "" || words[3].prc1 == "li_prep" || words[3].pos == "adj"))
+                                    if (words.Count > 3 && (words[3].pos == "noun_prop" || (words[3].pos == "" && words[3].word != "font") || words[3].prc1 == "li_prep" || words[3].pos == "adj"))
                                     {
-                                        if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "" || words[4].prc1 == "li_prep" || words[4].pos == "noun"))
+                                        if (words.Count > 4 && (words[4].pos == "noun_prop" || (words[4].pos == "" && words[4].word != "font") || words[4].prc1 == "li_prep" || words[4].pos == "noun"))
                                         {
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 5 - 1] += "</font>";
@@ -7970,7 +8356,7 @@ namespace NER.BL
                                     else
                                     {
                                         diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
-                                        diacLineWords[loc + 3 - 1] += "</font>";
+                                        diacLineWords[loc + 2 - 1] += "</font>";
                                     }
                                 }
                                 else
@@ -7979,13 +8365,13 @@ namespace NER.BL
                                     diacLineWords[loc + 2 - 1] += "</font>";
                                 }
                             }
-                            else if (words.Count > 1 && (words[1].pos == ""))
+                            else if (words.Count > 1 && ((words[1].pos == "" && words[1].word != "font")))
                             {
                                 if (words.Count > 2 && (words[2].pos == "adj" || words[2].pos == "noun_prop" || words[2].prc1 == "li_prep"))
                                 {
-                                    if (words.Count > 3 && (words[3].pos == "" || words[3].pos == "adj" || words[3].pos == "noun_prop"))
+                                    if (words.Count > 3 && ((words[3].pos == "" && words[3].word != "font") || words[3].pos == "adj" || words[3].pos == "noun_prop"))
                                     {
-                                        if (words.Count > 4 && (words[4].pos == "" || words[3].pos == "noun_prop"))
+                                        if (words.Count > 4 && ((words[4].pos == "" && words[4].word != "font") || words[3].pos == "noun_prop"))
                                         {
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 5 - 1] += "</font>";
@@ -8042,9 +8428,9 @@ namespace NER.BL
                                 else if (words.Count > 2 && (words[2].pos == "noun_prop"))
                                 {
 
-                                    if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == ""))
+                                    if (words.Count > 3 && (words[3].pos == "noun_prop" || (words[3].pos == "" && words[3].word != "font")))
                                     {
-                                        if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == "" || words[4].pos == "adj_num"))
+                                        if (words.Count > 4 && (words[4].pos == "noun_prop" || (words[4].pos == "" && words[4].word != "font") || words[4].pos == "adj_num"))
                                         {
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 5 - 1] += "</font>";
@@ -8117,12 +8503,12 @@ namespace NER.BL
                         {
                             if (words.Count > 1 && (words[1].pos == "noun_prop"))
                             {
-                                if (words.Count > 2 && (words[2].pos == "" || words[2].pos == "noun_prop" || words[2].pos == "abbrev"))
+                                if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font") || words[2].pos == "noun_prop" || words[2].pos == "abbrev"))
                                 {
 
-                                    if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "" || words[3].pos == "abbrev"))
+                                    if (words.Count > 3 && (words[3].pos == "noun_prop" || (words[3].pos == "" && words[3].word != "font") || words[3].pos == "abbrev"))
                                     {
-                                        if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == ""))
+                                        if (words.Count > 4 && (words[4].pos == "noun_prop" || (words[4].pos == "" && words[4].word != "font")))
                                         {
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 5 - 1] += "</font>";
@@ -8159,13 +8545,13 @@ namespace NER.BL
                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                 diacLineWords[loc + 4 - 1] += "</font>";
                             }
-                            else if (words.Count > 1 && (words[1].pos == ""))
+                            else if (words.Count > 1 && ((words[1].pos == "" && words[1].word != "font")))
                             {
-                                if (words.Count > 2 && (words[2].pos == "" || words[2].pos == "noun_prop"))
+                                if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font") || words[2].pos == "noun_prop"))
                                 {
-                                    if (words.Count > 3 && (words[3].pos == "" || words[3].pos == "noun_prop"))
+                                    if (words.Count > 3 && ((words[3].pos == "" && words[3].word != "font") || words[3].pos == "noun_prop"))
                                     {
-                                        if (words.Count > 4 && (words[4].pos == "" || words[4].pos == "noun_prop"))
+                                        if (words.Count > 4 && ((words[4].pos == "" && words[4].word != "font") || words[4].pos == "noun_prop"))
                                         {
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 5 - 1] += "</font>";
@@ -8204,12 +8590,12 @@ namespace NER.BL
                         {
                             if (words.Count > 1 && (words[1].pos == "noun_prop"))
                             {
-                                if (words.Count > 2 && (words[2].pos == "" || words[2].pos == "noun_prop" || words[2].pos == "abbrev"))
+                                if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font") || words[2].pos == "noun_prop" || words[2].pos == "abbrev"))
                                 {
 
-                                    if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "" || words[3].pos == "abbrev" || words[3].pos == "adj"))
+                                    if (words.Count > 3 && (words[3].pos == "noun_prop" || (words[3].pos == "" && words[3].word != "font") || words[3].pos == "abbrev" || words[3].pos == "adj"))
                                     {
-                                        if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == ""))
+                                        if (words.Count > 4 && (words[4].pos == "noun_prop" || (words[4].pos == "" && words[4].word != "font")))
                                         {
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 5 - 1] += "</font>";
@@ -8246,13 +8632,13 @@ namespace NER.BL
                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                 diacLineWords[loc + 4 - 1] += "</font>";
                             }
-                            else if (words.Count > 1 && (words[1].pos == ""))
+                            else if (words.Count > 1 && ((words[1].pos == "" && words[1].word != "font")))
                             {
-                                if (words.Count > 2 && (words[2].pos == "" || words[2].pos == "noun_prop"))
+                                if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font") || words[2].pos == "noun_prop"))
                                 {
-                                    if (words.Count > 3 && (words[3].pos == "" || words[3].pos == "noun_prop"))
+                                    if (words.Count > 3 && ((words[3].pos == "" && words[3].word != "font") || words[3].pos == "noun_prop"))
                                     {
-                                        if (words.Count > 4 && (words[4].pos == "" || words[4].pos == "noun_prop"))
+                                        if (words.Count > 4 && ((words[4].pos == "" && words[4].word != "font") || words[4].pos == "noun_prop"))
                                         {
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 5 - 1] += "</font>";
@@ -8297,7 +8683,7 @@ namespace NER.BL
                         {
                             if (words.Count > 1 && (words[1].pos == "noun_prop"))
                             {
-                                if (words.Count > 2 && (words[2].pos == "" || (words[2].pos == "adj" && words[2].prc0 == "Al_det")))
+                                if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font") || (words[2].pos == "adj" && words[2].prc0 == "Al_det")))
                                 {
                                     diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                     diacLineWords[loc + 3 - 1] += "</font>";
@@ -8310,7 +8696,7 @@ namespace NER.BL
                             }
                             else if (words.Count > 1 && (words[1].pos == "adj" && words[1].prc0 == "Al_det"))
                             {
-                                if (words.Count > 2 && (words[2].pos == "" || (words[2].pos == "adj" && words[2].prc0 == "Al_det")))
+                                if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font") || (words[2].pos == "adj" && words[2].prc0 == "Al_det")))
                                 {
                                     if (words.Count > 3 && (words[3].pos == "adj" && words[3].prc0 == "Al_det"))
                                     {
@@ -8341,7 +8727,7 @@ namespace NER.BL
 
 
                             }
-                            else if (words.Count > 1 && (words[1].pos == ""))
+                            else if (words.Count > 1 && ((words[1].pos == "" && words[1].word != "font")))
                             {
                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                 diacLineWords[loc + 2 - 1] += "</font>";
@@ -8351,11 +8737,11 @@ namespace NER.BL
                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                 diacLineWords[loc + 3 - 1] += "</font>";
                             }
-                            else
-                            {
-                                diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
-                                diacLineWords[loc + 2 - 1] += "</font>";
-                            }
+                            //else if (words.Count > 2 && (words[2].prc2 == "0" && words[2].prc3 == "0" && words[1].prc3 == "0"))
+                            //{
+                            //    diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                            //    diacLineWords[loc + 2 - 1] += "</font>";
+                            //}
                         }
 
 
@@ -8367,7 +8753,7 @@ namespace NER.BL
                     {
                         if (words.Count > 0 && (words[0].lemma == "مُدِين_1" || words[0].lemma == "مَدِينَة_1" || words[0].lemma == "مُحافِظ_1" || words[0].lemma == "وِلايَة_1"))
                         {
-                            if (words.Count > 1 && (words[1].pos == "noun_prop" || words[1].pos == "" || (words[1].pos == "noun" && words[1].prc0 == "Al_det") || (words[1].pos == "adj" && words[1].prc0 == "Al_det") || words[1].pos == "verb"))
+                            if (words.Count > 1 && (words[1].pos == "noun_prop" || (words[1].pos == "" && words[1].word != "font") || (words[1].pos == "noun" && words[1].prc0 == "Al_det") || (words[1].pos == "adj" && words[1].prc0 == "Al_det") || words[1].pos == "verb"))
                             {
                                 if (words.Count > 2 && (words[2].pos == "noun_prop"))
                                 {
@@ -8391,7 +8777,7 @@ namespace NER.BL
                     {
                         if (words.Count > 0 && (words[0].lemma == "قَرْيَة_1" || words[0].lemma == "بَلْدَة_1"))
                         {
-                            if (words.Count > 1 && (words[1].pos == "noun_prop" || words[1].pos == "" || (words[1].pos == "noun" && words[1].prc3 == "0" && words[1].prc2 == "0" && words[1].prc1 == "0" && words[1].prc0 == "0")))
+                            if (words.Count > 1 && (words[1].pos == "noun_prop" || (words[1].pos == "" && words[1].word != "font") || (words[1].pos == "noun" && words[1].prc3 == "0" && words[1].prc2 == "0" && words[1].prc1 == "0" && words[1].prc0 == "Al_det")))
                             {
                                 if (words[1].word == "font")
                                 { }
@@ -8408,13 +8794,13 @@ namespace NER.BL
                     /// Street tagging
                     else if (triggerWordTag == "nelgs".ToUpper())
                     {
-                        if (words.Count > 0 && (words[0].lemma == "شارِع_1"))
+                        if (words.Count > 0 && (words[0].lemma == "شارِع_1" || words[0].lemma == "طَرِيق_1"))
                         {
-                            if (words.Count > 1 && (words[1].pos == "noun_prop" || words[1].pos == ""))
+                            if (words.Count > 1 && (words[1].pos == "noun_prop" || (words[1].pos == "" && words[1].word != "font") || (words[1].pos == "noun" && words[1].prc3 == "0" && words[1].prc2 == "0" && words[1].prc1 == "0" && words[1].prc0 == "Al_det")))
                             {
-                                if (words.Count > 2 && (words[2].pos == "noun_prop" || words[2].pos == ""))
+                                if (words.Count > 2 && (words[2].pos == "noun_prop" || (words[2].pos == "" && words[2].word != "font")))
                                 {
-                                    if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == ""))
+                                    if (words.Count > 3 && (words[3].pos == "noun_prop" || (words[3].pos == "" && words[3].word != "font")))
                                     {
                                         diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                         diacLineWords[loc + 4 - 1] += "</font>";
@@ -8448,7 +8834,7 @@ namespace NER.BL
                     {
                         if (words.Count > 0 && (words[0].lemma == "قارَّة_1"))
                         {
-                            if (words.Count > 1 && (words[1].pos == "noun_prop" || words[1].pos == ""))
+                            if (words.Count > 1 && (words[1].pos == "noun_prop" || (words[1].pos == "" && words[1].word != "font")))
                             {
                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                 diacLineWords[loc + 2 - 1] += "</font>";
@@ -8459,9 +8845,9 @@ namespace NER.BL
                     ///Domestic tagging
                     else if (triggerWordTag == "nelrd".ToUpper())
                     {
-                        if (words.Count > 0 && (words[0].lemma == "مِنْطَقَة_1" || words[0].lemma == "وَسَط_1" || words[0].lemma == "شَمال_1" || words[0].lemma == "جَنُوب_1" || words[0].lemma == "شَرْق_1" || words[0].lemma == "صَعِيد_1" || words[0].lemma == "إِقْلِيم_1"))
+                        if (words.Count > 0 && (words[0].lemma == "مِنْطَقَة_1"   || words[0].lemma == "وَسَط_1" || words[0].lemma == "شَمال_1" || words[0].lemma == "جَنُوب_1" || words[0].lemma == "شَرْق_1" || words[0].lemma == "صَعِيد_1" || words[0].lemma == "إِقْلِيم_1"))
                         {
-                            if (words.Count > 1 && (words[1].pos == "noun_prop" || words[1].pos == ""))
+                            if (words.Count > 1 && (words[1].pos == "noun_prop" || (words[1].pos == "" && words[1].word != "font") || (words[1].pos == "noun" && words[1].prc0 == "Al_det" && words[1].prc1 == "0" && words[1].prc2 == "0" && words[1].prc3 == "0") | (words[1].pos == "adj" && words[1].prc0 == "Al_det" && words[1].prc1 == "0" && words[1].prc2 == "0" && words[1].prc3 == "0" && words[0].prc0 == "Al_det")))
                             {
                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                 diacLineWords[loc + 2 - 1] += "</font>";
@@ -8469,7 +8855,7 @@ namespace NER.BL
                             else if (words.Count > 1 && (words[1].lemma == "وَسَط_1" || words[1].lemma == "شَمال_1" || words[1].lemma == "جَنُوب_1" || words[1].lemma == "شَرْق_1" || words[1].lemma == "غَرْبِيّ_1" || words[1].lemma == "شَرْقِيّ_1" || words[1].lemma == "جَنُوبِيّ_1" || words[1].lemma == "شَرْقِيّ_1"))
                             {
 
-                                if (words.Count > 2 && (words[2].pos == "noun_prop" || words[2].pos == ""))
+                                if (words.Count > 2 && (words[2].pos == "noun_prop" || (words[2].pos == "" && words[2].word != "font")))
                                 {
                                     diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                     diacLineWords[loc + 3 - 1] += "</font>";
@@ -8502,7 +8888,7 @@ namespace NER.BL
                                 diacLineWords[loc - 1] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc - 1];
                                 diacLineWords[loc + 1 - 1] += "</font>";
                             }
-                            else if (words.Count > 1 && (words[1].pos == "noun_prop" || words[1].pos == ""))
+                            else if (words.Count > 1 && (words[1].pos == "noun_prop" || (words[1].pos == "" && words[1].word != "font")))
                             {
                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                 diacLineWords[loc + 2 - 1] += "</font>";
@@ -8519,9 +8905,9 @@ namespace NER.BL
                     {
                         if (words.Count > 0 && (words[0].lemma == "جَبَل_1" || words[0].lemma == "جَبَل_2" || words[0].lemma == "مُرْتَفَع_1"))
                         {
-                            if (words.Count > 1 && (words[1].pos == "noun_prop" || words[1].pos == "" || (words[1].pos == "noun" && words[1].prc0 == "Al_det") || (words[1].pos == "adj" && words[1].prc0 == "Al_det")))
+                            if (words.Count > 1 && (words[1].pos == "noun_prop" || (words[1].pos == "" && words[1].word != "font") || (words[1].pos == "noun" && words[1].prc0 == "Al_det") || (words[1].pos == "adj" && words[1].prc0 == "Al_det")))
                             {
-                                if (words.Count > 2 && (words[2].pos == "noun_prop" || words[2].pos == ""))
+                                if (words.Count > 2 && (words[2].pos == "noun_prop" || (words[2].pos == "" && words[2].word != "font")))
                                 {
                                     diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                     diacLineWords[loc + 3 - 1] += "</font>";
@@ -8539,7 +8925,7 @@ namespace NER.BL
                             if (words.Count > 1 && (words[1].lemma == "جَبَل_1" || words[1].lemma == "جَبَل_2"))
                             {
 
-                                if (words.Count > 2 && (words[2].pos == "noun_prop" || words[2].pos == ""))
+                                if (words.Count > 2 && (words[2].pos == "noun_prop" || (words[2].pos == "" && words[2].word != "font")))
                                 {
                                     diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                     diacLineWords[loc + 3 - 1] += "</font>";
@@ -8555,10 +8941,10 @@ namespace NER.BL
                     {
                         if (words.Count > 0 && (words[0].lemma == "جَزِيرَة_1"))
                         {
-                            if (words.Count > 1 && (words[1].pos == "noun_prop" || words[1].pos == "" || (words[1].pos == "noun" && words[1].prc0 == "Al_det") || (words[1].pos == "adj" && words[1].prc0 == "Al_det")))
+                            if (words.Count > 1 && (words[1].pos == "noun_prop" || (words[1].pos == "" && words[1].word != "font") || (words[1].pos == "noun" && words[1].prc0 == "Al_det") || (words[1].pos == "adj" && words[1].prc0 == "Al_det")))
                             {
 
-                                if (words.Count > 2 && (words[2].pos == "noun_prop" || words[2].pos == ""))
+                                if (words.Count > 2 && (words[2].pos == "noun_prop" || (words[2].pos == "" && words[2].word != "font")))
                                 {
                                     diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                     diacLineWords[loc + 3 - 1] += "</font>";
@@ -8569,7 +8955,7 @@ namespace NER.BL
                                     diacLineWords[loc + 2 - 1] += "</font>";
                                 }
                             }
-                            else if (words.Count > 2 && (words[2].pos == "noun_prop" || words[2].pos == ""))
+                            else if (words.Count > 2 && (words[2].pos == "noun_prop" || (words[2].pos == "" && words[2].word != "font")))
                             {
                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                 diacLineWords[loc + 3 - 1] += "</font>";
@@ -8585,7 +8971,7 @@ namespace NER.BL
                         {
                             if (words.Count > 1 && (words[1].lemma == "جَزِيرَة_1"))
                             {
-                                if (words.Count > 2 && (words[2].pos == "noun_prop" || words[2].pos == ""))
+                                if (words.Count > 2 && (words[2].pos == "noun_prop" || (words[2].pos == "" && words[2].word != "font")))
                                 {
                                     diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                     diacLineWords[loc + 3 - 1] += "</font>";
@@ -8601,7 +8987,7 @@ namespace NER.BL
                     {
                         if (words.Count > 0 && (words[0].lemma == "نَهْر_1" || words[0].lemma == "وادِي_1" || words[0].lemma == "نُهَيْر_1"))
                         {
-                            if (words.Count > 1 && (words[1].pos == "noun_prop" || words[1].pos == "" || (words[1].pos == "noun" && words[1].prc0 == "Al_det")))
+                            if (words.Count > 1 && (words[1].pos == "noun_prop" || (words[1].pos == "" && words[1].word != "font") || (words[1].pos == "noun" && words[1].prc0 == "Al_det")))
                             {
                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                 diacLineWords[loc + 2 - 1] += "</font>";
@@ -8617,7 +9003,7 @@ namespace NER.BL
                         {
                             if (words.Count > 1 && (words[1].lemma == "نَهْر_1" || words[1].lemma == "وادِي_1" || words[1].lemma == "نُهَيْر_1"))
                             {
-                                if (words.Count > 2 && (words[2].pos == "noun_prop" || words[2].pos == "" || (words[2].pos == "noun" && words[1].prc0 == "Al_det")))
+                                if (words.Count > 2 && (words[2].pos == "noun_prop" || (words[2].pos == "" && words[2].word != "font") || (words[2].pos == "noun" && words[1].prc0 == "Al_det")))
                                 {
                                     diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                     diacLineWords[loc + 2 - 1] += "</font>";
@@ -8634,7 +9020,7 @@ namespace NER.BL
 
                         if (words.Count > 0 && (words[0].lemma == "بُحَيْرَة_1" || words[0].lemma == "حَيْرَة_1"))
                         {
-                            if (words.Count > 1 && (words[1].pos == "noun_prop" || words[1].pos == "" || words[1].pos == "noun"))
+                            if (words.Count > 1 && (words[1].pos == "noun_prop" || (words[1].pos == "" && words[1].word != "font") || words[1].pos == "noun"))
                             {
                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                 diacLineWords[loc + 2 - 1] += "</font>";
@@ -8649,7 +9035,7 @@ namespace NER.BL
                     {
                         if (words.Count > 0 && (words[0].lemma == "بَحْر_1" || words[0].lemma == "حَرّ_1" || words[0].lemma == "مُحِيط_1"))
                         {
-                            if (words.Count > 1 && (words[1].pos == "noun_prop" || words[1].pos == "" || (words[1].pos == "noun" && words[1].prc0 == "Al_det") || (words[1].pos == "adj" && words[1].prc0 == "Al_det")))
+                            if (words.Count > 1 && (words[1].pos == "noun_prop" || (words[1].pos == "" && words[1].word != "font") || (words[1].pos == "noun" && words[1].prc0 == "Al_det") || (words[1].pos == "adj" && words[1].prc0 == "Al_det")))
                             {
                                 if (words.Count > 2 && (words[2].pos == "adj" && words[2].prc0 == "Al_det"))
                                 {
@@ -8668,7 +9054,7 @@ namespace NER.BL
                         {
                             if (words.Count > 1 && (words[1].lemma == "بَحْر_1" || words[1].lemma == "حَرّ_1" || words[1].lemma == "مُحِيط_1"))
                             {
-                                if (words.Count > 2 && (words[2].pos == "noun_prop" || words[2].pos == "" || (words[2].pos == "noun" && words[2].prc0 == "Al_det") || (words[2].pos == "adj" && words[2].prc0 == "Al_det")))
+                                if (words.Count > 2 && (words[2].pos == "noun_prop" || (words[2].pos == "" && words[2].word != "font") || (words[2].pos == "noun" && words[2].prc0 == "Al_det") || (words[2].pos == "adj" && words[2].prc0 == "Al_det")))
                                 {
                                     if (words.Count > 3 && (words[3].pos == "adj" && words[3].prc0 == "Al_det"))
                                     {
@@ -8691,7 +9077,7 @@ namespace NER.BL
                     {
                         if (words.Count > 0 && (words[0].lemma == "خَلِيج_2" || words[0].lemma == "خَلِيج_1" || words[0].lemma == "مَضِيق_1"))
                         {
-                            if (words.Count > 1 && (words[1].pos == "noun_prop" || words[1].pos == "" || (words[1].pos == "noun" && words[1].prc0 == "Al_det") || (words[1].pos == "adj" && words[1].prc0 == "Al_det")))
+                            if (words.Count > 1 && (words[1].pos == "noun_prop" || (words[1].pos == "" && words[1].word != "font") || (words[1].pos == "noun" && words[1].prc0 == "Al_det") || (words[1].pos == "adj" && words[1].prc0 == "Al_det")))
                             {
                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                 diacLineWords[loc + 2 - 1] += "</font>";
@@ -8706,7 +9092,7 @@ namespace NER.BL
                     {
                         if (words.Count > 0 && (words[0].lemma == "قَناة_1" || words[0].lemma == "تَلّ_2" || words[0].lemma == "شَلّال_1" || words[0].lemma == "نَبْع_1" || words[0].lemma == "صَحْراء_1" || words[0].lemma == "هَضْبَة_1" || words[0].lemma == "أَرْض_1" || words[0].lemma == "مَحْمِيّ_1"))
                         {
-                            if (words.Count > 1 && (words[1].pos == "noun_prop" || words[1].pos == "" || (words[1].pos == "noun" && words[1].prc0 == "Al_det") || (words[1].pos == "adj" && words[1].prc0 == "Al_det")))
+                            if (words.Count > 1 && (words[1].pos == "noun_prop" || (words[1].pos == "" && words[1].word != "font") || (words[1].pos == "noun" && words[1].prc0 == "Al_det") || (words[1].pos == "adj" && words[1].prc0 == "Al_det")))
                             {
                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                 diacLineWords[loc + 2 - 1] += "</font>";
@@ -8796,7 +9182,7 @@ namespace NER.BL
                                     }
                                 }
                             }
-                            else if (words.Count > 1 && (words[1].pos == ""))
+                            else if (words.Count > 1 && ((words[1].pos == "" && words[1].word != "font")))
                             {
                                 if (words.Count > 2 && (words[2].pos == "noun"))
                                 {
@@ -8873,7 +9259,7 @@ namespace NER.BL
                                     }
                                 }
                             }
-                            else if (words.Count > 1 && (words[1].pos == ""))
+                            else if (words.Count > 1 && ((words[1].pos == "" && words[1].word != "font")))
                             {
                                 if (words.Count > 2 && (words[2].pos == "noun"))
                                 {
@@ -8889,11 +9275,11 @@ namespace NER.BL
                                     }
 
                                 }
-                                else if (words.Count > 2 && (words[2].pos == ""))
+                                else if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font")))
                                 {
-                                    if (words.Count > 3 && (words[3].pos == ""))
+                                    if (words.Count > 3 && ((words[3].pos == "" && words[3].word != "font")))
                                     {
-                                        if (words.Count > 4 && (words[4].pos == ""))
+                                        if (words.Count > 4 && ((words[4].pos == "" && words[4].word != "font")))
                                         {
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 5 - 1] += "</font>";
@@ -8979,12 +9365,12 @@ namespace NER.BL
 
                             if (words.Count > 1 && (words[1].pos == "noun_prop"))
                             {
-                                if (words.Count > 2 && (words[2].pos == "" || words[2].pos == "noun_prop" || words[2].pos == "abbrev"))
+                                if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font") || words[2].pos == "noun_prop" || words[2].pos == "abbrev"))
                                 {
 
-                                    if (words.Count > 3 && (words[3].pos == "noun_prop" || words[3].pos == "" || words[3].pos == "abbrev"))
+                                    if (words.Count > 3 && (words[3].pos == "noun_prop" || (words[3].pos == "" && words[3].word != "font") || words[3].pos == "abbrev"))
                                     {
-                                        if (words.Count > 4 && (words[4].pos == "noun_prop" || words[4].pos == ""))
+                                        if (words.Count > 4 && (words[4].pos == "noun_prop" || (words[4].pos == "" && words[4].word != "font")))
                                         {
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 5 - 1] += "</font>";
@@ -9021,13 +9407,13 @@ namespace NER.BL
                                 diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                 diacLineWords[loc + 4 - 1] += "</font>";
                             }
-                            else if (words.Count > 1 && (words[1].pos == ""))
+                            else if (words.Count > 1 && ((words[1].pos == "" && words[1].word != "font")))
                             {
-                                if (words.Count > 2 && (words[2].pos == "" || words[2].pos == "adj"))
+                                if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font") || words[2].pos == "adj"))
                                 {
-                                    if (words.Count > 3 && (words[3].pos == "" && words[2].pos != ""))
+                                    if (words.Count > 3 && ((words[3].pos == "" && words[3].word != "font") && words[2].pos != ""))
                                     {
-                                        if (words.Count > 4 && (words[4].pos == "" && words[2].pos != ""))
+                                        if (words.Count > 4 && ((words[4].pos == "" && words[4].word != "font") && words[2].pos != ""))
                                         {
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 5 - 1] += "</font>";
@@ -9103,7 +9489,7 @@ namespace NER.BL
                                     diacLineWords[loc + 3 - 1] += "</font>";
                                 }
                             }
-                            else if (words.Count > 2 && (words[1].pos == "" && words[2].pos == "noun" && words[2].prc1 == "li_prep"))
+                            else if (words.Count > 2 && ((words[1].pos == "" && words[1].word != "font") && words[2].pos == "noun" && words[2].prc1 == "li_prep"))
                             {
 
                                 if (words.Count > 3 && (words[3].pos == "noun" && words[3].prc2 == "wa_conj" && words[3].prc0 == "Al_det"))
@@ -9175,7 +9561,7 @@ namespace NER.BL
                                         diacLineWords[loc + 2 - 1] += "</font>";
                                     }
                                 }
-                                else if (words.Count > 1 && (words[1].pos == "noun" && words[2].pos == "adj_comp" && words[2].prc1 == "li_prep" && words[2].prc0 == "Al_det"))
+                                else if (words.Count > 2 && (words[1].pos == "noun" && words[2].pos == "adj_comp" && words[2].prc1 == "li_prep" && words[2].prc0 == "Al_det"))
                                 {
                                     if (words.Count > 3 && (words[3].pos == "adj" && words[3].prc0 == "Al_det"))
                                     {
@@ -9188,7 +9574,7 @@ namespace NER.BL
                                         diacLineWords[loc + 3 - 1] += "</font>";
                                     }
                                 }
-                                else if (words.Count > 1 && (words[1].pos == "noun" && words[2].pos == "noun" && words[2].prc1 == "li_prep" && words[2].prc0 == "Al_det"))
+                                else if (words.Count > 2&& (words[1].pos == "noun" && words[2].pos == "noun" && words[2].prc1 == "li_prep" && words[2].prc0 == "Al_det"))
                                 {
                                     if (words.Count > 3 && (words[3].pos == "adj" && words[3].prc0 == "Al_det"))
                                     {
@@ -9201,7 +9587,7 @@ namespace NER.BL
                                         diacLineWords[loc + 3 - 1] += "</font>";
                                     }
                                 }
-                                else if (words.Count > 1 && (words[1].pos == "noun" && words[2].pos == "noun" && words[2].prc0 == "Al_det"))
+                                else if (words.Count >2 && (words[1].pos == "noun" && words[2].pos == "noun" && words[2].prc0 == "Al_det"))
                                 {
                                     if (words.Count > 3 && (words[3].pos == "adj" && words[3].prc0 == "Al_det"))
                                     {
@@ -9214,9 +9600,9 @@ namespace NER.BL
                                         diacLineWords[loc + 3 - 1] += "</font>";
                                     }
                                 }
-                                else if (words.Count > 1 && (words[1].pos == "noun"))
+                                else if (words.Count > 2 && (words[1].pos == "noun"))
                                 {
-                                    if (words.Count > 2 && (words[2].pos == "noun_prop" || words[2].pos == "") || (words[3].pos == "adj" && words[3].prc0 == "Al_det") || (words[2].pos == "adj" && words[2].prc0 == "Al_det"))
+                                    if (words.Count >3 && (words[2].pos == "noun_prop" || (words[2].pos == "" && words[2].word != "font")) || (words[3].pos == "adj" && words[3].prc0 == "Al_det") || (words[2].pos == "adj" && words[2].prc0 == "Al_det"))
                                     {
                                         if (words.Count > 3 && (words[3].pos == "adj" && words[3].prc0 == "Al_det"))
                                         {
@@ -9259,7 +9645,7 @@ namespace NER.BL
                             }
                             else if (words.Count > 1 && (words[1].pos == "noun"))
                             {
-                                if (words.Count > 2 && (words[2].pos == "noun_prop" || words[2].pos == "") || (words[3].pos == "adj" && words[3].prc0 == "Al_det") || (words[2].pos == "adj" && words[2].prc0 == "Al_det"))
+                                if (words.Count > 3 && (words[2].pos == "noun_prop" || (words[2].pos == "" && words[2].word != "font")) || (words[3].pos == "adj" && words[3].prc0 == "Al_det") || (words[2].pos == "adj" && words[2].prc0 == "Al_det"))
                                 {
                                     if (words.Count > 3 && (words[3].pos == "adj" && words[3].prc0 == "Al_det"))
                                     {
@@ -9302,7 +9688,7 @@ namespace NER.BL
                             {
                                 if (words.Count > 2 && (words[2].pos == "noun"))
                                 {
-                                    if (words.Count > 3 && (words[3].pos == ""))
+                                    if (words.Count > 3 && ((words[3].pos == "" && words[3].word != "font")))
                                     {
                                         diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                         diacLineWords[loc + 4 - 1] += "</font>";
@@ -9338,7 +9724,7 @@ namespace NER.BL
                                 }
                                 else if (words.Count > 2 && (words[2].pos == "adj"))
                                 {
-                                    if (words.Count > 2 && (words[2].prc0 == "Al_det" && words[3].pos == ""))
+                                    if (words.Count > 2 && (words[2].prc0 == "Al_det" && (words[3].pos == "" && words[3].word != "font")))
                                     {
                                         diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                         diacLineWords[loc + 4 - 1] += "</font>";
@@ -9395,10 +9781,10 @@ namespace NER.BL
                                 }
 
                             }
-                            else if (words.Count > 1 && (words[1].pos == "noun_prop" || words[1].pos == ""))
+                            else if (words.Count > 1 && (words[1].pos == "noun_prop" || (words[1].pos == "" && words[1].word != "font")))
                             {
 
-                                if (words.Count > 2 && (words[2].pos == "noun_prop" || (words[2].pos == "" && words[1].pos != "")))
+                                if (words.Count > 2 && (words[2].pos == "noun_prop" || ((words[2].pos == "" && words[2].word != "font") && words[1].pos != "")))
                                 {
                                     if (words.Count > 3 && (words[3].pos == "adj" && words[3].prc0 == "Al_det"))
                                     {
@@ -9413,8 +9799,11 @@ namespace NER.BL
                                 }
                                 else
                                 {
+                                    if (words[1].word != "font")
+                                    {
                                     diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                     diacLineWords[loc + 2 - 1] += "</font>";
+                                    }
                                 }
 
                             }
@@ -9494,13 +9883,13 @@ namespace NER.BL
                                 }
 
                             }
-                            else if (words.Count > 1 && (words[1].pos == ""))
+                            else if (words.Count > 1 && ((words[1].pos == "" && words[1].word != "font")))
                             {
-                                if (words.Count > 2 && (words[2].pos == ""))
+                                if (words.Count > 2 && ((words[2].pos == "" && words[2].word != "font")))
                                 {
-                                    if (words.Count > 3 && (words[3].pos == ""))
+                                    if (words.Count > 3 && ((words[3].pos == "" && words[3].word != "font")))
                                     {
-                                        if (words.Count > 4 && (words[4].pos == ""))
+                                        if (words.Count > 4 && ((words[4].pos == "" && words[4].word != "font")))
                                         {
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 5 - 1] += "</font>";
@@ -9584,6 +9973,22 @@ namespace NER.BL
                                     //diacLineWords[loc + 2 - 1] += "</font>";
                                 }
                             }
+                            else if (words.Count > 1 && (words[1].pos == "adj_num"))
+                            {
+                                if (words.Count > 2 && (words[2].pos == "adj" && words[2].prc0 == "Al_det"))
+                                {
+                                    diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                    diacLineWords[loc + 3 - 1] += "</font>";
+                                }
+
+
+                                else
+                                {
+                                    diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                    diacLineWords[loc +2- 1] += "</font>";
+                                }
+
+                            }
                         }
                     }
                     #endregion
@@ -9593,7 +9998,7 @@ namespace NER.BL
                     {
                         if (words.Count > 0 && (words[0].lemma == "جَمْعِيَّة_1" || words[0].lemma == "حِزْب_1" || words[0].lemma == "مُنَظَّمَة_1" || words[0].lemma == "تَنْظِيم_1" || words[0].lemma == "جَماعَة_1" || words[0].lemma == "كَتِيبَة_1"))
                         {
-                            if (words.Count > 1 && ((words[1].pos == "adj" && words[1].prc0 == "Al_det") || words[1].pos == "noun_prop" || words[1].pos == "" || (words[1].pos == "noun" && words[1].prc0 == "Al_det")))
+                            if (words.Count > 1 && ((words[1].pos == "adj" && words[1].prc0 == "Al_det") || words[1].pos == "noun_prop" || (words[1].pos == "" && words[1].word != "font") || (words[1].pos == "noun" && words[1].prc0 == "Al_det")))
                             {
 
                                 if (words.Count > 2 && (words[2].pos == "noun" && words[2].prc1 == "li_prep"))
@@ -9618,7 +10023,12 @@ namespace NER.BL
                                         diacLineWords[loc + 3 - 1] += "</font>";
                                     }
                                 }
-                                else if (words.Count > 1 && (words[1].prc2 != "wa_conj"))
+                                else if (words.Count > 2 && (words[1].prc2 != "wa_conj" && words[2].pos == "adj" && words[1].prc0 == "Al_det" && words[2].prc0 == "Al_det"))
+                                {
+                                    diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                    diacLineWords[loc + 3 - 1] += "</font>";
+                                }
+                                else if (words.Count > 1 && (words[1].prc2 != "wa_conj" && words[1].prc2 != ""))
                                 {
                                     diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                     diacLineWords[loc + 2 - 1] += "</font>";
@@ -9631,33 +10041,44 @@ namespace NER.BL
                     //Other Tagging
                     else if (triggerWordTag == "neoo".ToUpper())
                     {
-                        if (words.Count > 1 && (words[1].pos == "noun"))
+                        if (words.Count > 1 && (words[1].pos == "noun" ))
                         {
-                            if (words.Count > 2 && (words[2].pos == "noun_prop" || words[2].pos == "") || (words[2].pos == "adj" && words[2].prc0 == "Al_det") || (words[2].pos == "adj" && words[2].prc0 == "Al_det") || (words[2].pos == "noun" && words[2].prc0 == "Al_det"))
+                            if (words.Count > 2)
                             {
-                                if (words.Count > 3 && (words[3].pos == "adj" && words[3].prc0 == "Al_det") || (words[3].pos == "adj_comp"))
+                                if ((words[2].pos == "noun_prop" || (words[2].pos == "" && words[2].word != "font")) || (words[2].pos == "adj" && words[2].prc0 == "Al_det") || (words[2].pos == "adj" && words[2].prc0 == "Al_det") || (words[2].pos == "noun" && words[2].prc0 == "Al_det"))
                                 {
-                                    if (words.Count > 4 && (words[4].pos == "adj" && words[4].prc0 == "Al_det"))
+                                    if (words.Count > 3 && (words[3].pos == "adj" && words[3].prc0 == "Al_det") || (words[3].pos == "adj_comp"))
                                     {
-                                        diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
-                                        diacLineWords[loc + 5 - 1] += "</font>";
+                                        if (words.Count > 4 && (words[4].pos == "adj" && words[4].prc0 == "Al_det"))
+                                        {
+                                            diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                            diacLineWords[loc + 5 - 1] += "</font>";
+                                        }
+                                        else
+                                        {
+                                            diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                            diacLineWords[loc + 4 - 1] += "</font>";
+                                        }
+
                                     }
                                     else
                                     {
                                         diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
-                                        diacLineWords[loc + 4 - 1] += "</font>";
+                                        diacLineWords[loc + 3 - 1] += "</font>";
                                     }
 
                                 }
-                                else
+                                else if (words[1].prc0 == "Al_det")
                                 {
                                     diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
-                                    diacLineWords[loc + 3 - 1] += "</font>";
+                                    diacLineWords[loc + 2 - 1] += "</font>";
                                 }
-
                             }
-                            else
-                            { }
+                        }
+                        else if (words.Count > 1 && (words[1].pos == "noun_prop"))
+                        {
+                            diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                            diacLineWords[loc + 2 - 1] += "</font>";
                         }
                     }
                     #endregion
@@ -9715,15 +10136,12 @@ namespace NER.BL
                                 || words[1].lemma == "فَقِيه_1"
                                 || words[1].lemma == "مُفَسِّر_1"
                                 || words[1].lemma == "عَلّام_1"
-                                || words[1].lemma == "شَرِيف_2"
-                                || words[1].lemma == "أَمِير_1"
-                                || words[1].lemma == "سُلْطان_1"
+                                
 
-                                || words[1].lemma == "عالَم_1"
-                                || words[1].lemma == "برُوفِسُور_1"
+                                
                                 || words[1].lemma == "ناقَد_1"
                                 || words[1].lemma == "نَبِيّ_1"
-                                || words[1].lemma == "فارِس_1"
+                               
                                 || words[1].lemma == "جِنِرال_1"
                                 || words[1].lemma == "قائِد_1"
                                 || words[1].lemma == "كُولُونِيل_1"
@@ -9932,7 +10350,7 @@ namespace NER.BL
                     // اي digit مكون من 4 ارقام وبعديه م او ه هوه فالاغلب تاريخ##########################
                     else if (triggerWordTag == "nett".ToUpper())
                     {
-                        if (words.Count > 0 && (words[0].lemma == "مَساء_1" || words[0].lemma == "صَباح_1" || words[0].lemma == "فَجْر_1" || words[0].lemma == "مَغْرِب_2" || words[0].lemma == "لَيْل_1" || words[0].lemma == "نَهار_1"))
+                        if (words.Count > 0 && (words[0].lemma == "مَساء_1" || words[0].lemma == "صَباح_1" || words[0].lemma == "فَجْر_1" || words[0].lemma == "مَغْرِب_2" || words[0].lemma == "لَيْل_1" || words[0].lemma == "نَهار_1" || words[0].lemma == "عَصْر_1"))
                         {
                             var percedingSentence = string.Empty;
                             var percedingLocation = loc <= 5 ? 0 : loc - 5;
@@ -9954,13 +10372,18 @@ namespace NER.BL
                             {
                                 if (percWords[0].pos == "digit" || percWords[0].pos == "adj_num")
                                 {
-                                    diacLineWords[loc + 1] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc + 1];
-                                    diacLineWords[loc + 1 - 1] += "</font>";
+                                    diacLineWords[loc-1] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc - 1];
+                                    diacLineWords[loc ] += "</font>";
                                 }
                                 else if (percWords[1].pos == "adj_num" && percWords[0].pos == "noun_quant" && percWords[0].prc2 == "wa_conj")
                                 {
-                                    diacLineWords[loc + 1] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc + 1];
-                                    diacLineWords[loc + 1 - 1] += "</font>";
+                                    diacLineWords[loc - 1] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc- 1];
+                                    diacLineWords[loc ] += "</font>";
+                                }
+                                else if (percWords[1].gloss == "today")
+                                {
+                                    diacLineWords[loc - 1] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc - 1];
+                                    diacLineWords[loc] += "</font>";
                                 }
                             }
 
@@ -10049,7 +10472,7 @@ namespace NER.BL
                                     else
                                     {
                                         diacLineWords[loc + 1] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc + 1];
-                                        diacLineWords[loc + 3 - 1] += "</font>";
+                                        diacLineWords[loc + 2 - 1] += "</font>";
                                     }
                                 }
 
@@ -10491,57 +10914,57 @@ namespace NER.BL
                             {
                                 if (words.Count > 1 && (words[1].pos == "adj" && words[1].prc0 == "Al_det" && words[2].pos == "adj" && words[2].prc0 == "Al_det"))
                                 {
-                                    diacLineWords[loc - 1] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc - 1];
+                                    diacLineWords[loc ] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                     diacLineWords[loc + 3 - 1] += "</font>";
                                 }
-                                else if (words.Count > 1 && (words[1].pos == "" && words[2].pos == "noun" && words[2].prc0 == "Al_det"))
+                                else if (words.Count > 1 && ((words[1].pos == "" && words[1].word != "font") && words[2].pos == "noun" && words[2].prc0 == "Al_det"))
                                 {
-                                    diacLineWords[loc - 1] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc - 1];
+                                    diacLineWords[loc ] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc ];
                                     diacLineWords[loc + 3 - 1] += "</font>";
                                 }
                                 else if (words.Count > 1 && (words[1].pos == "noun" && words[1].prc0 == "Al_det" && words[2].pos == "adj" && words[2].prc0 == "Al_det"))
                                 {
-                                    diacLineWords[loc - 1] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc - 1];
+                                    diacLineWords[loc ] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                     diacLineWords[loc + 3 - 1] += "</font>";
                                 }
                                 else if (words.Count > 1 && (words[1].pos == "adj_num" && words[2].pos == "adj"))
                                 {
-                                    diacLineWords[loc - 1] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc - 1];
+                                    diacLineWords[loc ] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc ];
                                     diacLineWords[loc + 3 - 1] += "</font>";
                                 }
                                 else if (words.Count > 1 && (words[1].pos == "adj_comp" && words[1].prc0 == "Al_det"))
                                 {
-                                    diacLineWords[loc - 1] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc - 1];
+                                    diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc ];
                                     diacLineWords[loc + 2 - 1] += "</font>";
                                 }
                                 else if (words.Count > 1 && (words[1].pos == "noun_quant"))
                                 {
-                                    diacLineWords[loc - 1] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc - 1];
+                                    diacLineWords[loc ] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc ];
                                     diacLineWords[loc + 2 - 1] += "</font>";
                                 }
                                 else if (words.Count > 1 && (words[1].pos == "noun" && words[1].prc0 == "Al_det"))
                                 {
-                                    diacLineWords[loc - 1] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc - 1];
+                                    diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc ];
                                     diacLineWords[loc + 2 - 1] += "</font>";
                                 }
                                 else if (words.Count > 1 && (words[1].pos == "noun_prop"))
                                 {
-                                    diacLineWords[loc - 1] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc - 1];
+                                    diacLineWords[loc ] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                     diacLineWords[loc + 2 - 1] += "</font>";
                                 }
-                                else if (words.Count > 1 && (words[1].pos == ""))
+                                else if (words.Count > 1 && ((words[1].pos == "" && words[1].word != "font")))
                                 {
-                                    diacLineWords[loc - 1] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc - 1];
+                                    diacLineWords[loc ] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                     diacLineWords[loc + 2 - 1] += "</font>";
                                 }
                                 else if (words.Count > 1 && (words[1].pos == "adj_comp"))
                                 {
-                                    diacLineWords[loc - 1] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc - 1];
+                                    diacLineWords[loc ] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc ];
                                     diacLineWords[loc + 2 - 1] += "</font>";
                                 }
                                 else if (words.Count > 1 && (words[1].pos == "adj_num"))
                                 {
-                                    diacLineWords[loc - 1] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc - 1];
+                                    diacLineWords[loc ] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                     diacLineWords[loc + 2 - 1] += "</font>";
                                 }
                             }
@@ -10549,27 +10972,27 @@ namespace NER.BL
                             {
                                 if (words.Count > 1 && (words[1].pos == "adj_comp" && words[1].prc0 == "Al_det"))
                                 {
-                                    diacLineWords[loc - 1] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc - 1];
+                                    diacLineWords[loc ] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc ];
                                     diacLineWords[loc + 2 - 1] += "</font>";
                                 }
                                 else if (words.Count > 1 && (words[1].pos == "noun_quant"))
                                 {
-                                    diacLineWords[loc - 1] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc - 1];
+                                    diacLineWords[loc ] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                     diacLineWords[loc + 2 - 1] += "</font>";
                                 }
                                 else if (words.Count > 1 && (words[1].pos == "noun" && words[1].prc0 == "Al_det"))
                                 {
-                                    diacLineWords[loc - 1] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc - 1];
+                                    diacLineWords[loc ] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc ];
                                     diacLineWords[loc + 2 - 1] += "</font>";
                                 }
                                 else if (words.Count > 1 && (words[1].pos == "noun_prop"))
                                 {
-                                    diacLineWords[loc - 1] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc - 1];
+                                    diacLineWords[loc ] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                     diacLineWords[loc + 2 - 1] += "</font>";
                                 }
-                                else if (words.Count > 1 && (words[1].pos == ""))
+                                else if (words.Count > 1 && ((words[1].pos == "" && words[1].word != "font")))
                                 {
-                                    diacLineWords[loc - 1] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc - 1];
+                                    diacLineWords[loc ] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc ];
                                     diacLineWords[loc + 2 - 1] += "</font>";
                                 }
                                 else if (words.Count > 1 && (words[1].pos == "adj_comp"))

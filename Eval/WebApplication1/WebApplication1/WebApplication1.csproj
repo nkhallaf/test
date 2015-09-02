@@ -6,12 +6,12 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{7D5B0CEF-5C6D-45CD-BD21-B5D63759129D}</ProjectGuid>
+    <ProjectGuid>{44F057BC-E8C2-4DBE-BBC5-066DE7508F12}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NER.WebApp</RootNamespace>
-    <AssemblyName>NER.WebApp</AssemblyName>
+    <RootNamespace>WebApplication1</RootNamespace>
+    <AssemblyName>WebApplication1</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -50,69 +50,33 @@
     <Reference Include="System.Web.ApplicationServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="About.aspx" />
     <Content Include="Account\ChangePassword.aspx" />
     <Content Include="Account\ChangePasswordSuccess.aspx" />
     <Content Include="Account\Login.aspx" />
     <Content Include="Account\Register.aspx" />
-    <Content Include="Admin.aspx" />
-    <Content Include="assets\css\docs.min.css" />
-    <Content Include="assets\css\_src\docs.css" />
-    <Content Include="assets\css\_src\pygments-manni.css" />
-    <Content Include="assets\flash\ZeroClipboard.swf" />
-    <Content Include="assets\img\file.png" />
-    <Content Include="assets\img\file_add.png" />
-    <Content Include="assets\img\components.png" />
-    <Content Include="assets\img\devices.png" />
-    <Content Include="assets\img\sass-less.png" />
-    <Content Include="assets\js\customize.min.js" />
-    <Content Include="assets\js\docs.min.js" />
-    <Content Include="assets\js\ie-emulation-modes-warning.js" />
-    <Content Include="assets\js\ie10-viewport-bug-workaround.js" />
-    <Content Include="assets\js\ie8-responsive-file-warning.js" />
-    <Content Include="assets\js\raw-files.min.js" />
-    <Content Include="assets\js\_src\application.js" />
-    <Content Include="assets\js\_src\customizer.js" />
-    <Content Include="assets\js\_vendor\blob.js" />
-    <Content Include="assets\js\_vendor\filesaver.js" />
-    <Content Include="assets\js\_vendor\holder.js" />
-    <Content Include="assets\js\_vendor\jszip.min.js" />
-    <Content Include="assets\js\_vendor\less.min.js" />
-    <Content Include="assets\js\_vendor\uglify.min.js" />
-    <Content Include="assets\js\_vendor\ZeroClipboard.min.js" />
-    <Content Include="CachedFiles\agr 1-7.txt" />
-    <Content Include="dist\css\bootstrap-theme.css" />
-    <Content Include="dist\css\bootstrap-theme.min.css" />
-    <Content Include="dist\css\bootstrap.css" />
-    <Content Include="dist\css\bootstrap.min.css" />
-    <Content Include="dist\js\bootstrap.js" />
-    <Content Include="dist\js\bootstrap.min.js" />
-    <Content Include="Docs\1\agr 1-7.txt" />
-    <Content Include="Docs\1\Copy %282%29 of agr 1-7.txt" />
-    <Content Include="Docs\1\Copy %283%29 of agr 1-7.txt" />
-    <Content Include="Docs\1\Copy of agr 1-7.txt" />
-    <Content Include="Evaluate.aspx" />
-    <Content Include="jumbotron-narrow.css" />
-    <Content Include="Login.aspx" />
-    <Content Include="Login.html" />
-    <Content Include="signin.css" />
     <Content Include="Styles\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.4.1.js" />
     <Content Include="Scripts\jquery-1.4.1.min.js" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Matlab.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="About.aspx.cs">
+      <DependentUpon>About.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="About.aspx.designer.cs">
+      <DependentUpon>About.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Account\ChangePassword.aspx.cs">
       <DependentUpon>ChangePassword.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -141,13 +105,6 @@
     <Compile Include="Account\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Admin.aspx.cs">
-      <DependentUpon>Admin.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin.aspx.designer.cs">
-      <DependentUpon>Admin.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -155,24 +112,10 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Evaluate.aspx.cs">
-      <DependentUpon>Evaluate.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Evaluate.aspx.designer.cs">
-      <DependentUpon>Evaluate.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\TextEditing.cs" />
-    <Compile Include="Login.aspx.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Login.aspx.designer.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
-    </Compile>
+    <Compile Include="Office.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
@@ -181,40 +124,87 @@
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
     </Compile>
-    <Compile Include="Matlab.aspx.cs">
-      <DependentUpon>Matlab.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Matlab.aspx.designer.cs">
-      <DependentUpon>Matlab.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="T.cs" />
-    <Compile Include="Tags.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="DownloadCache\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Account\Web.config" />
     <Content Include="Site.Master" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NER.BL\NER.BL.csproj">
-      <Project>{AA919193-A4DB-43F4-958E-A68612D276E0}</Project>
-      <Name>NER.BL</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="assets\brand\bootstrap-outline.svg" />
-    <None Include="assets\brand\bootstrap-punchout.svg" />
-    <None Include="assets\brand\bootstrap-solid.svg" />
-    <None Include="dist\css\bootstrap-theme.css.map" />
-    <None Include="dist\css\bootstrap.css.map" />
-    <None Include="dist\fonts\glyphicons-halflings-regular.eot" />
-    <None Include="dist\fonts\glyphicons-halflings-regular.svg" />
-    <None Include="dist\fonts\glyphicons-halflings-regular.ttf" />
-    <None Include="dist\fonts\glyphicons-halflings-regular.woff" />
+    <COMReference Include="ACTIVEXLib">
+      <Guid>{EA3E6E3C-5130-49C1-8EDE-F889CD0F4429}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="LCC11">
+      <Guid>{EDCD5812-6A06-43C3-AFAC-46EF5D14E22C}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>5</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Access.Dao">
+      <Guid>{4AC9E1DA-5BAD-4AC7-86E3-24F4CDCECA28}</Guid>
+      <VersionMajor>12</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Word">
+      <Guid>{00020905-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>8</VersionMajor>
+      <VersionMinor>5</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="MsoEuro">
+      <Guid>{76F6F3F5-9937-11D2-93BB-00105A994D2C}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="XDocsDesigner">
+      <Guid>{FD34A372-115F-43CA-8D6F-BBD45FD6F828}</Guid>
+      <VersionMajor>3</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
@@ -224,7 +214,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>2632</DevelopmentServerPort>
+          <DevelopmentServerPort>1865</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

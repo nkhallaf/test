@@ -26,9 +26,9 @@ namespace NER.WebApp
 
             int counter = 0;
             string line;
-            char[] splittingDelimeters = { '<', '>', ' ', '.', ',' };
-            var SecondResult = false;
-
+            char[] splittingDelimeters = { '<', '>', ' ',  ',' };
+          
+            //'.',
 
             if (!FileUpload1.HasFile)
             {
@@ -154,38 +154,39 @@ namespace NER.WebApp
 
                     }
                 }
+               
                 break;
             }
+            ////to analys و&& digit
+          
+            while ((result1 != null))
+            {
+                for (int i = 0, h = 0; i < result1.Count - 1; h++, i++)
+                {
+                    if (result1[i].TagWord.StartsWith("و"))
+                    {
+                        var Digit = new List<Tags>();
+                        var checkword = result1[i].TagWord.ToString();
+                        var words = BL.MadaMiraHandler.Analyse(checkword);
+                        if (words.Count > 1 && (words[0].gloss == "and" && words[1].pos == "digit"))
+                        {
+                            result1[i].TagWord = words[0].word;
+                            int x = i + 1;
+                            Digit.Add(new Tags
+                        {
+                            Tag = " ",
+                            TagWord = words[1].word
+                        });
 
-            //while ((result1 != null))
-            //{
-            //    for (int i = 0, h = 0; i < result1.Count - 1; h++, i++)
-            //    {
-            //        if (result1[i].Tag.Contains("/ne"))
-            //        {
-            //            var NE = result1[i].TagWord;
-            //            for (int k = i - 1, j = i - 1; k < 7; k++, j++)
-            //            {
-            //                if (k > 0)
-            //                {
-            //                    if (result1[k].Tag.Contains("ne") && result1[k].TagWord.Contains("/") == false)
-            //                    { k = k + 1; }
-            //                    else
-            //                    {
+                            result1.InsertRange(x, Digit);
+                        
+                        }
 
-            //                        result1[k].Tag = "O  " + NE;
+                    }
+                }
 
-            //                    }
-
-            //                }
-            //            }
-
-
-
-            //        }
-            //    }
-            //    break;
-            //}
+                break;
+            }
 
             
 
@@ -356,6 +357,7 @@ namespace NER.WebApp
                 HttpContext.Current.Response.Write(stringWrite);
                 HttpContext.Current.Response.Flush();
                 HttpContext.Current.Response.End();
+              
             }
           
 
