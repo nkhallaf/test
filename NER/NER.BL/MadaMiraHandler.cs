@@ -23,6 +23,7 @@ namespace NER.BL
 
             var xmldoc = new XmlDataDocument();
             XmlNodeList xmlnode;
+           
             int i = 0;
 
             using (var stream = File.Open(ApplicationPath + "Out.xml", FileMode.Open, FileAccess.Read))
@@ -36,13 +37,14 @@ namespace NER.BL
                 {
                     xmldoc.Load(stream);
                     xmlnode = xmldoc.GetElementsByTagName("word");
-
+                   
                     var result = new List<WordInfoItem>();
                     for (i = 0; i <= xmlnode.Count - 1; i++)
                     {
                         var InfoElement = xmlnode[i].ChildNodes[0].ChildNodes[0];
-
+                       
                         var item = new WordInfoItem();
+                      
                         item.ID = int.Parse(xmlnode[i].Attributes["id"].Value);
                         item.word = xmlnode[i].Attributes["word"].Value;
                         item.diac = InfoElement.Attributes["diac"] != null ? InfoElement.Attributes["diac"].Value : string.Empty;
@@ -65,9 +67,11 @@ namespace NER.BL
                         item.enc0 = InfoElement.Attributes["enc0"] != null ? InfoElement.Attributes["enc0"].Value : string.Empty;
                         item.source = InfoElement.Attributes["source"] != null ? InfoElement.Attributes["source"].Value : string.Empty;
                         item.stem = InfoElement.Attributes["stem"] != null ? InfoElement.Attributes["stem"].Value : string.Empty;
+                     
                         result.Add(item);
 
                     }
+                   
                     return result;
                 }
                 catch
