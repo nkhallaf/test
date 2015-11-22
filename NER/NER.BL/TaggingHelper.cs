@@ -2363,13 +2363,73 @@ namespace NER.BL
                                 {
                                     if (words.Count > 2 && (words[2].pos == "adj_num"))
                                     {
-                                        diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
-                                        diacLineWords[loc + 3 - 1] += "</font>";
+                                        if (words[0].prc2 == "fa_conj" || words[0].prc1 == "bi_part" || words[0].prc2 == "wa_conj" || words[0].prc1 == "bi_prep" || words[0].prc1 == "li_prep")
+                                        {
+                                            if (words[0].prc1 == "li_prep")
+                                            {
+                                                diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                diacLineWords[loc] = " +ل" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                diacLineWords[loc + 3 - 1] += "</font>";
+                                            }
+                                            else if (words[0].prc1 == "bi_prep" || words[0].prc1 == "bi_part")
+                                            {
+                                                diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                diacLineWords[loc] = " +ب" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                diacLineWords[loc + 3 - 1] += "</font>";
+                                            }
+                                            else if (words[0].prc2 == "wa_conj")
+                                            {
+                                                diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                diacLineWords[loc] = " +و" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                diacLineWords[loc + 3 - 1] += "</font>";
+                                            }
+                                            else if (words[0].prc2 == "fa_conj")
+                                            {
+                                                diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                diacLineWords[loc] = " +ف" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                diacLineWords[loc + 3 - 1] += "</font>";
+                                            }
+                                        }
+                                        else
+                                        {
+                                            diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                            diacLineWords[loc + 3 - 1] += "</font>";
+                                        }
                                     }
                                     else if (words.Count > 2 && (words[2].pos == "digit"))
                                     {
-                                        diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
-                                        diacLineWords[loc + 3 - 1] += "</font>";
+                                        if (words[0].prc2 == "fa_conj" || words[0].prc1 == "bi_part" || words[0].prc2 == "wa_conj" || words[0].prc1 == "bi_prep" || words[0].prc1 == "li_prep")
+                                        {
+                                            if (words[0].prc1 == "li_prep")
+                                            {
+                                                diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                diacLineWords[loc] = " +ل" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                diacLineWords[loc + 3 - 1] += "</font>";
+                                            }
+                                            else if (words[0].prc1 == "bi_prep" || words[0].prc1 == "bi_part")
+                                            {
+                                                diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                diacLineWords[loc] = " +ب" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                diacLineWords[loc + 3 - 1] += "</font>";
+                                            }
+                                            else if (words[0].prc2 == "wa_conj")
+                                            {
+                                                diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                diacLineWords[loc] = " +و" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                diacLineWords[loc + 3 - 1] += "</font>";
+                                            }
+                                            else if (words[0].prc2 == "fa_conj")
+                                            {
+                                                diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                diacLineWords[loc] = " +ف" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                diacLineWords[loc + 3 - 1] += "</font>";
+                                            }
+                                        }
+                                        else
+                                        {
+                                            diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                            diacLineWords[loc + 3 - 1] += "</font>";
+                                        }
                                     }
                                     else if (words.Count > 2 && (words[2].pos == "noun_prop"))
                                     {
@@ -2379,13 +2439,73 @@ namespace NER.BL
                                             {
                                                 if (words.Count > 4 && (words[4].pos == "noun_prop"))
                                                 {
-                                                    diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
-                                                    diacLineWords[loc + 5 - 1] += "</font>";
+                                                    if (words[0].prc2 == "fa_conj" || words[0].prc1 == "bi_part" || words[0].prc2 == "wa_conj" || words[0].prc1 == "bi_prep" || words[0].prc1 == "li_prep")
+                                                    {
+                                                        if (words[0].prc1 == "li_prep")
+                                                        {
+                                                            diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                            diacLineWords[loc] = " +ل" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                            diacLineWords[loc + 5 - 1] += "</font>";
+                                                        }
+                                                        else if (words[0].prc1 == "bi_prep" || words[0].prc1 == "bi_part")
+                                                        {
+                                                            diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                            diacLineWords[loc] = " +ب" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                            diacLineWords[loc + 5 - 1] += "</font>";
+                                                        }
+                                                        else if (words[0].prc2 == "wa_conj")
+                                                        {
+                                                            diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                            diacLineWords[loc] = " +و" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                            diacLineWords[loc + 5 - 1] += "</font>";
+                                                        }
+                                                        else if (words[0].prc2 == "fa_conj")
+                                                        {
+                                                            diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                            diacLineWords[loc] = " +ف" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                            diacLineWords[loc + 5 - 1] += "</font>";
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                        diacLineWords[loc + 5 - 1] += "</font>";
+                                                    }
                                                 }
                                                 else
                                                 {
-                                                    diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
-                                                    diacLineWords[loc + 4 - 1] += "</font>";
+                                                    if (words[0].prc2 == "fa_conj" || words[0].prc1 == "bi_part" || words[0].prc2 == "wa_conj" || words[0].prc1 == "bi_prep" || words[0].prc1 == "li_prep")
+                                                    {
+                                                        if (words[0].prc1 == "li_prep")
+                                                        {
+                                                            diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                            diacLineWords[loc] = " +ل" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                            diacLineWords[loc + 4 - 1] += "</font>";
+                                                        }
+                                                        else if (words[0].prc1 == "bi_prep" || words[0].prc1 == "bi_part")
+                                                        {
+                                                            diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                            diacLineWords[loc] = " +ب" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                            diacLineWords[loc + 4 - 1] += "</font>";
+                                                        }
+                                                        else if (words[0].prc2 == "wa_conj")
+                                                        {
+                                                            diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                            diacLineWords[loc] = " +و" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                            diacLineWords[loc + 4 - 1] += "</font>";
+                                                        }
+                                                        else if (words[0].prc2 == "fa_conj")
+                                                        {
+                                                            diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                            diacLineWords[loc] = " +ف" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                            diacLineWords[loc + 4 - 1] += "</font>";
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                        diacLineWords[loc + 4 - 1] += "</font>";
+                                                    }
 
 
                                                 }
@@ -2394,36 +2514,186 @@ namespace NER.BL
                                             {
                                                 if (words.Count > 4 && (words[4].pos == "noun_prop"))
                                                 {
-                                                    diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
-                                                    diacLineWords[loc + 5 - 1] += "</font>";
+                                                    if (words[0].prc2 == "fa_conj" || words[0].prc1 == "bi_part" || words[0].prc2 == "wa_conj" || words[0].prc1 == "bi_prep" || words[0].prc1 == "li_prep")
+                                                    {
+                                                        if (words[0].prc1 == "li_prep")
+                                                        {
+                                                            diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                            diacLineWords[loc] = " +ل" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                            diacLineWords[loc + 5 - 1] += "</font>";
+                                                        }
+                                                        else if (words[0].prc1 == "bi_prep" || words[0].prc1 == "bi_part")
+                                                        {
+                                                            diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                            diacLineWords[loc] = " +ب" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                            diacLineWords[loc + 5 - 1] += "</font>";
+                                                        }
+                                                        else if (words[0].prc2 == "wa_conj")
+                                                        {
+                                                            diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                            diacLineWords[loc] = " +و" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                            diacLineWords[loc + 5 - 1] += "</font>";
+                                                        }
+                                                        else if (words[0].prc2 == "fa_conj")
+                                                        {
+                                                            diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                            diacLineWords[loc] = " +ف" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                            diacLineWords[loc + 5 - 1] += "</font>";
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                        diacLineWords[loc + 5 - 1] += "</font>";
+                                                    }
                                                 }
                                                 else
                                                 {
-                                                    diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
-                                                    diacLineWords[loc + 4 - 1] += "</font>";
-
-
+                                                    if (words[0].prc2 == "fa_conj" || words[0].prc1 == "bi_part" || words[0].prc2 == "wa_conj" || words[0].prc1 == "bi_prep" || words[0].prc1 == "li_prep")
+                                                    {
+                                                        if (words[0].prc1 == "li_prep")
+                                                        {
+                                                            diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                            diacLineWords[loc] = " +ل" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                            diacLineWords[loc + 4 - 1] += "</font>";
+                                                        }
+                                                        else if (words[0].prc1 == "bi_prep" || words[0].prc1 == "bi_part")
+                                                        {
+                                                            diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                            diacLineWords[loc] = " +ب" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                            diacLineWords[loc + 4 - 1] += "</font>";
+                                                        }
+                                                        else if (words[0].prc2 == "wa_conj")
+                                                        {
+                                                            diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                            diacLineWords[loc] = " +و" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                            diacLineWords[loc + 4 - 1] += "</font>";
+                                                        }
+                                                        else if (words[0].prc2 == "fa_conj")
+                                                        {
+                                                            diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                            diacLineWords[loc] = " +ف" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                            diacLineWords[loc + 4 - 1] += "</font>";
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                        diacLineWords[loc + 4 - 1] += "</font>";
+                                                    }
                                                 }
+
                                             }
                                             else if (words.Count > 3 && (words[3].pos != "noun_prop"))
                                             {
                                                 if (words.Count > 4 && (words[4].pos == "noun_prop"))
                                                 {
-                                                    diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
-                                                    diacLineWords[loc + 5 - 1] += "</font>";
+                                                    if (words[0].prc2 == "fa_conj" || words[0].prc1 == "bi_part" || words[0].prc2 == "wa_conj" || words[0].prc1 == "bi_prep" || words[0].prc1 == "li_prep")
+                                                    {
+                                                        if (words[0].prc1 == "li_prep")
+                                                        {
+                                                            diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                            diacLineWords[loc] = " +ل" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                            diacLineWords[loc + 5 - 1] += "</font>";
+                                                        }
+                                                        else if (words[0].prc1 == "bi_prep" || words[0].prc1 == "bi_part")
+                                                        {
+                                                            diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                            diacLineWords[loc] = " +ب" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                            diacLineWords[loc + 5 - 1] += "</font>";
+                                                        }
+                                                        else if (words[0].prc2 == "wa_conj")
+                                                        {
+                                                            diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                            diacLineWords[loc] = " +و" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                            diacLineWords[loc + 5 - 1] += "</font>";
+                                                        }
+                                                        else if (words[0].prc2 == "fa_conj")
+                                                        {
+                                                            diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                            diacLineWords[loc] = " +ف" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                            diacLineWords[loc + 5 - 1] += "</font>";
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                        diacLineWords[loc + 5 - 1] += "</font>";
+                                                    }
                                                 }
                                                 else
                                                 {
-                                                    diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
-                                                    diacLineWords[loc + 4 - 1] += "</font>";
+                                                    if (words[0].prc2 == "fa_conj" || words[0].prc1 == "bi_part" || words[0].prc2 == "wa_conj" || words[0].prc1 == "bi_prep" || words[0].prc1 == "li_prep")
+                                                    {
+                                                        if (words[0].prc1 == "li_prep")
+                                                        {
+                                                            diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                            diacLineWords[loc] = " +ل" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                            diacLineWords[loc + 4 - 1] += "</font>";
+                                                        }
+                                                        else if (words[0].prc1 == "bi_prep" || words[0].prc1 == "bi_part")
+                                                        {
+                                                            diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                            diacLineWords[loc] = " +ب" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                            diacLineWords[loc + 4 - 1] += "</font>";
+                                                        }
+                                                        else if (words[0].prc2 == "wa_conj")
+                                                        {
+                                                            diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                            diacLineWords[loc] = " +و" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                            diacLineWords[loc + 4 - 1] += "</font>";
+                                                        }
+                                                        else if (words[0].prc2 == "fa_conj")
+                                                        {
+                                                            diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                            diacLineWords[loc] = " +ف" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                            diacLineWords[loc + 4 - 1] += "</font>";
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                        diacLineWords[loc + 4 - 1] += "</font>";
+                                                    }
 
 
                                                 }
                                             }
                                             else
                                             {
-                                                diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
-                                                diacLineWords[loc + 3 - 1] += "</font>";
+                                                if (words[0].prc2 == "fa_conj" || words[0].prc1 == "bi_part" || words[0].prc2 == "wa_conj" || words[0].prc1 == "bi_prep" || words[0].prc1 == "li_prep")
+                                                {
+                                                    if (words[0].prc1 == "li_prep")
+                                                    {
+                                                        diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                        diacLineWords[loc] = " +ل" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                        diacLineWords[loc + 3 - 1] += "</font>";
+                                                    }
+                                                    else if (words[0].prc1 == "bi_prep" || words[0].prc1 == "bi_part")
+                                                    {
+                                                        diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                        diacLineWords[loc] = " +ب" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                        diacLineWords[loc + 3 - 1] += "</font>";
+                                                    }
+                                                    else if (words[0].prc2 == "wa_conj")
+                                                    {
+                                                        diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                        diacLineWords[loc] = " +و" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                        diacLineWords[loc + 3 - 1] += "</font>";
+                                                    }
+                                                    else if (words[0].prc2 == "fa_conj")
+                                                    {
+                                                        diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                        diacLineWords[loc] = " +ف" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                        diacLineWords[loc + 3 - 1] += "</font>";
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                    diacLineWords[loc + 3 - 1] += "</font>";
+                                                }
+
                                             }
                                         }
                                         else if (words.Count > 3 && (words[3].pos == "noun_prop"))
@@ -2431,19 +2701,111 @@ namespace NER.BL
 
                                             if (words.Count > 4 && (words[4].pos == "noun_prop"))
                                             {
-                                                diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
-                                                diacLineWords[loc + 5 - 1] += "</font>";
+                                                if (words[0].prc2 == "fa_conj" || words[0].prc1 == "bi_part" || words[0].prc2 == "wa_conj" || words[0].prc1 == "bi_prep" || words[0].prc1 == "li_prep")
+                                                {
+                                                    if (words[0].prc1 == "li_prep")
+                                                    {
+                                                        diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                        diacLineWords[loc] = " +ل" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                        diacLineWords[loc + 5 - 1] += "</font>";
+                                                    }
+                                                    else if (words[0].prc1 == "bi_prep" || words[0].prc1 == "bi_part")
+                                                    {
+                                                        diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                        diacLineWords[loc] = " +ب" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                        diacLineWords[loc + 5 - 1] += "</font>";
+                                                    }
+                                                    else if (words[0].prc2 == "wa_conj")
+                                                    {
+                                                        diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                        diacLineWords[loc] = " +و" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                        diacLineWords[loc + 5 - 1] += "</font>";
+                                                    }
+                                                    else if (words[0].prc2 == "fa_conj")
+                                                    {
+                                                        diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                        diacLineWords[loc] = " +ف" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                        diacLineWords[loc + 5 - 1] += "</font>";
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                    diacLineWords[loc + 5 - 1] += "</font>";
+                                                }
                                             }
                                             else
                                             {
-                                                diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
-                                                diacLineWords[loc + 4 - 1] += "</font>";
+                                                if (words[0].prc2 == "fa_conj" || words[0].prc1 == "bi_part" || words[0].prc2 == "wa_conj" || words[0].prc1 == "bi_prep" || words[0].prc1 == "li_prep")
+                                                {
+                                                    if (words[0].prc1 == "li_prep")
+                                                    {
+                                                        diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                        diacLineWords[loc] = " +ل" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                        diacLineWords[loc + 4 - 1] += "</font>";
+                                                    }
+                                                    else if (words[0].prc1 == "bi_prep" || words[0].prc1 == "bi_part")
+                                                    {
+                                                        diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                        diacLineWords[loc] = " +ب" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                        diacLineWords[loc + 4 - 1] += "</font>";
+                                                    }
+                                                    else if (words[0].prc2 == "wa_conj")
+                                                    {
+                                                        diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                        diacLineWords[loc] = " +و" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                        diacLineWords[loc + 4 - 1] += "</font>";
+                                                    }
+                                                    else if (words[0].prc2 == "fa_conj")
+                                                    {
+                                                        diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                        diacLineWords[loc] = " +ف" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                        diacLineWords[loc + 4 - 1] += "</font>";
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                    diacLineWords[loc + 4 - 1] += "</font>";
+                                                }
+
                                             }
                                         }
                                         else
                                         {
-                                            diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
-                                            diacLineWords[loc + 3 - 1] += "</font>";
+                                            if (words[0].prc2 == "fa_conj" || words[0].prc1 == "bi_part" || words[0].prc2 == "wa_conj" || words[0].prc1 == "bi_prep" || words[0].prc1 == "li_prep")
+                                            {
+                                                if (words[0].prc1 == "li_prep")
+                                                {
+                                                    diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                    diacLineWords[loc] = " +ل" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                    diacLineWords[loc + 3 - 1] += "</font>";
+                                                }
+                                                else if (words[0].prc1 == "bi_prep" || words[0].prc1 == "bi_part")
+                                                {
+                                                    diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                    diacLineWords[loc] = " +ب" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                    diacLineWords[loc + 3 - 1] += "</font>";
+                                                }
+                                                else if (words[0].prc2 == "wa_conj")
+                                                {
+                                                    diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                    diacLineWords[loc] = " +و" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                    diacLineWords[loc + 3- 1] += "</font>";
+                                                }
+                                                else if (words[0].prc2 == "fa_conj")
+                                                {
+                                                    diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                    diacLineWords[loc] = " +ف" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                    diacLineWords[loc + 3 - 1] += "</font>";
+                                                }
+                                            }
+                                            else
+                                            {
+                                                diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                diacLineWords[loc + 3 - 1] += "</font>";
+                                            }
+
                                         }
                                     }
                                     else if (words.Count > 2 && (words[2].pos == "prep" && words[2].gloss == "from"))
@@ -2452,13 +2814,75 @@ namespace NER.BL
                                         {
                                             if (words.Count > 4 && (words[4].pos == "digit"))
                                             {
-                                                diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
-                                                diacLineWords[loc + 5 - 1] += "</font>";
+                                                if (words[0].prc2 == "fa_conj" || words[0].prc1 == "bi_part" || words[0].prc2 == "wa_conj" || words[0].prc1 == "bi_prep" || words[0].prc1 == "li_prep")
+                                                {
+                                                    if (words[0].prc1 == "li_prep")
+                                                    {
+                                                        diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                        diacLineWords[loc] = " +ل" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                        diacLineWords[loc + 5 - 1] += "</font>";
+                                                    }
+                                                    else if (words[0].prc1 == "bi_prep" || words[0].prc1 == "bi_part")
+                                                    {
+                                                        diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                        diacLineWords[loc] = " +ب" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                        diacLineWords[loc + 5 - 1] += "</font>";
+                                                    }
+                                                    else if (words[0].prc2 == "wa_conj")
+                                                    {
+                                                        diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                        diacLineWords[loc] = " +و" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                        diacLineWords[loc + 5 - 1] += "</font>";
+                                                    }
+                                                    else if (words[0].prc2 == "fa_conj")
+                                                    {
+                                                        diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                        diacLineWords[loc] = " +ف" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                        diacLineWords[loc + 5 - 1] += "</font>";
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                    diacLineWords[loc + 5 - 1] += "</font>";
+                                                }
+
                                             }
                                             else
                                             {
-                                                diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
-                                                diacLineWords[loc + 3 - 1] += "</font>";
+                                                if (words[0].prc2 == "fa_conj" || words[0].prc1 == "bi_part" || words[0].prc2 == "wa_conj" || words[0].prc1 == "bi_prep" || words[0].prc1 == "li_prep")
+                                                {
+                                                    if (words[0].prc1 == "li_prep")
+                                                    {
+                                                        diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                        diacLineWords[loc] = " +ل" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                        diacLineWords[loc + 3 - 1] += "</font>";
+                                                    }
+                                                    else if (words[0].prc1 == "bi_prep" || words[0].prc1 == "bi_part")
+                                                    {
+                                                        diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                        diacLineWords[loc] = " +ب" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                        diacLineWords[loc + 3 - 1] += "</font>";
+                                                    }
+                                                    else if (words[0].prc2 == "wa_conj")
+                                                    {
+                                                        diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                        diacLineWords[loc] = " +و" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                        diacLineWords[loc + 3 - 1] += "</font>";
+                                                    }
+                                                    else if (words[0].prc2 == "fa_conj")
+                                                    {
+                                                        diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                        diacLineWords[loc] = " +ف" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                        diacLineWords[loc + 3 - 1] += "</font>";
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                    diacLineWords[loc + 3 - 1] += "</font>";
+                                                }
+
                                             }
 
                                         }
@@ -2469,13 +2893,75 @@ namespace NER.BL
                                     {
                                         if (words.Count > 3 && (words[3].pos == "digit"))
                                         {
-                                            diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
-                                            diacLineWords[loc + 4 - 1] += "</font>";
+                                            if (words[0].prc2 == "fa_conj" || words[0].prc1 == "bi_part" || words[0].prc2 == "wa_conj" || words[0].prc1 == "bi_prep" || words[0].prc1 == "li_prep")
+                                            {
+                                                if (words[0].prc1 == "li_prep")
+                                                {
+                                                    diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                    diacLineWords[loc] = " +ل" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                    diacLineWords[loc + 4 - 1] += "</font>";
+                                                }
+                                                else if (words[0].prc1 == "bi_prep" || words[0].prc1 == "bi_part")
+                                                {
+                                                    diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                    diacLineWords[loc] = " +ب" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                    diacLineWords[loc + 4 - 1] += "</font>";
+                                                }
+                                                else if (words[0].prc2 == "wa_conj")
+                                                {
+                                                    diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                    diacLineWords[loc] = " +و" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                    diacLineWords[loc + 4 - 1] += "</font>";
+                                                }
+                                                else if (words[0].prc2 == "fa_conj")
+                                                {
+                                                    diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                    diacLineWords[loc] = " +ف" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                    diacLineWords[loc + 4 - 1] += "</font>";
+                                                }
+                                            }
+                                            else
+                                            {
+                                                diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                diacLineWords[loc + 4 - 1] += "</font>";
+                                            }
+
                                         }
                                         else
                                         {
-                                            diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
-                                            diacLineWords[loc + 2 - 1] += "</font>";
+                                            if (words[0].prc2 == "fa_conj" || words[0].prc1 == "bi_part" || words[0].prc2 == "wa_conj" || words[0].prc1 == "bi_prep" || words[0].prc1 == "li_prep")
+                                            {
+                                                if (words[0].prc1 == "li_prep")
+                                                {
+                                                    diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                    diacLineWords[loc] = " +ل" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                    diacLineWords[loc + 2 - 1] += "</font>";
+                                                }
+                                                else if (words[0].prc1 == "bi_prep" || words[0].prc1 == "bi_part")
+                                                {
+                                                    diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                    diacLineWords[loc] = " +ب" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                    diacLineWords[loc +2 - 1] += "</font>";
+                                                }
+                                                else if (words[0].prc2 == "wa_conj")
+                                                {
+                                                    diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                    diacLineWords[loc] = " +و" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                    diacLineWords[loc + 2 - 1] += "</font>";
+                                                }
+                                                else if (words[0].prc2 == "fa_conj")
+                                                {
+                                                    diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                    diacLineWords[loc] = " +ف" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                    diacLineWords[loc + 2 - 1] += "</font>";
+                                                }
+                                            }
+                                            else
+                                            {
+                                                diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                diacLineWords[loc + 2 - 1] += "</font>";
+                                            }
+
                                         }
 
                                     }
@@ -2483,25 +2969,149 @@ namespace NER.BL
                                     {
                                         if (words.Count > 3 && (words[3].pos == "noun" && words[3].prc0 == "Al_det"))
                                         {
-                                            diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
-                                            diacLineWords[loc + 4 - 1] += "</font>";
+                                            if (words[0].prc2 == "fa_conj" || words[0].prc1 == "bi_part" || words[0].prc2 == "wa_conj" || words[0].prc1 == "bi_prep" || words[0].prc1 == "li_prep")
+                                            {
+                                                if (words[0].prc1 == "li_prep")
+                                                {
+                                                    diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                    diacLineWords[loc] = " +ل" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                    diacLineWords[loc + 4 - 1] += "</font>";
+                                                }
+                                                else if (words[0].prc1 == "bi_prep" || words[0].prc1 == "bi_part")
+                                                {
+                                                    diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                    diacLineWords[loc] = " +ب" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                    diacLineWords[loc + 4 - 1] += "</font>";
+                                                }
+                                                else if (words[0].prc2 == "wa_conj")
+                                                {
+                                                    diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                    diacLineWords[loc] = " +و" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                    diacLineWords[loc + 4 - 1] += "</font>";
+                                                }
+                                                else if (words[0].prc2 == "fa_conj")
+                                                {
+                                                    diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                    diacLineWords[loc] = " +ف" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                    diacLineWords[loc + 4 - 1] += "</font>";
+                                                }
+                                            }
+                                            else
+                                            {
+                                                diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                diacLineWords[loc + 4 - 1] += "</font>";
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            if (words[0].prc2 == "fa_conj" || words[0].prc1 == "bi_part" || words[0].prc2 == "wa_conj" || words[0].prc1 == "bi_prep" || words[0].prc1 == "li_prep")
+                                            {
+                                                if (words[0].prc1 == "li_prep")
+                                                {
+                                                    diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                    diacLineWords[loc] = " +ل" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                    diacLineWords[loc + 3 - 1] += "</font>";
+                                                }
+                                                else if (words[0].prc1 == "bi_prep" || words[0].prc1 == "bi_part")
+                                                {
+                                                    diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                    diacLineWords[loc] = " +ب" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                    diacLineWords[loc + 3 - 1] += "</font>";
+                                                }
+                                                else if (words[0].prc2 == "wa_conj")
+                                                {
+                                                    diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                    diacLineWords[loc] = " +و" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                    diacLineWords[loc + 3 - 1] += "</font>";
+                                                }
+                                                else if (words[0].prc2 == "fa_conj")
+                                                {
+                                                    diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                    diacLineWords[loc] = " +ف" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                    diacLineWords[loc + 3- 1] += "</font>";
+                                                }
+                                            }
+                                            else
+                                            {
+                                                diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                diacLineWords[loc + 3 - 1] += "</font>";
+                                            }
+
+                                        }
+                                    }
+                                    else if (words.Count > 2 && ((words[2].pos == "" && (words[2].word != "font" &&  words[2].word != "title='Trigger" ))))
+                                    {
+                                        if (words[0].prc2 == "fa_conj" || words[0].prc1 == "bi_part" || words[0].prc2 == "wa_conj" || words[0].prc1 == "bi_prep" || words[0].prc1 == "li_prep")
+                                        {
+                                            if (words[0].prc1 == "li_prep")
+                                            {
+                                                diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                diacLineWords[loc] = " +ل" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                diacLineWords[loc + 3 - 1] += "</font>";
+                                            }
+                                            else if (words[0].prc1 == "bi_prep" || words[0].prc1 == "bi_part")
+                                            {
+                                                diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                diacLineWords[loc] = " +ب" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                diacLineWords[loc + 3 - 1] += "</font>";
+                                            }
+                                            else if (words[0].prc2 == "wa_conj")
+                                            {
+                                                diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                diacLineWords[loc] = " +و" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                diacLineWords[loc + 3 - 1] += "</font>";
+                                            }
+                                            else if (words[0].prc2 == "fa_conj")
+                                            {
+                                                diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                diacLineWords[loc] = " +ف" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                diacLineWords[loc + 3 - 1] += "</font>";
+                                            }
                                         }
                                         else
                                         {
                                             diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
                                             diacLineWords[loc + 3 - 1] += "</font>";
                                         }
-                                    }
-                                    else if (words.Count > 2 && ((words[2].pos == "" && (words[2].word != "font" &&  words[2].word != "title='Trigger" ))))
-                                    {
-                                        diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
-                                        diacLineWords[loc + 3 - 1] += "</font>";
+
 
                                     }
                                     else
                                     {
-                                        diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
-                                        diacLineWords[loc + 2 - 1] += "</font>";
+                                        if (words[0].prc2 == "fa_conj" || words[0].prc1 == "bi_part" || words[0].prc2 == "wa_conj" || words[0].prc1 == "bi_prep" || words[0].prc1 == "li_prep")
+                                        {
+                                            if (words[0].prc1 == "li_prep")
+                                            {
+                                                diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                diacLineWords[loc] = " +ل" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                diacLineWords[loc + 2 - 1] += "</font>";
+                                            }
+                                            else if (words[0].prc1 == "bi_prep" || words[0].prc1 == "bi_part")
+                                            {
+                                                diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                diacLineWords[loc] = " +ب" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                diacLineWords[loc + 2 - 1] += "</font>";
+                                            }
+                                            else if (words[0].prc2 == "wa_conj")
+                                            {
+                                                diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                diacLineWords[loc] = " +و" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                diacLineWords[loc + 2 - 1] += "</font>";
+                                            }
+                                            else if (words[0].prc2 == "fa_conj")
+                                            {
+                                                diacLineWords[0] = diacLineWords[0].Substring(1);
+                                                diacLineWords[loc] = " +ف" + "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                                diacLineWords[loc + 2 - 1] += "</font>";
+                                            }
+                                        }
+                                        else
+                                        {
+                                            diacLineWords[loc] = "<font title='Trigger word-" + triggerWords[wordTagIndex].Tag.ToUpper() + "' style='color:" + triggerWords[wordTagIndex].Color + "'>" + diacLineWords[loc];
+                                            diacLineWords[loc + 2 - 1] += "</font>";
+                                        }
+
                                     }
 
 
